@@ -20,6 +20,8 @@ export const CardContainer = styled.div`
   justify-content: center;
   gap: 20px;
   margin-top: 20px;
+  position: relative;
+  width: clamp(300px, 100%, 800px);
 `;
 
 export const Title = styled.h1`
@@ -50,4 +52,14 @@ export const Para = styled.p`
   line-height: 1;
   margin-bottom: -10px;
   color: #333;
+`;
+
+export const StyledInput = styled.input`
+  padding: 10px;
+  margin: 20px 0;
+  font-size: 16px;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
 `;
