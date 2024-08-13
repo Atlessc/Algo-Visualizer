@@ -5,7 +5,8 @@ import {
   CardContainer,
   Title,
   AlgoVisualizer,
-  CodeBlock
+  CodeBlock,
+  Para, // Assuming Para is defined in your styledComponents file
 } from "../Styled Components/styledComponents";
 import "../styles/Node.css";
 
@@ -48,6 +49,20 @@ const BubbleSortAlgo = () => {
     <Container>
       <CardContainer>
         <Title>Bubble Sort Algo</Title>
+
+        <Para>
+          Bubble Sort is a simple comparison-based sorting algorithm that repeatedly steps through the list, 
+          compares adjacent elements, and swaps them if they are in the wrong order. This process is repeated 
+          until the list is sorted. The algorithm gets its name because smaller elements "bubble" to the top of 
+          the list. While it is easy to understand and implement, Bubble Sort is not efficient for large datasets 
+          as it has a time complexity of O(n^2).
+        </Para>
+
+        <Para>
+          <strong>When to use Bubble Sort:</strong> Bubble Sort is typically used in educational settings or when 
+          simplicity is more important than performance. It can be useful when you need a straightforward, easy-to-understand 
+          algorithm for small datasets or when the dataset is almost sorted and requires only a few passes.
+        </Para>
 
         <AlgoVisualizer>
           <svg width="600" height="150">

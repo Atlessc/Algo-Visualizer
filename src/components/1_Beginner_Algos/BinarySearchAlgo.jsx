@@ -61,11 +61,11 @@ const BinarySearchAlgo = () => {
     setPositions(nodePositions);
   }, []);
 
-  useEffect(() => {
-    if (currentNode !== null) {
-      console.log(`Current node: ${currentNode}`);
-    }
-  }, [currentNode]);
+  // useEffect(() => {
+  //   if (currentNode !== null) {
+  //     console.log(`Current node: ${currentNode}`);
+  //   }
+  // }, [currentNode]);
 
   const binarySearch = async (array, target) => {
     let left = 0;
@@ -106,6 +106,14 @@ const BinarySearchAlgo = () => {
         <select
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
+          style={{
+            padding: '10px',
+            fontSize: '16px',
+            borderRadius: '5px',
+            marginBottom: '20px',
+            backgroundColor: '#333',
+            border: '1px solid #ccc',
+          }}
         >
           {exampleArray.map((value) => (
             <option key={value} value={value}>
@@ -136,37 +144,53 @@ const BinarySearchAlgo = () => {
 
             {/* Render circles and text with inline color handling */}
             {Object.keys(positions).map((value) => {
-  const pos = positions[value];
-  const isCurrent = currentNode === Number(value); // Convert value to number
-  return (
-    <motion.g
-      key={value}
-      animate={{ scale: isCurrent ? 1.2 : 1 }}
-      transition={{ duration: 0.25 }}
-    >
-      <circle
-        cx={pos.x}
-        cy={pos.y}
-        r={20}
-        className={isCurrent ? "current-node" : "default-node"}
-      />
-      <text
-        x={pos.x}
-        y={pos.y + 5}
-        fill="white"
-        textAnchor="middle"
-        fontSize="15px"
-      >
-        {value}
-      </text>
-    </motion.g>
-  );
-})}
+              const pos = positions[value];
+              const isCurrent = currentNode === Number(value); // Convert value to number
+              return (
+                <motion.g
+                  key={value}
+                  animate={{ scale: isCurrent ? 1.2 : 1 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <circle
+                    cx={pos.x}
+                    cy={pos.y}
+                    r={20}
+                    fill={
+                      isCurrent ? "orange" : "green"
+                    }
+                  />
+                  <text
+                    x={pos.x}
+                    y={pos.y + 5}
+                    fill="white"
+                    textAnchor="middle"
+                    fontSize="15px"
+                  >
+                    {value}
+                  </text>
+                </motion.g>
+              );
+            })}
 
           </svg>
         </AlgoVisualizer>
 
-        <button onClick={handleSearch}>Start Search</button>
+        <button 
+          onClick={handleSearch} 
+          style={{
+            padding: '10px 20px',
+            fontSize: '16px',
+            borderRadius: '5px',
+            backgroundColor: 'orange',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+            marginTop: '20px',
+          }}
+        >
+          Start Search
+        </button>
 
         <Para>Here is an example of binary search in JavaScript:</Para>
         <CodeBlock>
