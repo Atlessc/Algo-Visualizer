@@ -58,7 +58,7 @@ const FibonacciSequenceIterativeAlgo = ({ maxElements = 10, endOnValue }) => {
             {sequence.map((value, index) => (
               <motion.circle
                 key={index}
-                cx={index * (800 / sequence.length) + 50} // Dynamic spacing based on length
+                cx={index * (800 / sequence.length) + 30} // Dynamic spacing based on length
                 cy={200}
                 r={Math.log(value + 1) * 15} // Logarithmic scale for circle size
                 fill={`hsl(${index * (360 / sequence.length)}, 70%, 50%)`} // Hue changes with each circle
