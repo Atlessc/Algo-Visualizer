@@ -1,13 +1,13 @@
-
 import { create } from 'zustand';
 
 const useStore = create((set) => ({
   // State
-  stateName: '', // state values can set to "", [], {}, or null; also add a comma to add more
+  windowWidth: window.innerWidth,
 
   // Actions
-  setStateName: (stateName) => set({ stateName }) // look at the app.jsx to see how this is implemented
+  setWindowWidth: (width) => set({ windowWidth: width }),
 
+  // Add more states and actions as needed
 }));
 
 export default useStore;

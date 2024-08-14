@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import useStore from "../../ZustandStore"; // Import the store if needed
 import {
   Container,
   CardContainer,
@@ -10,7 +11,6 @@ import {
 } from "../Styled Components/styledComponents";
 import '../styles/Node.css';
 
-// Function to build a balanced binary search tree from a sorted array
 const buildTree = (array, start, end) => {
   if (start > end) return null;
   const mid = Math.floor((start + end) / 2);
@@ -20,20 +20,22 @@ const buildTree = (array, start, end) => {
   return node;
 };
 
-// Function to calculate node positions for rendering
-const calculateNodePositions = (node, depth = 0, position = { x: 0, y: 0 }, positions = {}, parentPos = null) => {
+const calculateNodePositions = (node, depth = 0, position = { x: 0, y: 0 }, positions = {}, parentPos = null, scale = 1) => {
   if (!node) return;
 
-  const xOffset = Math.pow(2, 2 - depth) * 30; // Adjust the xOffset to make the tree narrower
+  const xOffset = Math.pow(2, 2 - depth) * 30 * scale; // Adjust xOffset based on scale
+  const yOffset = 80 * scale; // Adjust y spacing based on scale
+
   positions[node.value] = { x: position.x, y: position.y, parentPos };
 
   if (node.left) {
     calculateNodePositions(
       node.left,
       depth + 1,
-      { x: position.x - xOffset, y: position.y + 80 }, // Increase y spacing between nodes
+      { x: position.x - xOffset, y: position.y + yOffset },
       positions,
-      positions[node.value]
+      positions[node.value],
+      scale
     );
   }
 
@@ -41,9 +43,10 @@ const calculateNodePositions = (node, depth = 0, position = { x: 0, y: 0 }, posi
     calculateNodePositions(
       node.right,
       depth + 1,
-      { x: position.x + xOffset, y: position.y + 80 },
+      { x: position.x + xOffset, y: position.y + yOffset },
       positions,
-      positions[node.value]
+      positions[node.value],
+      scale
     );
   }
 };
@@ -52,20 +55,17 @@ const BinarySearchAlgo = () => {
   const exampleArray = [7, 14, 21, 28, 35, 42, 49];
   const [currentNode, setCurrentNode] = useState(null);
   const [positions, setPositions] = useState({});
-  const [searchValue, setSearchValue] = useState(exampleArray[0]); // Initialize with the first array element
+  const [searchValue, setSearchValue] = useState(exampleArray[0]);
+
+  const windowWidth = useStore((state) => state.windowWidth); // Assume windowWidth is managed in the store
 
   useEffect(() => {
+    const scale = windowWidth / 800; // Scaling factor based on a base width of 800px
     const rootNode = buildTree(exampleArray, 0, exampleArray.length - 1);
     const nodePositions = {};
-    calculateNodePositions(rootNode, 0, { x: 300, y: 50 }, nodePositions); // Adjust starting x and y positions to center the tree
+    calculateNodePositions(rootNode, 0, { x: windowWidth / 2, y: 50 * scale }, nodePositions, null, scale);
     setPositions(nodePositions);
-  }, []);
-
-  // useEffect(() => {
-  //   if (currentNode !== null) {
-  //     console.log(`Current node: ${currentNode}`);
-  //   }
-  // }, [currentNode]);
+  }, [windowWidth]);
 
   const binarySearch = async (array, target) => {
     let left = 0;
@@ -75,10 +75,10 @@ const BinarySearchAlgo = () => {
       let mid = Math.floor((left + right) / 2);
       setCurrentNode(array[mid]);
 
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Delay to visualize the process
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       if (array[mid] === target) {
-        setCurrentNode(array[mid]); // Final set for target node
+        setCurrentNode(array[mid]);
         return mid;
       } else if (array[mid] < target) {
         left = mid + 1;
@@ -86,7 +86,7 @@ const BinarySearchAlgo = () => {
         right = mid - 1;
       }
     }
-    setCurrentNode(null); // Reset if not found
+    setCurrentNode(null);
     return -1;
   };
 
@@ -123,29 +123,12 @@ const BinarySearchAlgo = () => {
         </select>
 
         <AlgoVisualizer>
-          <svg width="600" height="500">
-            {/* Render the lines first */}
+          <svg width={windowWidth * 0.9} height={400} style={{
+            backgroundColor: '#333',
+          }}>
             {Object.keys(positions).map((value) => {
               const pos = positions[value];
-              if (pos.parentPos) {
-                return (
-                  <line
-                    key={`line-${value}`}
-                    x1={pos.parentPos.x}
-                    y1={pos.parentPos.y}
-                    x2={pos.x}
-                    y2={pos.y}
-                    stroke="#555"
-                  />
-                );
-              }
-              return null;
-            })}
-
-            {/* Render circles and text with inline color handling */}
-            {Object.keys(positions).map((value) => {
-              const pos = positions[value];
-              const isCurrent = currentNode === Number(value); // Convert value to number
+              const isCurrent = currentNode === Number(value);
               return (
                 <motion.g
                   key={value}
@@ -155,10 +138,8 @@ const BinarySearchAlgo = () => {
                   <circle
                     cx={pos.x}
                     cy={pos.y}
-                    r={20}
-                    fill={
-                      isCurrent ? "orange" : "green"
-                    }
+                    r={20 * (windowWidth / 800)} // Scale radius based on window width
+                    fill={isCurrent ? "orange" : "green"}
                   />
                   <text
                     x={pos.x}
@@ -172,7 +153,6 @@ const BinarySearchAlgo = () => {
                 </motion.g>
               );
             })}
-
           </svg>
         </AlgoVisualizer>
 

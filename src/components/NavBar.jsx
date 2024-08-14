@@ -9,6 +9,8 @@ function NavBar() {
       justifyContent: 'space-between',
       alignItems: 'center',
       padding: '10px',
+      margin: '0 auto',
+      width: 'clamp(300px, 100%, 800px)',
     }}>
       <div>
         <h1>Algo Visualizer</h1>

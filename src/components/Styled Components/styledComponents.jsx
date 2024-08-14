@@ -10,8 +10,7 @@ export const Container = styled.div`
   align-items: center;
   margin-top: 20px;
   position: relative;
-  width: clamp(300px, 100%, 800px);
-
+  width: clamp(300px, 100%, 90vw); /* Adjust width relative to viewport */
 `;
 
 export const CardContainer = styled.div`
@@ -22,12 +21,13 @@ export const CardContainer = styled.div`
   gap: 20px;
   margin-top: 20px;
   position: relative;
-  width: clamp(300px, 100%, 800px);
+  width: clamp(300px, 100%, 90vw); /* Adjust width relative to viewport */
 `;
 
 export const Title = styled.h1`
   font-size: 24px;
   color: #333;
+  text-align: center; /* Center title */
 `;
 
 export const AlgoVisualizer = styled.div`
@@ -35,6 +35,8 @@ export const AlgoVisualizer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  width: 100%; /* Ensure it takes full width */
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
 `;
 
 export const CodeBlock = styled.pre`
@@ -45,14 +47,17 @@ export const CodeBlock = styled.pre`
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 20px;
+  width: 100%; /* Ensure it scales with the container */
+  overflow-x: auto; /* Handle overflow for long code */
 `;
 
 export const Para = styled.p`
   font-size: 16px;
-  line-height: 1;
-  margin-bottom: -10px;
+  line-height: 1.5; /* Adjust line height for readability */
+  margin-bottom: 10px;
   color: #333;
-  width: clamp(300px, 100%, 600px);
+  width: clamp(300px, 100%, 80vw); /* Adjust width relative to viewport */
+  text-align: center; /* Center text for better appearance */
   margin: 0 auto;
 `;
 
