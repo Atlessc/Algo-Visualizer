@@ -103,6 +103,29 @@ const generateBfsSteps = (graph, startNode) => {
   return steps;
 };
 
+const hexToRgb = (hex) => {
+  const cleanHex = hex.replace("#", "");
+  const expandedHex =
+    cleanHex.length === 3
+      ? cleanHex
+          .split("")
+          .map((char) => char + char)
+          .join("")
+      : cleanHex;
+  const intValue = Number.parseInt(expandedHex, 16);
+  return {
+    r: (intValue >> 16) & 255,
+    g: (intValue >> 8) & 255,
+    b: intValue & 255
+  };
+};
+
+const getTextColorForBackground = (hexColor) => {
+  const { r, g, b } = hexToRgb(hexColor);
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.6 ? "#1f2937" : "#ffffff";
+};
+
 const BfsAlgo = () => {
   const steps = useMemo(() => generateBfsSteps(graphData, "A"), []);
   const [stepIndex, setStepIndex] = useState(0);
@@ -128,17 +151,21 @@ const BfsAlgo = () => {
     }, {});
   }, []);
 
-  const nodeColor = (nodeId) => {
+  const nodeStyle = (nodeId) => {
     if (currentStep.currentNode === nodeId) {
-      return "#e74c3c";
+      const fill = "#e74c3c";
+      return { fill, text: getTextColorForBackground(fill) };
     }
     if (currentStep.visited.includes(nodeId)) {
-      return "#2ecc71";
+      const fill = "#2ecc71";
+      return { fill, text: getTextColorForBackground(fill) };
     }
     if (currentStep.queue.includes(nodeId)) {
-      return "#f1c40f";
+      const fill = "#f1c40f";
+      return { fill, text: getTextColorForBackground(fill) };
     }
-    return "#95a5a6";
+    const fill = "#95a5a6";
+    return { fill, text: getTextColorForBackground(fill) };
   };
 
   return (
@@ -181,26 +208,29 @@ const BfsAlgo = () => {
                     />
                   );
                 })}
-                {graphData.nodes.map((node) => (
-                  <g key={node.id}>
-                    <circle cx={node.x} cy={node.y} r={22} fill={nodeColor(node.id)} />
-                    <text
-                      x={node.x}
-                      y={node.y + 5}
-                      textAnchor="middle"
-                      fontSize="16px"
-                      fill="#ffffff"
-                      fontWeight="bold"
-                    >
-                      {node.id}
-                    </text>
-                  </g>
-                ))}
+                {graphData.nodes.map((node) => {
+                  const style = nodeStyle(node.id);
+                  return (
+                    <g key={node.id}>
+                      <circle cx={node.x} cy={node.y} r={22} fill={style.fill} />
+                      <text
+                        x={node.x}
+                        y={node.y + 5}
+                        textAnchor="middle"
+                        fontSize="16px"
+                        fill={style.text}
+                        fontWeight="bold"
+                      >
+                        {node.id}
+                      </text>
+                    </g>
+                  );
+                })}
               </svg>
             </div>
             <div style={{ flex: "1 1 220px" }}>
               <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#f1c40f" }}>Queue:</strong>
+                <strong style={{ color: "#7a5b00" }}>Queue:</strong>
                 <div
                   style={{
                     marginTop: "8px",
@@ -208,7 +238,7 @@ const BfsAlgo = () => {
                     background: "#ecf0f1",
                     borderRadius: "6px",
                     minHeight: "40px",
-                    color: "#f39c12"
+                    color: "#7a5b00"
                   }}
                 >
                   {currentStep.queue.length > 0
@@ -217,7 +247,7 @@ const BfsAlgo = () => {
                 </div>
               </div>
               <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#2ecc71" }}>Traversal order:</strong>
+                <strong style={{ color: "#1f7a3f" }}>Traversal order:</strong>
                 <div
                   style={{
                     marginTop: "8px",
@@ -225,7 +255,7 @@ const BfsAlgo = () => {
                     background: "#ecf0f1",
                     borderRadius: "6px",
                     minHeight: "40px",
-                    color: "#2ecc71"
+                    color: "#1f7a3f"
                   }}
                 >
                   {currentStep.traversal.length > 0
@@ -234,8 +264,8 @@ const BfsAlgo = () => {
                 </div>
               </div>
               <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#3498db" }}>Step:</strong>
-                <div style={{ marginTop: "8px", color: "#3498db" }}>{currentStep.message}</div>
+                <strong style={{ color: "#1f5f8b" }}>Step:</strong>
+                <div style={{ marginTop: "8px", color: "#1f5f8b" }}>{currentStep.message}</div>
               </div>
               <div style={{ display: "flex", gap: "10px" }}>
                 <button

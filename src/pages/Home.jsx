@@ -4,6 +4,7 @@ import CountingSortAlgo from "../components/1_Beginner_Algos/CountingSortAlgo";
 import EuclideanAlgorithmAlgo from "../components/1_Beginner_Algos/EuclideanAlgorithmAlgo";
 import FibonacciSequenceIterativeAlgo from "../components/1_Beginner_Algos/FibonacciSequenceIterativeAlgo";
 import BfsAlgo from "../components/2_Intermediate_Algos/BfsAlgo";
+import DijkstraAlgorithmAlgo from "../components/2_Intermediate_Algos/DijkstraAlgorithmAlgo";
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
       <EuclideanAlgorithmAlgo />
       <FibonacciSequenceIterativeAlgo endOnValue={200} />
       <BfsAlgo />
+      <DijkstraAlgorithmAlgo />
     </div>
   );
 } 
