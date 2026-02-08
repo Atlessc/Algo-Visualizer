@@ -5,6 +5,7 @@ import EuclideanAlgorithmAlgo from "../components/1_Beginner_Algos/EuclideanAlgo
 import FibonacciSequenceIterativeAlgo from "../components/1_Beginner_Algos/FibonacciSequenceIterativeAlgo";
 import BfsAlgo from "../components/2_Intermediate_Algos/BfsAlgo";
 import DijkstraAlgorithmAlgo from "../components/2_Intermediate_Algos/DijkstraAlgorithmAlgo";
+import KmpAlgorithmAlgo from "../components/2_Intermediate_Algos/KmpAlgorithmAlgo";
 
 const Home = () => {
   return (
@@ -22,6 +23,7 @@ const Home = () => {
       <FibonacciSequenceIterativeAlgo endOnValue={200} />
       <BfsAlgo />
       <DijkstraAlgorithmAlgo />
+      <KmpAlgorithmAlgo />
     </div>
   );
 } 
