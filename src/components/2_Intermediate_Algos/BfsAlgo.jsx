@@ -200,14 +200,15 @@ const BfsAlgo = () => {
             </div>
             <div style={{ flex: "1 1 220px" }}>
               <div style={{ marginBottom: "12px" }}>
-                <strong>Queue:</strong>
+                <strong style={{ color: "#f1c40f" }}>Queue:</strong>
                 <div
                   style={{
                     marginTop: "8px",
                     padding: "10px",
                     background: "#ecf0f1",
                     borderRadius: "6px",
-                    minHeight: "40px"
+                    minHeight: "40px",
+                    color: "#f39c12"
                   }}
                 >
                   {currentStep.queue.length > 0
@@ -216,14 +217,15 @@ const BfsAlgo = () => {
                 </div>
               </div>
               <div style={{ marginBottom: "12px" }}>
-                <strong>Traversal order:</strong>
+                <strong style={{ color: "#2ecc71" }}>Traversal order:</strong>
                 <div
                   style={{
                     marginTop: "8px",
                     padding: "10px",
                     background: "#ecf0f1",
                     borderRadius: "6px",
-                    minHeight: "40px"
+                    minHeight: "40px",
+                    color: "#2ecc71"
                   }}
                 >
                   {currentStep.traversal.length > 0
@@ -232,8 +234,8 @@ const BfsAlgo = () => {
                 </div>
               </div>
               <div style={{ marginBottom: "12px" }}>
-                <strong>Step:</strong>
-                <div style={{ marginTop: "8px" }}>{currentStep.message}</div>
+                <strong style={{ color: "#3498db" }}>Step:</strong>
+                <div style={{ marginTop: "8px", color: "#3498db" }}>{currentStep.message}</div>
               </div>
               <div style={{ display: "flex", gap: "10px" }}>
                 <button
@@ -244,7 +246,8 @@ const BfsAlgo = () => {
                     borderRadius: "6px",
                     border: "1px solid #bdc3c7",
                     background: "#ffffff",
-                    cursor: "pointer"
+                    cursor: "pointer",
+                    color: "#e74c3c"
                   }}
                 >
                   {isPlaying ? "Pause" : "Play"}
@@ -260,7 +263,8 @@ const BfsAlgo = () => {
                     borderRadius: "6px",
                     border: "1px solid #bdc3c7",
                     background: "#ffffff",
-                    cursor: "pointer"
+                    cursor: "pointer",
+                    color: "#e74c3c"
                   }}
                 >
                   Reset
