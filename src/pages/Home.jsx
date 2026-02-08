@@ -3,6 +3,7 @@ import BubbleSortAlgo from "../components/1_Beginner_Algos/BubbleSortAlgo";
 import CountingSortAlgo from "../components/1_Beginner_Algos/CountingSortAlgo";
 import EuclideanAlgorithmAlgo from "../components/1_Beginner_Algos/EuclideanAlgorithmAlgo";
 import FibonacciSequenceIterativeAlgo from "../components/1_Beginner_Algos/FibonacciSequenceIterativeAlgo";
+import BfsAlgo from "../components/2_Intermediate_Algos/BfsAlgo";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
       <CountingSortAlgo />
       <EuclideanAlgorithmAlgo />
       <FibonacciSequenceIterativeAlgo endOnValue={200} />
+      <BfsAlgo />
     </div>
   );
 } 
