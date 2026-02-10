@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Container,
@@ -6,115 +6,150 @@ import {
   Title,
   AlgoVisualizer,
   CodeBlock,
-  Para, // Assuming Para is defined in your styledComponents file
+  Para,
 } from "../Styled Components/styledComponents";
-import "../styles/Node.css";
+
+const INITIAL_ARRAY = [32, 12, 25, 9, 41, 18, 5, 29];
 
 const BubbleSortAlgo = () => {
-  const [array, setArray] = useState([5, 3, 8, 4, 2, 7, 1, 6]); // Example array
-  const [currentIndex, setCurrentIndex] = useState(null);
-  const [comparingIndex, setComparingIndex] = useState(null);
-  const [sortedIndex, setSortedIndex] = useState([]);
+  const [array, setArray] = useState(INITIAL_ARRAY);
+  const [current, setCurrent] = useState(null);
+  const [comparing, setComparing] = useState(null);
+  const [sortedStart, setSortedStart] = useState(array.length);
+  const [isSorting, setIsSorting] = useState(false);
+  const [status, setStatus] = useState("Press Start Sort to animate bubble sort.");
 
-  useEffect(() => {
-    bubbleSort([...array]);
-  }, []);
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const bubbleSort = async (arr) => {
-    let n = arr.length;
-    let tempArray = [...arr];
+  const randomize = () => {
+    if (isSorting) return;
+    const next = Array.from({ length: 8 }, () => Math.floor(Math.random() * 45) + 4);
+    setArray(next);
+    setCurrent(null);
+    setComparing(null);
+    setSortedStart(next.length);
+    setStatus("Array randomized. Press Start Sort.");
+  };
+
+  const reset = () => {
+    if (isSorting) return;
+    setArray(INITIAL_ARRAY);
+    setCurrent(null);
+    setComparing(null);
+    setSortedStart(INITIAL_ARRAY.length);
+    setStatus("Press Start Sort to animate bubble sort.");
+  };
+
+  const runSort = async () => {
+    if (isSorting) return;
+    setIsSorting(true);
+    setStatus("Sorting...");
+
+    const working = [...array];
+    const n = working.length;
+
     for (let i = 0; i < n - 1; i++) {
       for (let j = 0; j < n - i - 1; j++) {
-        setCurrentIndex(j);
-        setComparingIndex(j + 1);
-        
-        if (tempArray[j] > tempArray[j + 1]) {
-          // Swap if the current element is greater than the next
-          await new Promise((resolve) => setTimeout(resolve, 500)); // Delay for visualization
-          let temp = tempArray[j];
-          tempArray[j] = tempArray[j + 1];
-          tempArray[j + 1] = temp;
-          setArray([...tempArray]);
+        setCurrent(j);
+        setComparing(j + 1);
+        await delay(350);
+
+        if (working[j] > working[j + 1]) {
+          [working[j], working[j + 1]] = [working[j + 1], working[j]];
+          setArray([...working]);
+          await delay(260);
         }
       }
-      setSortedIndex((prev) => [...prev, n - i - 1]);
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Delay to visualize sorted state
+      setSortedStart(n - i - 1);
     }
-    setSortedIndex((prev) => [...prev, 0]); // Manually set the last element as sorted
-    setCurrentIndex(null);
-    setComparingIndex(null);
+
+    setCurrent(null);
+    setComparing(null);
+    setSortedStart(0);
+    setStatus("Done. Array is sorted.");
+    setIsSorting(false);
   };
+
+  const barW = 60;
+  const gap = 12;
+  const chartW = array.length * (barW + gap) + gap;
+  const chartH = 280;
+  const floorY = 220;
+  const maxValue = Math.max(...array);
 
   return (
     <Container>
       <CardContainer>
-        <Title>Bubble Sort Algo</Title>
-
+        <Title>Bubble Sort</Title>
         <Para>
-          Bubble Sort is a simple comparison-based sorting algorithm that repeatedly steps through the list, 
-          compares adjacent elements, and swaps them if they are in the wrong order. This process is repeated 
-          until the list is sorted. The algorithm gets its name because smaller elements "bubble" to the top of 
-          the list. While it is easy to understand and implement, Bubble Sort is not efficient for large datasets 
-          as it has a time complexity of O(n^2).
+          Bubble sort repeatedly compares adjacent elements and swaps them when they are in the
+          wrong order. Largest values bubble to the right each pass.
         </Para>
 
-        <Para>
-          <strong>When to use Bubble Sort:</strong> Bubble Sort is typically used in educational settings or when 
-          simplicity is more important than performance. It can be useful when you need a straightforward, easy-to-understand 
-          algorithm for small datasets or when the dataset is almost sorted and requires only a few passes.
-        </Para>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
+          <button type="button" onClick={runSort} disabled={isSorting}>
+            Start Sort
+          </button>
+          <button type="button" onClick={randomize} disabled={isSorting}>
+            Randomize
+          </button>
+          <button type="button" onClick={reset} disabled={isSorting}>
+            Reset
+          </button>
+        </div>
+
+        <Para>{status}</Para>
 
         <AlgoVisualizer>
-          <svg width="600" height="150">
-            {array.map((value, index) => (
-              <motion.g
-                key={index}
-                initial={false}
-                animate={{ y: sortedIndex.includes(index) ? -20 : 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <circle
-                  cx={index * 70 + 35}
-                  cy={75}
-                  r={25}
-                  fill={
-                    sortedIndex.includes(index)
-                      ? "green"
-                      : index === currentIndex
-                      ? "red"
-                      : index === comparingIndex
-                      ? "orange"
-                      : "gray"
-                  }
-                />
-                <text
-                  x={index * 70 + 35}
-                  y={80}
-                  fill="white"
-                  textAnchor="middle"
-                  fontSize="18px"
-                  fontWeight="bold"
-                >
-                  {value}
-                </text>
-              </motion.g>
-            ))}
+          <svg
+            width="100%"
+            viewBox={`0 0 ${chartW} ${chartH}`}
+            preserveAspectRatio="xMidYMid meet"
+            style={{ maxWidth: "980px", height: "auto" }}
+          >
+            {array.map((value, index) => {
+              const x = gap + index * (barW + gap);
+              const h = 40 + (value / maxValue) * 130;
+              const y = floorY - h;
+
+              let fill = "#64748b";
+              if (index >= sortedStart) fill = "#16a34a";
+              if (index === current) fill = "#ef4444";
+              if (index === comparing) fill = "#f97316";
+
+              return (
+                <motion.g key={`${index}-${value}`} animate={{ y: index === current || index === comparing ? -8 : 0 }}>
+                  <rect x={x} y={y} width={barW} height={h} rx={10} fill={fill} />
+                  <text x={x + barW / 2} y={y - 8} textAnchor="middle" fontSize="14" fill="#0f172a">
+                    {value}
+                  </text>
+                </motion.g>
+              );
+            })}
+
+            <text x={12} y={20} fill="#ef4444" fontSize="13" fontWeight="600">
+              current
+            </text>
+            <text x={72} y={20} fill="#f97316" fontSize="13" fontWeight="600">
+              compare
+            </text>
+            <text x={136} y={20} fill="#16a34a" fontSize="13" fontWeight="600">
+              sorted
+            </text>
           </svg>
         </AlgoVisualizer>
 
         <CodeBlock>
           {`function bubbleSort(arr) {
-  let n = arr.length;
+  const n = arr.length;
   for (let i = 0; i < n - 1; i++) {
     for (let j = 0; j < n - i - 1; j++) {
       if (arr[j] > arr[j + 1]) {
-        // Swap arr[j] and arr[j + 1]
-        let temp = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = temp;
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
       }
     }
   }
+  return arr;
 }`}
         </CodeBlock>
       </CardContainer>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Container,
@@ -8,155 +8,190 @@ import {
   CodeBlock,
   Para,
 } from "../Styled Components/styledComponents";
-import "../styles/Node.css";
+
+const INITIAL_ARRAY = [4, 2, 2, 8, 3, 3, 1];
+const INITIAL_COUNTS = Array(Math.max(...INITIAL_ARRAY) + 1).fill(0);
+const INITIAL_OUTPUT = Array(INITIAL_ARRAY.length).fill(null);
 
 const CountingSortAlgo = () => {
-  const [array, setArray] = useState([4, 2, 2, 8, 3, 3, 1]); // Example array
-  const [sortedArray, setSortedArray] = useState([]);
-  const [counts, setCounts] = useState([]);
-  const [maxValue, setMaxValue] = useState(Math.max(...array));
+  const [array, setArray] = useState(INITIAL_ARRAY);
+  const [counts, setCounts] = useState(INITIAL_COUNTS);
+  const [output, setOutput] = useState(INITIAL_OUTPUT);
+  const [activeInputIndex, setActiveInputIndex] = useState(null);
+  const [activeCountIndex, setActiveCountIndex] = useState(null);
+  const [activeOutputIndex, setActiveOutputIndex] = useState(null);
+  const [isRunning, setIsRunning] = useState(false);
+  const [stage, setStage] = useState("Ready");
+  const [status, setStatus] = useState("Press Start Sort to run counting sort.");
 
-  useEffect(() => {
-    countingSort(array, maxValue);
-  }, [array]);
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const countingSort = async (arr, maxVal) => {
-    const count = Array(maxVal + 1).fill(0);
-    const output = Array(arr.length).fill(0);
-
-    // Step 1: Count occurrences of each number
-    for (let i = 0; i < arr.length; i++) {
-      count[arr[i]]++;
-    }
-    setCounts([...count]);
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Visual delay
-
-    // Step 2: Cumulative count
-    for (let i = 1; i <= maxVal; i++) {
-      count[i] += count[i - 1];
-    }
-    setCounts([...count]);
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Visual delay
-
-    // Step 3: Build the output array
-    for (let i = arr.length - 1; i >= 0; i--) {
-      output[count[arr[i]] - 1] = arr[i];
-      count[arr[i]]--;
-      setSortedArray([...output]);
-      setCounts([...count]);
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Visual delay
-    }
-
-    setSortedArray([...output]);
+  const resetState = (nextArray = INITIAL_ARRAY) => {
+    setArray(nextArray);
+    setCounts(Array(Math.max(...nextArray) + 1).fill(0));
+    setOutput(Array(nextArray.length).fill(null));
+    setActiveInputIndex(null);
+    setActiveCountIndex(null);
+    setActiveOutputIndex(null);
+    setStage("Ready");
+    setStatus("Press Start Sort to run counting sort.");
   };
+
+  const randomize = () => {
+    if (isRunning) return;
+    const next = Array.from({ length: 8 }, () => Math.floor(Math.random() * 9) + 1);
+    resetState(next);
+  };
+
+  const runCountingSort = async () => {
+    if (isRunning) return;
+    setIsRunning(true);
+
+    const maxValue = Math.max(...array);
+    const count = Array(maxValue + 1).fill(0);
+    const result = Array(array.length).fill(null);
+    setCounts([...count]);
+    setOutput([...result]);
+
+    setStage("Count Values");
+    setStatus("Counting occurrences of each value.");
+    for (let i = 0; i < array.length; i++) {
+      const value = array[i];
+      setActiveInputIndex(i);
+      setActiveCountIndex(value);
+      count[value] += 1;
+      setCounts([...count]);
+      await delay(420);
+    }
+
+    setStage("Prefix Sums");
+    setStatus("Converting counts to cumulative positions.");
+    for (let i = 1; i < count.length; i++) {
+      setActiveCountIndex(i);
+      count[i] += count[i - 1];
+      setCounts([...count]);
+      await delay(420);
+    }
+
+    setStage("Build Output");
+    setStatus("Placing values into their final sorted positions.");
+    for (let i = array.length - 1; i >= 0; i--) {
+      const value = array[i];
+      const position = count[value] - 1;
+      setActiveInputIndex(i);
+      setActiveCountIndex(value);
+      setActiveOutputIndex(position);
+      result[position] = value;
+      count[value] -= 1;
+      setCounts([...count]);
+      setOutput([...result]);
+      await delay(500);
+    }
+
+    setActiveInputIndex(null);
+    setActiveCountIndex(null);
+    setActiveOutputIndex(null);
+    setStage("Done");
+    setStatus("Done. Array is sorted.");
+    setIsRunning(false);
+  };
+
+  const cellW = 64;
+  const gap = 12;
+  const rowPadding = 12;
+  const rowHeight = 74;
+  const longestRow = Math.max(array.length, counts.length, output.length, 1);
+  const chartW = longestRow * (cellW + gap) + rowPadding * 2;
+  const chartH = 290;
+
+  const drawRow = (values, y, activeIndex, palette) =>
+    values.map((value, index) => {
+      const x = rowPadding + index * (cellW + gap);
+      const fill = index === activeIndex ? palette.active : palette.default;
+
+      return (
+        <motion.g key={`${y}-${index}`} animate={{ y: index === activeIndex ? -6 : 0 }}>
+          <rect x={x} y={y} width={cellW} height={50} rx={10} fill={fill} />
+          <text
+            x={x + cellW / 2}
+            y={y + 31}
+            textAnchor="middle"
+            fill="#fff"
+            fontSize="18"
+            fontWeight="700"
+          >
+            {value === null ? "·" : value}
+          </text>
+          <text x={x + cellW / 2} y={y + 66} textAnchor="middle" fill="#334155" fontSize="11">
+            {index}
+          </text>
+        </motion.g>
+      );
+    });
 
   return (
     <Container>
       <CardContainer>
-        <Title>Counting Sort Algo</Title>
+        <Title>Counting Sort</Title>
+        <Para>
+          Counting sort uses a frequency array to place each value directly into its sorted position.
+          It runs in O(n + k), where k is the value range.
+        </Para>
+
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
+          <button type="button" onClick={runCountingSort} disabled={isRunning}>
+            Start Sort
+          </button>
+          <button type="button" onClick={randomize} disabled={isRunning}>
+            Randomize
+          </button>
+          <button type="button" onClick={() => resetState()} disabled={isRunning}>
+            Reset
+          </button>
+        </div>
 
         <Para>
-          Counting Sort is an efficient sorting algorithm for sorting integers when the range of possible values 
-          is known. It works by counting the number of occurrences of each unique value in the array and using 
-          these counts to determine the positions of each value in the sorted array. Counting Sort is not a 
-          comparison sort, and it has a time complexity of O(n + k), where n is the number of elements in the input 
-          array and k is the range of the input.
+          Stage: <strong>{stage}</strong> | {status}
         </Para>
 
         <AlgoVisualizer>
-          <svg width="700" height="150">
-            {/* Render the original array */}
-            {array.map((value, index) => (
-              <motion.g key={index} initial={false}>
-                <circle
-                  cx={index * 70 + 35}
-                  cy={50}
-                  r={20}
-                  fill="gray"
-                />
-                <text
-                  x={index * 70 + 35}
-                  y={55}
-                  fill="white"
-                  textAnchor="middle"
-                  fontSize="18px"
-                  fontWeight="bold"
-                >
-                  {value}
-                </text>
-              </motion.g>
-            ))}
+          <svg
+            width="100%"
+            viewBox={`0 0 ${chartW} ${chartH}`}
+            preserveAspectRatio="xMidYMid meet"
+            style={{ maxWidth: "980px", height: "auto" }}
+          >
+            <text x={12} y={22} fontSize="14" fill="#0f172a" fontWeight="600">
+              Input Array
+            </text>
+            {drawRow(array, 30, activeInputIndex, { default: "#64748b", active: "#0ea5e9" })}
 
-            {/* Render the sorted array */}
-            {sortedArray.map((value, index) => (
-              <motion.g key={index} initial={false}>
-                <circle
-                  cx={index * 70 + 35}
-                  cy={120}
-                  r={20}
-                  fill="green"
-                />
-                <text
-                  x={index * 70 + 35}
-                  y={125}
-                  fill="white"
-                  textAnchor="middle"
-                  fontSize="18px"
-                  fontWeight="bold"
-                >
-                  {value}
-                </text>
-              </motion.g>
-            ))}
-          </svg>
+            <text x={12} y={112} fontSize="14" fill="#0f172a" fontWeight="600">
+              Count Array
+            </text>
+            {drawRow(counts, 120, activeCountIndex, { default: "#f59e0b", active: "#ea580c" })}
 
-          {/* Render the counts array */}
-          <svg width="700" height="50">
-            {counts.map((value, index) => (
-              <motion.g key={index} initial={false}>
-                <rect
-                  x={index * 70 + 10}
-                  y={10}
-                  width="50"
-                  height="30"
-                  fill="orange"
-                />
-                <text
-                  x={index * 70 + 35}
-                  y={30}
-                  fill="white"
-                  textAnchor="middle"
-                  fontSize="18px"
-                  fontWeight="bold"
-                >
-                  {value}
-                </text>
-              </motion.g>
-            ))}
+            <text x={12} y={202} fontSize="14" fill="#0f172a" fontWeight="600">
+              Output Array
+            </text>
+            {drawRow(output, 210, activeOutputIndex, { default: "#16a34a", active: "#15803d" })}
           </svg>
         </AlgoVisualizer>
 
         <CodeBlock>
-          {`function countingSort(arr, maxVal) {
-  const count = Array(maxVal + 1).fill(0);
+          {`function countingSort(arr) {
+  const maxValue = Math.max(...arr);
+  const count = Array(maxValue + 1).fill(0);
   const output = Array(arr.length).fill(0);
 
-  // Step 1: Count occurrences of each number
-  for (let i = 0; i < arr.length; i++) {
-    count[arr[i]]++;
-  }
+  for (const value of arr) count[value]++;
+  for (let i = 1; i < count.length; i++) count[i] += count[i - 1];
 
-  // Step 2: Cumulative count
-  for (let i = 1; i <= maxVal; i++) {
-    count[i] += count[i - 1];
-  }
-
-  // Step 3: Build the output array
   for (let i = arr.length - 1; i >= 0; i--) {
-    output[count[arr[i]] - 1] = arr[i];
-    count[arr[i]]--;
+    const value = arr[i];
+    output[count[value] - 1] = value;
+    count[value]--;
   }
-
   return output;
 }`}
         </CodeBlock>

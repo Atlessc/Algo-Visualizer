@@ -230,11 +230,12 @@ const KmpAlgorithmAlgo = () => {
               justifyContent: "space-between",
               gap: "24px",
               width: "100%",
-              flexWrap: "wrap"
+              flexWrap: "wrap",
+              alignItems: "stretch"
             }}
           >
-            <div style={{ flex: "2 1 500px" }}>
-              <div style={{ marginBottom: "16px", color: "#1f2937", fontWeight: "600" }}>
+            <div style={{ flex: "2 1 500px", minWidth: "min(100%, 320px)" }}>
+              <div style={{ marginBottom: "16px", color: "#1f2937", fontWeight: "600", wordBreak: "break-all" }}>
                 Text: {SAMPLE_TEXT}
               </div>
               <div style={{ marginBottom: "10px", color: "#4b5563", fontWeight: "600" }}>
@@ -260,8 +261,8 @@ const KmpAlgorithmAlgo = () => {
                     <div
                       key={`pattern-top-${idx}`}
                       style={{
-                        width: "32px",
-                        height: "32px",
+                        width: "30px",
+                        height: "30px",
                         borderRadius: "6px",
                         background: bg,
                         color: getTextColorForBackground(bg),
@@ -281,7 +282,7 @@ const KmpAlgorithmAlgo = () => {
                 Search alignment:
               </div>
               <div style={{ overflowX: "auto", paddingBottom: "6px" }}>
-                <div style={{ minWidth: `${SAMPLE_TEXT.length * 38}px` }}>
+                <div style={{ minWidth: `${SAMPLE_TEXT.length * 34}px` }}>
                   <div style={{ display: "flex", gap: "6px", marginBottom: "8px" }}>
                     {SAMPLE_TEXT.split("").map((char, idx) => {
                       const bg = isSearchPhase && currentStep.textIndex === idx ? "#ef4444" : "#d1d5db";
@@ -289,8 +290,8 @@ const KmpAlgorithmAlgo = () => {
                         <div
                           key={`text-${idx}`}
                           style={{
-                            width: "32px",
-                            height: "32px",
+                            width: "30px",
+                            height: "30px",
                             borderRadius: "6px",
                             background: bg,
                             color: getTextColorForBackground(bg),
@@ -326,8 +327,8 @@ const KmpAlgorithmAlgo = () => {
                         <div
                           key={`align-${idx}`}
                           style={{
-                            width: "32px",
-                            height: "32px",
+                            width: "30px",
+                            height: "30px",
                             borderRadius: "6px",
                             background: bg,
                             color: bg === "transparent" ? "transparent" : getTextColorForBackground(bg),
@@ -347,7 +348,7 @@ const KmpAlgorithmAlgo = () => {
               </div>
             </div>
 
-            <div style={{ flex: "1 1 260px" }}>
+            <div style={{ flex: "1 1 260px", minWidth: "min(100%, 280px)" }}>
               <div style={{ marginBottom: "12px" }}>
                 <strong style={{ color: "#1f5f8b" }}>Phase:</strong>
                 <div style={{ marginTop: "8px", color: "#1f5f8b" }}>

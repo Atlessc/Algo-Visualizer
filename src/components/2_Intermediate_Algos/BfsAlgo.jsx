@@ -183,10 +183,16 @@ const BfsAlgo = () => {
             justifyContent: "space-between",
             gap: "24px",
             width: "100%",
-            flexWrap: "wrap"
+            flexWrap: "wrap",
+            alignItems: "stretch"
           }}>
-            <div style={{ flex: "2 1 420px" }}>
-              <svg width="600" height="240" viewBox="0 0 600 240">
+            <div style={{ flex: "2 1 420px", minWidth: "min(100%, 340px)" }}>
+              <svg
+                width="100%"
+                viewBox="0 0 600 240"
+                preserveAspectRatio="xMidYMid meet"
+                style={{ maxWidth: "720px", height: "auto" }}
+              >
                 {graphData.edges.map((edge) => {
                   const from = nodesById[edge.from];
                   const to = nodesById[edge.to];
@@ -227,8 +233,13 @@ const BfsAlgo = () => {
                   );
                 })}
               </svg>
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
+                <span style={{ background: "#e74c3c", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>current</span>
+                <span style={{ background: "#f1c40f", color: "#1f2937", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>queued</span>
+                <span style={{ background: "#2ecc71", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>visited</span>
+              </div>
             </div>
-            <div style={{ flex: "1 1 220px" }}>
+            <div style={{ flex: "1 1 240px", minWidth: "min(100%, 260px)" }}>
               <div style={{ marginBottom: "12px" }}>
                 <strong style={{ color: "#7a5b00" }}>Queue:</strong>
                 <div

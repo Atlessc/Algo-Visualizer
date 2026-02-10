@@ -185,20 +185,21 @@ const KnapsackAlgo = () => {
               justifyContent: "space-between",
               gap: "24px",
               width: "100%",
-              flexWrap: "wrap"
+              flexWrap: "wrap",
+              alignItems: "stretch"
             }}
           >
-            <div style={{ flex: "2 1 560px", overflowX: "auto" }}>
-              <table style={{ borderCollapse: "collapse", minWidth: "540px" }}>
+            <div style={{ flex: "2 1 560px", overflowX: "auto", minWidth: "min(100%, 330px)" }}>
+              <table style={{ borderCollapse: "collapse", minWidth: "520px" }}>
                 <thead>
                   <tr>
-                    <th style={{ border: "1px solid #cbd5e1", padding: "8px", color: "#1f2937" }}>
+                    <th style={{ border: "1px solid #cbd5e1", padding: "6px", color: "#1f2937", fontSize: "13px" }}>
                       i / w
                     </th>
                     {Array.from({ length: capacity + 1 }, (_, w) => (
                       <th
                         key={`head-${w}`}
-                        style={{ border: "1px solid #cbd5e1", padding: "8px", color: "#1f2937" }}
+                        style={{ border: "1px solid #cbd5e1", padding: "6px", color: "#1f2937", fontSize: "13px" }}
                       >
                         {w}
                       </th>
@@ -211,10 +212,11 @@ const KnapsackAlgo = () => {
                       <td
                         style={{
                           border: "1px solid #cbd5e1",
-                          padding: "8px",
+                          padding: "6px",
                           fontWeight: "700",
                           color: "#1f2937",
-                          background: row === 0 ? "#e2e8f0" : "#e5e7eb"
+                          background: row === 0 ? "#e2e8f0" : "#e5e7eb",
+                          fontSize: "13px"
                         }}
                       >
                         {row === 0 ? "0 items" : `${row} (${items[row - 1].name})`}
@@ -226,12 +228,13 @@ const KnapsackAlgo = () => {
                             key={`cell-${row}-${col}`}
                             style={{
                               border: "1px solid #cbd5e1",
-                              padding: "8px",
-                              minWidth: "38px",
+                              padding: "6px",
+                              minWidth: "34px",
                               textAlign: "center",
                               fontWeight: "700",
                               background: cellStyle.background,
-                              color: cellStyle.color
+                              color: cellStyle.color,
+                              fontSize: "13px"
                             }}
                           >
                             {currentStep.dp[row][col]}
@@ -244,7 +247,7 @@ const KnapsackAlgo = () => {
               </table>
             </div>
 
-            <div style={{ flex: "1 1 260px" }}>
+            <div style={{ flex: "1 1 260px", minWidth: "min(100%, 270px)" }}>
               <div style={{ marginBottom: "12px" }}>
                 <strong style={{ color: "#4b5563" }}>Items:</strong>
                 <div

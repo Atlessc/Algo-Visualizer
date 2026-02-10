@@ -4,7 +4,10 @@ import BubbleSortAlgo from "../components/1_Beginner_Algos/BubbleSortAlgo";
 import CountingSortAlgo from "../components/1_Beginner_Algos/CountingSortAlgo";
 import EuclideanAlgorithmAlgo from "../components/1_Beginner_Algos/EuclideanAlgorithmAlgo";
 import FibonacciSequenceIterativeAlgo from "../components/1_Beginner_Algos/FibonacciSequenceIterativeAlgo";
+import GcdLcmAlgo from "../components/1_Beginner_Algos/GcdLcmAlgo";
+import InsertionSortAlgo from "../components/1_Beginner_Algos/InsertionSortAlgo";
 import LinearSearchAlgo from "../components/1_Beginner_Algos/LinearSearchAlgo";
+import RodCuttingAlgo from "../components/1_Beginner_Algos/RodCuttingAlgo";
 import SelectionSortAlgo from "../components/1_Beginner_Algos/SelectionSortAlgo";
 import BfsAlgo from "../components/2_Intermediate_Algos/BfsAlgo";
 import DijkstraAlgorithmAlgo from "../components/2_Intermediate_Algos/DijkstraAlgorithmAlgo";
@@ -27,7 +30,10 @@ const Home = () => {
             component: FibonacciSequenceIterativeAlgo,
             props: { endOnValue: 200 },
           },
+          { id: "gcd-lcm", label: "GCD and LCM", component: GcdLcmAlgo },
+          { id: "insertion-sort", label: "Insertion Sort", component: InsertionSortAlgo },
           { id: "linear-search", label: "Linear Search", component: LinearSearchAlgo },
+          { id: "rod-cutting", label: "Rod Cutting", component: RodCuttingAlgo },
           { id: "selection-sort", label: "Selection Sort", component: SelectionSortAlgo },
         ],
       },

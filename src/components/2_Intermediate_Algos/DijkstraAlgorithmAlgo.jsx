@@ -334,11 +334,17 @@ const DijkstraAlgorithmAlgo = () => {
               justifyContent: "space-between",
               gap: "24px",
               width: "100%",
-              flexWrap: "wrap"
+              flexWrap: "wrap",
+              alignItems: "stretch"
             }}
           >
-            <div style={{ flex: "2 1 440px" }}>
-              <svg width="620" height="260" viewBox="0 0 620 260">
+            <div style={{ flex: "2 1 440px", minWidth: "min(100%, 340px)" }}>
+              <svg
+                width="100%"
+                viewBox="0 0 620 260"
+                preserveAspectRatio="xMidYMid meet"
+                style={{ maxWidth: "760px", height: "auto" }}
+              >
                 {weightedGraphData.edges.map((edge) => {
                   const from = nodesById[edge.from];
                   const to = nodesById[edge.to];
@@ -405,9 +411,15 @@ const DijkstraAlgorithmAlgo = () => {
                   );
                 })}
               </svg>
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
+                <span style={{ background: "#e74c3c", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>current</span>
+                <span style={{ background: "#3498db", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>frontier</span>
+                <span style={{ background: "#2ecc71", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>settled</span>
+                <span style={{ background: "#0ea5e9", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>hover path</span>
+              </div>
             </div>
 
-            <div style={{ flex: "1 1 240px" }}>
+            <div style={{ flex: "1 1 260px", minWidth: "min(100%, 270px)" }}>
               <div style={{ marginBottom: "12px" }}>
                 <strong style={{ color: "#1f5f8b" }}>Frontier:</strong>
                 <div
