@@ -17,7 +17,18 @@ import HamiltonianPathAlgo from "../components/2_Intermediate_Algos/HamiltonianP
 import HeapSortAlgo from "../components/2_Intermediate_Algos/HeapSortAlgo";
 import JobSequencingAlgo from "../components/2_Intermediate_Algos/JobSequencingAlgo";
 import KmpAlgorithmAlgo from "../components/2_Intermediate_Algos/KmpAlgorithmAlgo";
+import KnightsTourAlgo from "../components/2_Intermediate_Algos/KnightsTourAlgo";
 import KnapsackAlgo from "../components/2_Intermediate_Algos/KnapsackAlgo";
+import LevenshteinDistanceAlgo from "../components/2_Intermediate_Algos/LevenshteinDistanceAlgo";
+import LongestCommonSubsequenceAlgo from "../components/2_Intermediate_Algos/LongestCommonSubsequenceAlgo";
+import MatrixChainMultiplicationAlgo from "../components/2_Intermediate_Algos/MatrixChainMultiplicationAlgo";
+import ModularExponentiationAlgo from "../components/2_Intermediate_Algos/ModularExponentiationAlgo";
+import NQueensAlgo from "../components/2_Intermediate_Algos/NQueensAlgo";
+import RabinKarpAlgorithmAlgo from "../components/2_Intermediate_Algos/RabinKarpAlgorithmAlgo";
+import SudokuSolverAlgo from "../components/2_Intermediate_Algos/SudokuSolverAlgo";
+import SuffixTreeConstructionAlgo from "../components/2_Intermediate_Algos/SuffixTreeConstructionAlgo";
+import TrieOperationsAlgo from "../components/2_Intermediate_Algos/TrieOperationsAlgo";
+import ZAlgorithmAlgo from "../components/2_Intermediate_Algos/ZAlgorithmAlgo";
 
 const Home = () => {
   const sections = useMemo(
@@ -55,7 +66,18 @@ const Home = () => {
           { id: "heap-sort", label: "Heap Sort", component: HeapSortAlgo },
           { id: "job-sequencing", label: "Job Sequencing", component: JobSequencingAlgo },
           { id: "kmp", label: "KMP Algorithm", component: KmpAlgorithmAlgo },
+          { id: "knights-tour", label: "Knight's Tour", component: KnightsTourAlgo },
           { id: "knapsack", label: "Knapsack Problem", component: KnapsackAlgo },
+          { id: "levenshtein-distance", label: "Levenshtein Distance", component: LevenshteinDistanceAlgo },
+          { id: "lcs", label: "Longest Common Subsequence", component: LongestCommonSubsequenceAlgo },
+          { id: "matrix-chain-multiplication", label: "Matrix Chain Multiplication", component: MatrixChainMultiplicationAlgo },
+          { id: "modular-exponentiation", label: "Modular Exponentiation", component: ModularExponentiationAlgo },
+          { id: "n-queens", label: "N-Queens Problem", component: NQueensAlgo },
+          { id: "rabin-karp", label: "Rabin-Karp Algorithm", component: RabinKarpAlgorithmAlgo },
+          { id: "sudoku-solver", label: "Sudoku Solver", component: SudokuSolverAlgo },
+          { id: "suffix-tree-construction", label: "Suffix Tree Construction", component: SuffixTreeConstructionAlgo },
+          { id: "trie-operations", label: "Trie Operations", component: TrieOperationsAlgo },
+          { id: "z-algorithm", label: "Z Algorithm", component: ZAlgorithmAlgo },
         ],
       },
     ],
