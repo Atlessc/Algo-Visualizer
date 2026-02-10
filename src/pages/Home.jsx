@@ -29,6 +29,33 @@ import SudokuSolverAlgo from "../components/2_Intermediate_Algos/SudokuSolverAlg
 import SuffixTreeConstructionAlgo from "../components/2_Intermediate_Algos/SuffixTreeConstructionAlgo";
 import TrieOperationsAlgo from "../components/2_Intermediate_Algos/TrieOperationsAlgo";
 import ZAlgorithmAlgo from "../components/2_Intermediate_Algos/ZAlgorithmAlgo";
+import AvlTreeRotationsAlgo from "../components/3_Advanced_Algos/AvlTreeRotationsAlgo";
+import ChineseRemainderTheoremAlgo from "../components/3_Advanced_Algos/ChineseRemainderTheoremAlgo";
+import CombinationSumAlgo from "../components/3_Advanced_Algos/CombinationSumAlgo";
+import DijkstraPriorityQueueAlgo from "../components/3_Advanced_Algos/DijkstraPriorityQueueAlgo";
+import FenwickTreeAlgo from "../components/3_Advanced_Algos/FenwickTreeAlgo";
+import FermatsTheoremAlgo from "../components/3_Advanced_Algos/FermatsTheoremAlgo";
+import JohnsonsAlgorithmAlgo from "../components/3_Advanced_Algos/JohnsonsAlgorithmAlgo";
+import KMeansClusteringAlgo from "../components/3_Advanced_Algos/KMeansClusteringAlgo";
+import KaratsubaAlgorithmAlgo from "../components/3_Advanced_Algos/KaratsubaAlgorithmAlgo";
+import KruskalDisjointSetAlgo from "../components/3_Advanced_Algos/KruskalDisjointSetAlgo";
+import LowestCommonAncestorAlgo from "../components/3_Advanced_Algos/LowestCommonAncestorAlgo";
+import LongestIncreasingSubsequenceAlgo from "../components/3_Advanced_Algos/LongestIncreasingSubsequenceAlgo";
+import ManachersAlgorithmAlgo from "../components/3_Advanced_Algos/ManachersAlgorithmAlgo";
+import MillerRabinAlgo from "../components/3_Advanced_Algos/MillerRabinAlgo";
+import MinimumSpanningTreeAlgo from "../components/3_Advanced_Algos/MinimumSpanningTreeAlgo";
+import KosarajuAlgorithmAlgo from "../components/3_Advanced_Algos/KosarajuAlgorithmAlgo";
+import PagerankAlgorithmAlgo from "../components/3_Advanced_Algos/PagerankAlgorithmAlgo";
+import PermutationGenerationAlgo from "../components/3_Advanced_Algos/PermutationGenerationAlgo";
+import RedBlackTreeAlgo from "../components/3_Advanced_Algos/RedBlackTreeAlgo";
+import SegmentTreeAlgo from "../components/3_Advanced_Algos/SegmentTreeAlgo";
+import SieveOfEratosthenesAlgo from "../components/3_Advanced_Algos/SieveOfEratosthenesAlgo";
+import SplayTreeAlgo from "../components/3_Advanced_Algos/SplayTreeAlgo";
+import SubsetSumAlgo from "../components/3_Advanced_Algos/SubsetSumAlgo";
+import SuffixArrayConstructionAlgo from "../components/3_Advanced_Algos/SuffixArrayConstructionAlgo";
+import TarjanAlgorithmAlgo from "../components/3_Advanced_Algos/TarjanAlgorithmAlgo";
+import IntervalSchedulingMaximizationAlgo from "../components/3_Advanced_Algos/IntervalSchedulingMaximizationAlgo";
+import FftAlgo from "../components/3_Advanced_Algos/FftAlgo";
 
 const Home = () => {
   const sections = useMemo(
@@ -78,6 +105,39 @@ const Home = () => {
           { id: "suffix-tree-construction", label: "Suffix Tree Construction", component: SuffixTreeConstructionAlgo },
           { id: "trie-operations", label: "Trie Operations", component: TrieOperationsAlgo },
           { id: "z-algorithm", label: "Z Algorithm", component: ZAlgorithmAlgo },
+        ],
+      },
+      {
+        title: "Advanced Algorithms",
+        folder: "3_Advanced_Algos",
+        items: [
+          { id: "suffix-array-construction", label: "Suffix Array Construction", component: SuffixArrayConstructionAlgo },
+          { id: "avl-tree-rotations", label: "AVL Tree Rotations", component: AvlTreeRotationsAlgo },
+          { id: "red-black-tree", label: "Red-Black Tree Operations", component: RedBlackTreeAlgo },
+          { id: "kruskal-disjoint-set", label: "Kruskal (Disjoint Set)", component: KruskalDisjointSetAlgo },
+          { id: "minimum-spanning-tree", label: "Minimum Spanning Tree", component: MinimumSpanningTreeAlgo },
+          { id: "k-means-clustering", label: "K-Means Clustering", component: KMeansClusteringAlgo },
+          { id: "pagerank", label: "PageRank Algorithm", component: PagerankAlgorithmAlgo },
+          { id: "dijkstra-priority-queue", label: "Dijkstra (Priority Queue)", component: DijkstraPriorityQueueAlgo },
+          { id: "fenwick-tree", label: "Fenwick Tree", component: FenwickTreeAlgo },
+          { id: "segment-tree", label: "Segment Tree", component: SegmentTreeAlgo },
+          { id: "crt", label: "Chinese Remainder Theorem", component: ChineseRemainderTheoremAlgo },
+          { id: "miller-rabin", label: "Miller-Rabin Primality Test", component: MillerRabinAlgo },
+          { id: "fermats-theorem", label: "Fermat's Little Theorem", component: FermatsTheoremAlgo },
+          { id: "sieve-of-eratosthenes", label: "Sieve of Eratosthenes", component: SieveOfEratosthenesAlgo },
+          { id: "lis", label: "Longest Increasing Subsequence", component: LongestIncreasingSubsequenceAlgo },
+          { id: "manachers-algorithm", label: "Manacher's Algorithm", component: ManachersAlgorithmAlgo },
+          { id: "kosaraju-algorithm", label: "Kosaraju's Algorithm", component: KosarajuAlgorithmAlgo },
+          { id: "tarjan-algorithm", label: "Tarjan's Algorithm", component: TarjanAlgorithmAlgo },
+          { id: "johnsons-algorithm", label: "Johnson's Algorithm", component: JohnsonsAlgorithmAlgo },
+          { id: "combination-sum", label: "Combination Sum", component: CombinationSumAlgo },
+          { id: "fft", label: "FFT (Fast Fourier Transform)", component: FftAlgo },
+          { id: "interval-scheduling-max", label: "Interval Scheduling Maximization", component: IntervalSchedulingMaximizationAlgo },
+          { id: "karatsuba", label: "Karatsuba Multiplication", component: KaratsubaAlgorithmAlgo },
+          { id: "lowest-common-ancestor", label: "Lowest Common Ancestor", component: LowestCommonAncestorAlgo },
+          { id: "permutation-generation", label: "Permutation Generation", component: PermutationGenerationAlgo },
+          { id: "splay-tree", label: "Splay Tree Operations", component: SplayTreeAlgo },
+          { id: "subset-sum-advanced", label: "Subset Sum", component: SubsetSumAlgo },
         ],
       },
     ],
