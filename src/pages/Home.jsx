@@ -56,6 +56,39 @@ import SuffixArrayConstructionAlgo from "../components/3_Advanced_Algos/SuffixAr
 import TarjanAlgorithmAlgo from "../components/3_Advanced_Algos/TarjanAlgorithmAlgo";
 import IntervalSchedulingMaximizationAlgo from "../components/3_Advanced_Algos/IntervalSchedulingMaximizationAlgo";
 import FftAlgo from "../components/3_Advanced_Algos/FftAlgo";
+import AhoCorasickAlgo from "../components/4_10x_Dev_Algos/AhoCorasickAlgo";
+import AlphaBetaPruningAlgo from "../components/4_10x_Dev_Algos/AlphaBetaPruningAlgo";
+import BoyerMooreAlgo from "../components/4_10x_Dev_Algos/BoyerMooreAlgo";
+import ConvexHullAlgo from "../components/4_10x_Dev_Algos/ConvexHullAlgo";
+import DecisionTreeAlgo from "../components/4_10x_Dev_Algos/DecisionTreeAlgo";
+import EggDroppingPuzzleAlgo from "../components/4_10x_Dev_Algos/EggDroppingPuzzleAlgo";
+import FortuneAlgorithmAlgo from "../components/4_10x_Dev_Algos/FortuneAlgorithmAlgo";
+import GeneticAlgorithmAlgo from "../components/4_10x_Dev_Algos/GeneticAlgorithmAlgo";
+import GrahamScanAlgo from "../components/4_10x_Dev_Algos/GrahamScanAlgo";
+import HamiltonianPathBacktrackingAlgo from "../components/4_10x_Dev_Algos/HamiltonianPathBacktrackingAlgo";
+import JarvisMarchAlgo from "../components/4_10x_Dev_Algos/JarvisMarchAlgo";
+import KmpAdvancedAlgo from "../components/4_10x_Dev_Algos/KmpAdvancedAlgo";
+import LineIntersectionAlgo from "../components/4_10x_Dev_Algos/LineIntersectionAlgo";
+import ManachersAdvancedAlgo from "../components/4_10x_Dev_Algos/ManachersAdvancedAlgo";
+import MinimaxAlgo from "../components/4_10x_Dev_Algos/MinimaxAlgo";
+import NQueensBacktrackingAlgo from "../components/4_10x_Dev_Algos/NQueensBacktrackingAlgo";
+import NaiveBayesAlgo from "../components/4_10x_Dev_Algos/NaiveBayesAlgo";
+import NeuralNetworkBackpropagationAlgo from "../components/4_10x_Dev_Algos/NeuralNetworkBackpropagationAlgo";
+import PagerankAdvancedAlgo from "../components/4_10x_Dev_Algos/PagerankAdvancedAlgo";
+import PcaAlgo from "../components/4_10x_Dev_Algos/PcaAlgo";
+import RabinKarpHashingAlgo from "../components/4_10x_Dev_Algos/RabinKarpHashingAlgo";
+import RandomForestAlgo from "../components/4_10x_Dev_Algos/RandomForestAlgo";
+import RatInAMazeAlgo from "../components/4_10x_Dev_Algos/RatInAMazeAlgo";
+import RungeKuttaAlgo from "../components/4_10x_Dev_Algos/RungeKuttaAlgo";
+import SimpsonsRuleAlgo from "../components/4_10x_Dev_Algos/SimpsonsRuleAlgo";
+import SpfaAlgorithmAlgo from "../components/4_10x_Dev_Algos/SpfaAlgorithmAlgo";
+import SudokuSolverBacktrackingAlgo from "../components/4_10x_Dev_Algos/SudokuSolverBacktrackingAlgo";
+import SvmAlgo from "../components/4_10x_Dev_Algos/SvmAlgo";
+import TarjanSccAlgo from "../components/4_10x_Dev_Algos/TarjanSccAlgo";
+import UkkonenSuffixTreeAlgo from "../components/4_10x_Dev_Algos/UkkonenSuffixTreeAlgo";
+import VoronoiDiagramsAlgo from "../components/4_10x_Dev_Algos/VoronoiDiagramsAlgo";
+import WordBreakDpAlgo from "../components/4_10x_Dev_Algos/WordBreakDpAlgo";
+import ZAlgorithmAdvancedAlgo from "../components/4_10x_Dev_Algos/ZAlgorithmAdvancedAlgo";
 
 const Home = () => {
   const sections = useMemo(
@@ -138,6 +171,45 @@ const Home = () => {
           { id: "permutation-generation", label: "Permutation Generation", component: PermutationGenerationAlgo },
           { id: "splay-tree", label: "Splay Tree Operations", component: SplayTreeAlgo },
           { id: "subset-sum-advanced", label: "Subset Sum", component: SubsetSumAlgo },
+        ],
+      },
+      {
+        title: "10x Dev Algorithms",
+        folder: "4_10x_Dev_Algos",
+        items: [
+          { id: "aho-corasick", label: "Aho-Corasick", component: AhoCorasickAlgo },
+          { id: "alpha-beta-pruning", label: "Alpha-Beta Pruning", component: AlphaBetaPruningAlgo },
+          { id: "boyer-moore", label: "Boyer-Moore", component: BoyerMooreAlgo },
+          { id: "convex-hull", label: "Convex Hull", component: ConvexHullAlgo },
+          { id: "decision-tree", label: "Decision Tree", component: DecisionTreeAlgo },
+          { id: "egg-dropping-puzzle", label: "Egg Dropping Puzzle", component: EggDroppingPuzzleAlgo },
+          { id: "fortune-algorithm", label: "Fortune's Algorithm", component: FortuneAlgorithmAlgo },
+          { id: "genetic-algorithm", label: "Genetic Algorithm", component: GeneticAlgorithmAlgo },
+          { id: "graham-scan", label: "Graham Scan", component: GrahamScanAlgo },
+          { id: "hamiltonian-path-backtracking", label: "Hamiltonian Path (Backtracking)", component: HamiltonianPathBacktrackingAlgo },
+          { id: "jarvis-march", label: "Jarvis March", component: JarvisMarchAlgo },
+          { id: "kmp-advanced", label: "KMP (Advanced)", component: KmpAdvancedAlgo },
+          { id: "line-intersection", label: "Line Intersection", component: LineIntersectionAlgo },
+          { id: "manachers-advanced", label: "Manacher's (Advanced)", component: ManachersAdvancedAlgo },
+          { id: "minimax", label: "Minimax", component: MinimaxAlgo },
+          { id: "n-queens-backtracking", label: "N-Queens (Backtracking)", component: NQueensBacktrackingAlgo },
+          { id: "naive-bayes", label: "Naive Bayes", component: NaiveBayesAlgo },
+          { id: "neural-network-backprop", label: "Neural Network Backpropagation", component: NeuralNetworkBackpropagationAlgo },
+          { id: "pagerank-advanced", label: "PageRank (Advanced)", component: PagerankAdvancedAlgo },
+          { id: "pca", label: "PCA", component: PcaAlgo },
+          { id: "rabin-karp-hashing", label: "Rabin-Karp (Hashing)", component: RabinKarpHashingAlgo },
+          { id: "random-forest", label: "Random Forest", component: RandomForestAlgo },
+          { id: "rat-in-a-maze", label: "Rat in a Maze", component: RatInAMazeAlgo },
+          { id: "runge-kutta", label: "Runge-Kutta", component: RungeKuttaAlgo },
+          { id: "simpsons-rule", label: "Simpson's Rule", component: SimpsonsRuleAlgo },
+          { id: "spfa", label: "SPFA Algorithm", component: SpfaAlgorithmAlgo },
+          { id: "sudoku-solver-backtracking", label: "Sudoku Solver (Backtracking)", component: SudokuSolverBacktrackingAlgo },
+          { id: "svm", label: "SVM", component: SvmAlgo },
+          { id: "tarjan-scc", label: "Tarjan SCC", component: TarjanSccAlgo },
+          { id: "ukkonen-suffix-tree", label: "Ukkonen Suffix Tree", component: UkkonenSuffixTreeAlgo },
+          { id: "voronoi-diagrams", label: "Voronoi Diagrams", component: VoronoiDiagramsAlgo },
+          { id: "word-break-dp", label: "Word Break (DP)", component: WordBreakDpAlgo },
+          { id: "z-algorithm-advanced", label: "Z Algorithm (Advanced)", component: ZAlgorithmAdvancedAlgo },
         ],
       },
     ],

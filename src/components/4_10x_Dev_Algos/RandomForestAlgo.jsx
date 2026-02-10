@@ -1,27 +1,7 @@
-import {
-  Container,
-  CardContainer,
-  Title,
-  AlgoVisualizer,
-  CodeBlock
-} from "../../Styled Components/styledComponents";
-
 import React from "react";
-import useStore from "../../ZustandStore";
+import TenXAlgoRenderer from "./TenXAlgoRenderer";
+import { tenXAlgoData } from "./tenXAlgoData";
 
-const RandomForestAlgo = () => {
-  return (
-    <Container>
-      <CardContainer>
-        <Title>Random Forest Algo</Title>
-        <AlgoVisualizer>
-        </AlgoVisualizer>
-          <CodeBlock>
-            { ` ` }
-          </CodeBlock>
-      </CardContainer>
-    </Container>
-  );
-};
+const RandomForestAlgo = () => <TenXAlgoRenderer {...tenXAlgoData.RandomForestAlgo} />;
 
 export default RandomForestAlgo;

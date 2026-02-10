@@ -1,27 +1,7 @@
-import {
-  Container,
-  CardContainer,
-  Title,
-  AlgoVisualizer,
-  CodeBlock
-} from "../../Styled Components/styledComponents";
-
 import React from "react";
-import useStore from "../../ZustandStore";
+import TenXAlgoRenderer from "./TenXAlgoRenderer";
+import { tenXAlgoData } from "./tenXAlgoData";
 
-const RatInAMazeAlgo = () => {
-  return (
-    <Container>
-      <CardContainer>
-        <Title>Rat In A Maze Algo</Title>
-        <AlgoVisualizer>
-        </AlgoVisualizer>
-          <CodeBlock>
-            { ` ` }
-          </CodeBlock>
-      </CardContainer>
-    </Container>
-  );
-};
+const RatInAMazeAlgo = () => <TenXAlgoRenderer {...tenXAlgoData.RatInAMazeAlgo} />;
 
 export default RatInAMazeAlgo;

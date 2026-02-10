@@ -1,27 +1,7 @@
-import {
-  Container,
-  CardContainer,
-  Title,
-  AlgoVisualizer,
-  CodeBlock
-} from "../../Styled Components/styledComponents";
-
 import React from "react";
-import useStore from "../../ZustandStore";
+import TenXAlgoRenderer from "./TenXAlgoRenderer";
+import { tenXAlgoData } from "./tenXAlgoData";
 
-const PagerankAdvancedAlgo = () => {
-  return (
-    <Container>
-      <CardContainer>
-        <Title>Pagerank Advanced Algo</Title>
-        <AlgoVisualizer>
-        </AlgoVisualizer>
-          <CodeBlock>
-            { ` ` }
-          </CodeBlock>
-      </CardContainer>
-    </Container>
-  );
-};
+const PagerankAdvancedAlgo = () => <TenXAlgoRenderer {...tenXAlgoData.PagerankAdvancedAlgo} />;
 
 export default PagerankAdvancedAlgo;

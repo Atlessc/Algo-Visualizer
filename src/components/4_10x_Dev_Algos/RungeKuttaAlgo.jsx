@@ -1,27 +1,7 @@
-import {
-  Container,
-  CardContainer,
-  Title,
-  AlgoVisualizer,
-  CodeBlock
-} from "../../Styled Components/styledComponents";
-
 import React from "react";
-import useStore from "../../ZustandStore";
+import TenXAlgoRenderer from "./TenXAlgoRenderer";
+import { tenXAlgoData } from "./tenXAlgoData";
 
-const RungeKuttaAlgo = () => {
-  return (
-    <Container>
-      <CardContainer>
-        <Title>Runge Kutta Algo</Title>
-        <AlgoVisualizer>
-        </AlgoVisualizer>
-          <CodeBlock>
-            { ` ` }
-          </CodeBlock>
-      </CardContainer>
-    </Container>
-  );
-};
+const RungeKuttaAlgo = () => <TenXAlgoRenderer {...tenXAlgoData.RungeKuttaAlgo} />;
 
 export default RungeKuttaAlgo;

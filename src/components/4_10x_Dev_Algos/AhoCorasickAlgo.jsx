@@ -1,27 +1,7 @@
-import {
-  Container,
-  CardContainer,
-  Title,
-  AlgoVisualizer,
-  CodeBlock
-} from "../../Styled Components/styledComponents";
-
 import React from "react";
-import useStore from "../../ZustandStore";
+import TenXAlgoRenderer from "./TenXAlgoRenderer";
+import { tenXAlgoData } from "./tenXAlgoData";
 
-const AhoCorasickAlgo = () => {
-  return (
-    <Container>
-      <CardContainer>
-        <Title>Aho Corasick Algo</Title>
-        <AlgoVisualizer>
-        </AlgoVisualizer>
-          <CodeBlock>
-            { ` ` }
-          </CodeBlock>
-      </CardContainer>
-    </Container>
-  );
-};
+const AhoCorasickAlgo = () => <TenXAlgoRenderer {...tenXAlgoData.AhoCorasickAlgo} />;
 
 export default AhoCorasickAlgo;
