@@ -11,6 +11,11 @@ import RodCuttingAlgo from "../components/1_Beginner_Algos/RodCuttingAlgo";
 import SelectionSortAlgo from "../components/1_Beginner_Algos/SelectionSortAlgo";
 import BfsAlgo from "../components/2_Intermediate_Algos/BfsAlgo";
 import DijkstraAlgorithmAlgo from "../components/2_Intermediate_Algos/DijkstraAlgorithmAlgo";
+import EditDistanceAlgo from "../components/2_Intermediate_Algos/EditDistanceAlgo";
+import FloydWarshallAlgo from "../components/2_Intermediate_Algos/FloydWarshallAlgo";
+import HamiltonianPathAlgo from "../components/2_Intermediate_Algos/HamiltonianPathAlgo";
+import HeapSortAlgo from "../components/2_Intermediate_Algos/HeapSortAlgo";
+import JobSequencingAlgo from "../components/2_Intermediate_Algos/JobSequencingAlgo";
 import KmpAlgorithmAlgo from "../components/2_Intermediate_Algos/KmpAlgorithmAlgo";
 import KnapsackAlgo from "../components/2_Intermediate_Algos/KnapsackAlgo";
 
@@ -19,6 +24,7 @@ const Home = () => {
     () => [
       {
         title: "Beginner Algorithms",
+        folder: "1_Beginner_Algos",
         items: [
           { id: "binary-search", label: "Binary Search", component: BinarySearchAlgo },
           { id: "bubble-sort", label: "Bubble Sort", component: BubbleSortAlgo },
@@ -39,9 +45,15 @@ const Home = () => {
       },
       {
         title: "Intermediate Algorithms",
+        folder: "2_Intermediate_Algos",
         items: [
           { id: "bfs", label: "BFS", component: BfsAlgo },
           { id: "dijkstra", label: "Dijkstra's Algorithm", component: DijkstraAlgorithmAlgo },
+          { id: "edit-distance", label: "Edit Distance", component: EditDistanceAlgo },
+          { id: "floyd-warshall", label: "Floyd-Warshall Algorithm", component: FloydWarshallAlgo },
+          { id: "hamiltonian-path", label: "Hamiltonian Path", component: HamiltonianPathAlgo },
+          { id: "heap-sort", label: "Heap Sort", component: HeapSortAlgo },
+          { id: "job-sequencing", label: "Job Sequencing", component: JobSequencingAlgo },
           { id: "kmp", label: "KMP Algorithm", component: KmpAlgorithmAlgo },
           { id: "knapsack", label: "Knapsack Problem", component: KnapsackAlgo },
         ],
@@ -115,18 +127,34 @@ const Home = () => {
   return (
     <div className="home-with-toc">
       <aside className="toc-sidebar">
-        <h3>Algorithms</h3>
+        <h3>Algorithms By Folder</h3>
         <nav aria-label="Algorithm table of contents">
-          {allItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={activeId === item.id ? "active" : ""}
-              aria-current={activeId === item.id ? "true" : undefined}
-              onClick={() => setActiveId(item.id)}
-            >
-              {item.label}
-            </a>
+          {sections.map((section) => (
+            <div key={`toc-${section.folder}`} style={{ display: "flex", flexDirection: "column", }}>
+              <p
+                style={{
+                  margin: "0.45rem 0 0.2rem",
+                  fontSize: "0.74rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.04em",
+                  textTransform: "uppercase",
+                  color: "#64748b",
+                }}
+              >
+                {section.title}
+              </p>
+              {section.items.map((item) => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className={activeId === item.id ? "active" : ""}
+                  aria-current={activeId === item.id ? "true" : undefined}
+                  onClick={() => setActiveId(item.id)}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
           ))}
         </nav>
       </aside>
@@ -144,6 +172,16 @@ const Home = () => {
         {sections.map((section) => (
           <section className="algo-section" key={section.title}>
             <h3>{section.title}</h3>
+            <p
+              style={{
+                margin: "0 0 0.35rem",
+                color: "#64748b",
+                fontSize: "0.84rem",
+                fontWeight: 600,
+              }}
+            >
+              Folder: {section.folder}
+            </p>
             {section.items.map((item) => {
               const AlgoComponent = item.component;
               return (
