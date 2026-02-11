@@ -281,6 +281,7 @@ input[type="text"] {
 /* Shared responsive helpers for algorithm visual blocks */
 .algo-card {
   overflow: hidden;
+  min-width: 0;
 }
 
 .algo-card svg {
@@ -288,22 +289,28 @@ input[type="text"] {
   height: auto;
 }
 
-.algo-card table {
-  width: 100%;
+.algo-card-content {
+  min-width: 0;
 }
 
-.algo-card [style*="overflow-x: auto"] {
-  width: 100%;
+.algo-card table {
+  border-collapse: collapse;
 }
 
 .algo-visualizer {
   width: 100%;
+  min-width: 0;
 }
 
-.algo-visualizer .algo-scroll-x {
+.algo-scroll-x {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+.algo-scroll-x-center {
+  display: flex;
+  justify-content: center;
 }
 
 .algo-split {
@@ -537,21 +544,6 @@ input[type="text"] {
     font-size: 0.9rem;
   }
 
-  .algo-card [style*="font-size: 16px"] {
-    font-size: 0.95rem !important;
-  }
-
-  .algo-card [style*="font-size: 14px"] {
-    font-size: 0.88rem !important;
-  }
-
-  .algo-card [style*="font-size: 13px"] {
-    font-size: 0.82rem !important;
-  }
-
-  .algo-card [style*="font-size: 12px"] {
-    font-size: 0.76rem !important;
-  }
 }
 
 @media (max-width: 420px) {

@@ -1,98 +1,111 @@
 import { useEffect, useMemo, useState } from "react";
 import BinarySearchAlgo from "../components/1_Beginner_Algos/BinarySearchAlgo";
-import BubbleSortAlgo from "../components/1_Beginner_Algos/BubbleSortAlgo";
-import CountingSortAlgo from "../components/1_Beginner_Algos/CountingSortAlgo";
-import EuclideanAlgorithmAlgo from "../components/1_Beginner_Algos/EuclideanAlgorithmAlgo";
-import FibonacciSequenceIterativeAlgo from "../components/1_Beginner_Algos/FibonacciSequenceIterativeAlgo";
-import GcdLcmAlgo from "../components/1_Beginner_Algos/GcdLcmAlgo";
-import InsertionSortAlgo from "../components/1_Beginner_Algos/InsertionSortAlgo";
-import LinearSearchAlgo from "../components/1_Beginner_Algos/LinearSearchAlgo";
-import RodCuttingAlgo from "../components/1_Beginner_Algos/RodCuttingAlgo";
-import SelectionSortAlgo from "../components/1_Beginner_Algos/SelectionSortAlgo";
-import BfsAlgo from "../components/2_Intermediate_Algos/BfsAlgo";
-import DijkstraAlgorithmAlgo from "../components/2_Intermediate_Algos/DijkstraAlgorithmAlgo";
-import EditDistanceAlgo from "../components/2_Intermediate_Algos/EditDistanceAlgo";
-import FloydWarshallAlgo from "../components/2_Intermediate_Algos/FloydWarshallAlgo";
-import HamiltonianPathAlgo from "../components/2_Intermediate_Algos/HamiltonianPathAlgo";
-import HeapSortAlgo from "../components/2_Intermediate_Algos/HeapSortAlgo";
-import JobSequencingAlgo from "../components/2_Intermediate_Algos/JobSequencingAlgo";
+// import BubbleSortAlgo from "../components/1_Beginner_Algos/BubbleSortAlgo";
+// import CountingSortAlgo from "../components/1_Beginner_Algos/CountingSortAlgo";
+// import EuclideanAlgorithmAlgo from "../components/1_Beginner_Algos/EuclideanAlgorithmAlgo";
+// import FibonacciSequenceIterativeAlgo from "../components/1_Beginner_Algos/FibonacciSequenceIterativeAlgo";
+// import GcdLcmAlgo from "../components/1_Beginner_Algos/GcdLcmAlgo";
+// import InsertionSortAlgo from "../components/1_Beginner_Algos/InsertionSortAlgo";
+// import LinearSearchAlgo from "../components/1_Beginner_Algos/LinearSearchAlgo";
+// import RodCuttingAlgo from "../components/1_Beginner_Algos/RodCuttingAlgo";
+// import SelectionSortAlgo from "../components/1_Beginner_Algos/SelectionSortAlgo";
+// import BfsAlgo from "../components/2_Intermediate_Algos/BfsAlgo";
+// import DijkstraAlgorithmAlgo from "../components/2_Intermediate_Algos/DijkstraAlgorithmAlgo";
+// import EditDistanceAlgo from "../components/2_Intermediate_Algos/EditDistanceAlgo";
+// import FloydWarshallAlgo from "../components/2_Intermediate_Algos/FloydWarshallAlgo";
+// import HamiltonianPathAlgo from "../components/2_Intermediate_Algos/HamiltonianPathAlgo";
+// import HeapSortAlgo from "../components/2_Intermediate_Algos/HeapSortAlgo";
+// import JobSequencingAlgo from "../components/2_Intermediate_Algos/JobSequencingAlgo";
 import KmpAlgorithmAlgo from "../components/2_Intermediate_Algos/KmpAlgorithmAlgo";
-import KnightsTourAlgo from "../components/2_Intermediate_Algos/KnightsTourAlgo";
+// import KnightsTourAlgo from "../components/2_Intermediate_Algos/KnightsTourAlgo";
 import KnapsackAlgo from "../components/2_Intermediate_Algos/KnapsackAlgo";
-import LevenshteinDistanceAlgo from "../components/2_Intermediate_Algos/LevenshteinDistanceAlgo";
-import LongestCommonSubsequenceAlgo from "../components/2_Intermediate_Algos/LongestCommonSubsequenceAlgo";
-import MatrixChainMultiplicationAlgo from "../components/2_Intermediate_Algos/MatrixChainMultiplicationAlgo";
-import ModularExponentiationAlgo from "../components/2_Intermediate_Algos/ModularExponentiationAlgo";
-import NQueensAlgo from "../components/2_Intermediate_Algos/NQueensAlgo";
-import RabinKarpAlgorithmAlgo from "../components/2_Intermediate_Algos/RabinKarpAlgorithmAlgo";
-import SudokuSolverAlgo from "../components/2_Intermediate_Algos/SudokuSolverAlgo";
-import SuffixTreeConstructionAlgo from "../components/2_Intermediate_Algos/SuffixTreeConstructionAlgo";
-import TrieOperationsAlgo from "../components/2_Intermediate_Algos/TrieOperationsAlgo";
-import ZAlgorithmAlgo from "../components/2_Intermediate_Algos/ZAlgorithmAlgo";
-import AvlTreeRotationsAlgo from "../components/3_Advanced_Algos/AvlTreeRotationsAlgo";
-import ChineseRemainderTheoremAlgo from "../components/3_Advanced_Algos/ChineseRemainderTheoremAlgo";
-import CombinationSumAlgo from "../components/3_Advanced_Algos/CombinationSumAlgo";
-import DijkstraPriorityQueueAlgo from "../components/3_Advanced_Algos/DijkstraPriorityQueueAlgo";
-import FenwickTreeAlgo from "../components/3_Advanced_Algos/FenwickTreeAlgo";
-import FermatsTheoremAlgo from "../components/3_Advanced_Algos/FermatsTheoremAlgo";
-import JohnsonsAlgorithmAlgo from "../components/3_Advanced_Algos/JohnsonsAlgorithmAlgo";
-import KMeansClusteringAlgo from "../components/3_Advanced_Algos/KMeansClusteringAlgo";
-import KaratsubaAlgorithmAlgo from "../components/3_Advanced_Algos/KaratsubaAlgorithmAlgo";
-import KruskalDisjointSetAlgo from "../components/3_Advanced_Algos/KruskalDisjointSetAlgo";
-import LowestCommonAncestorAlgo from "../components/3_Advanced_Algos/LowestCommonAncestorAlgo";
-import LongestIncreasingSubsequenceAlgo from "../components/3_Advanced_Algos/LongestIncreasingSubsequenceAlgo";
-import ManachersAlgorithmAlgo from "../components/3_Advanced_Algos/ManachersAlgorithmAlgo";
-import MillerRabinAlgo from "../components/3_Advanced_Algos/MillerRabinAlgo";
+// import LevenshteinDistanceAlgo from "../components/2_Intermediate_Algos/LevenshteinDistanceAlgo";
+// import LongestCommonSubsequenceAlgo from "../components/2_Intermediate_Algos/LongestCommonSubsequenceAlgo";
+// import MatrixChainMultiplicationAlgo from "../components/2_Intermediate_Algos/MatrixChainMultiplicationAlgo";
+// import ModularExponentiationAlgo from "../components/2_Intermediate_Algos/ModularExponentiationAlgo";
+// import NQueensAlgo from "../components/2_Intermediate_Algos/NQueensAlgo";
+// import RabinKarpAlgorithmAlgo from "../components/2_Intermediate_Algos/RabinKarpAlgorithmAlgo";
+// import SudokuSolverAlgo from "../components/2_Intermediate_Algos/SudokuSolverAlgo";
+// import SuffixTreeConstructionAlgo from "../components/2_Intermediate_Algos/SuffixTreeConstructionAlgo";
+// import TrieOperationsAlgo from "../components/2_Intermediate_Algos/TrieOperationsAlgo";
+// import ZAlgorithmAlgo from "../components/2_Intermediate_Algos/ZAlgorithmAlgo";
+// import AvlTreeRotationsAlgo from "../components/3_Advanced_Algos/AvlTreeRotationsAlgo";
+// import ChineseRemainderTheoremAlgo from "../components/3_Advanced_Algos/ChineseRemainderTheoremAlgo";
+// import CombinationSumAlgo from "../components/3_Advanced_Algos/CombinationSumAlgo";
+// import DijkstraPriorityQueueAlgo from "../components/3_Advanced_Algos/DijkstraPriorityQueueAlgo";
+// import FenwickTreeAlgo from "../components/3_Advanced_Algos/FenwickTreeAlgo";
+// import FermatsTheoremAlgo from "../components/3_Advanced_Algos/FermatsTheoremAlgo";
+// import JohnsonsAlgorithmAlgo from "../components/3_Advanced_Algos/JohnsonsAlgorithmAlgo";
+// import KMeansClusteringAlgo from "../components/3_Advanced_Algos/KMeansClusteringAlgo";
+// import KaratsubaAlgorithmAlgo from "../components/3_Advanced_Algos/KaratsubaAlgorithmAlgo";
+// import KruskalDisjointSetAlgo from "../components/3_Advanced_Algos/KruskalDisjointSetAlgo";
+// import LowestCommonAncestorAlgo from "../components/3_Advanced_Algos/LowestCommonAncestorAlgo";
+// import LongestIncreasingSubsequenceAlgo from "../components/3_Advanced_Algos/LongestIncreasingSubsequenceAlgo";
+// import ManachersAlgorithmAlgo from "../components/3_Advanced_Algos/ManachersAlgorithmAlgo";
+// import MillerRabinAlgo from "../components/3_Advanced_Algos/MillerRabinAlgo";
 import MinimumSpanningTreeAlgo from "../components/3_Advanced_Algos/MinimumSpanningTreeAlgo";
-import KosarajuAlgorithmAlgo from "../components/3_Advanced_Algos/KosarajuAlgorithmAlgo";
-import PagerankAlgorithmAlgo from "../components/3_Advanced_Algos/PagerankAlgorithmAlgo";
-import PermutationGenerationAlgo from "../components/3_Advanced_Algos/PermutationGenerationAlgo";
-import RedBlackTreeAlgo from "../components/3_Advanced_Algos/RedBlackTreeAlgo";
-import SegmentTreeAlgo from "../components/3_Advanced_Algos/SegmentTreeAlgo";
-import SieveOfEratosthenesAlgo from "../components/3_Advanced_Algos/SieveOfEratosthenesAlgo";
-import SplayTreeAlgo from "../components/3_Advanced_Algos/SplayTreeAlgo";
-import SubsetSumAlgo from "../components/3_Advanced_Algos/SubsetSumAlgo";
-import SuffixArrayConstructionAlgo from "../components/3_Advanced_Algos/SuffixArrayConstructionAlgo";
-import TarjanAlgorithmAlgo from "../components/3_Advanced_Algos/TarjanAlgorithmAlgo";
-import IntervalSchedulingMaximizationAlgo from "../components/3_Advanced_Algos/IntervalSchedulingMaximizationAlgo";
-import FftAlgo from "../components/3_Advanced_Algos/FftAlgo";
+// import KosarajuAlgorithmAlgo from "../components/3_Advanced_Algos/KosarajuAlgorithmAlgo";
+// import PagerankAlgorithmAlgo from "../components/3_Advanced_Algos/PagerankAlgorithmAlgo";
+// import PermutationGenerationAlgo from "../components/3_Advanced_Algos/PermutationGenerationAlgo";
+// import RedBlackTreeAlgo from "../components/3_Advanced_Algos/RedBlackTreeAlgo";
+// import SegmentTreeAlgo from "../components/3_Advanced_Algos/SegmentTreeAlgo";
+// import SieveOfEratosthenesAlgo from "../components/3_Advanced_Algos/SieveOfEratosthenesAlgo";
+// import SplayTreeAlgo from "../components/3_Advanced_Algos/SplayTreeAlgo";
+// import SubsetSumAlgo from "../components/3_Advanced_Algos/SubsetSumAlgo";
+// import SuffixArrayConstructionAlgo from "../components/3_Advanced_Algos/SuffixArrayConstructionAlgo";
+// import TarjanAlgorithmAlgo from "../components/3_Advanced_Algos/TarjanAlgorithmAlgo";
+// import IntervalSchedulingMaximizationAlgo from "../components/3_Advanced_Algos/IntervalSchedulingMaximizationAlgo";
+// import FftAlgo from "../components/3_Advanced_Algos/FftAlgo";
 import AhoCorasickAlgo from "../components/4_10x_Dev_Algos/AhoCorasickAlgo";
-import AlphaBetaPruningAlgo from "../components/4_10x_Dev_Algos/AlphaBetaPruningAlgo";
-import BoyerMooreAlgo from "../components/4_10x_Dev_Algos/BoyerMooreAlgo";
-import ConvexHullAlgo from "../components/4_10x_Dev_Algos/ConvexHullAlgo";
-import DecisionTreeAlgo from "../components/4_10x_Dev_Algos/DecisionTreeAlgo";
-import EggDroppingPuzzleAlgo from "../components/4_10x_Dev_Algos/EggDroppingPuzzleAlgo";
-import FortuneAlgorithmAlgo from "../components/4_10x_Dev_Algos/FortuneAlgorithmAlgo";
-import GeneticAlgorithmAlgo from "../components/4_10x_Dev_Algos/GeneticAlgorithmAlgo";
-import GrahamScanAlgo from "../components/4_10x_Dev_Algos/GrahamScanAlgo";
-import HamiltonianPathBacktrackingAlgo from "../components/4_10x_Dev_Algos/HamiltonianPathBacktrackingAlgo";
-import JarvisMarchAlgo from "../components/4_10x_Dev_Algos/JarvisMarchAlgo";
-import KmpAdvancedAlgo from "../components/4_10x_Dev_Algos/KmpAdvancedAlgo";
-import LineIntersectionAlgo from "../components/4_10x_Dev_Algos/LineIntersectionAlgo";
-import ManachersAdvancedAlgo from "../components/4_10x_Dev_Algos/ManachersAdvancedAlgo";
-import MinimaxAlgo from "../components/4_10x_Dev_Algos/MinimaxAlgo";
-import NQueensBacktrackingAlgo from "../components/4_10x_Dev_Algos/NQueensBacktrackingAlgo";
-import NaiveBayesAlgo from "../components/4_10x_Dev_Algos/NaiveBayesAlgo";
-import NeuralNetworkBackpropagationAlgo from "../components/4_10x_Dev_Algos/NeuralNetworkBackpropagationAlgo";
-import PagerankAdvancedAlgo from "../components/4_10x_Dev_Algos/PagerankAdvancedAlgo";
-import PcaAlgo from "../components/4_10x_Dev_Algos/PcaAlgo";
-import RabinKarpHashingAlgo from "../components/4_10x_Dev_Algos/RabinKarpHashingAlgo";
-import RandomForestAlgo from "../components/4_10x_Dev_Algos/RandomForestAlgo";
-import RatInAMazeAlgo from "../components/4_10x_Dev_Algos/RatInAMazeAlgo";
-import RungeKuttaAlgo from "../components/4_10x_Dev_Algos/RungeKuttaAlgo";
-import SimpsonsRuleAlgo from "../components/4_10x_Dev_Algos/SimpsonsRuleAlgo";
-import SpfaAlgorithmAlgo from "../components/4_10x_Dev_Algos/SpfaAlgorithmAlgo";
-import SudokuSolverBacktrackingAlgo from "../components/4_10x_Dev_Algos/SudokuSolverBacktrackingAlgo";
-import SvmAlgo from "../components/4_10x_Dev_Algos/SvmAlgo";
-import TarjanSccAlgo from "../components/4_10x_Dev_Algos/TarjanSccAlgo";
-import UkkonenSuffixTreeAlgo from "../components/4_10x_Dev_Algos/UkkonenSuffixTreeAlgo";
-import VoronoiDiagramsAlgo from "../components/4_10x_Dev_Algos/VoronoiDiagramsAlgo";
-import WordBreakDpAlgo from "../components/4_10x_Dev_Algos/WordBreakDpAlgo";
-import ZAlgorithmAdvancedAlgo from "../components/4_10x_Dev_Algos/ZAlgorithmAdvancedAlgo";
+// import AlphaBetaPruningAlgo from "../components/4_10x_Dev_Algos/AlphaBetaPruningAlgo";
+// import BoyerMooreAlgo from "../components/4_10x_Dev_Algos/BoyerMooreAlgo";
+// import ConvexHullAlgo from "../components/4_10x_Dev_Algos/ConvexHullAlgo";
+// import DecisionTreeAlgo from "../components/4_10x_Dev_Algos/DecisionTreeAlgo";
+// import EggDroppingPuzzleAlgo from "../components/4_10x_Dev_Algos/EggDroppingPuzzleAlgo";
+// import FortuneAlgorithmAlgo from "../components/4_10x_Dev_Algos/FortuneAlgorithmAlgo";
+// import GeneticAlgorithmAlgo from "../components/4_10x_Dev_Algos/GeneticAlgorithmAlgo";
+// import GrahamScanAlgo from "../components/4_10x_Dev_Algos/GrahamScanAlgo";
+// import HamiltonianPathBacktrackingAlgo from "../components/4_10x_Dev_Algos/HamiltonianPathBacktrackingAlgo";
+// import JarvisMarchAlgo from "../components/4_10x_Dev_Algos/JarvisMarchAlgo";
+// import KmpAdvancedAlgo from "../components/4_10x_Dev_Algos/KmpAdvancedAlgo";
+// import LineIntersectionAlgo from "../components/4_10x_Dev_Algos/LineIntersectionAlgo";
+// import ManachersAdvancedAlgo from "../components/4_10x_Dev_Algos/ManachersAdvancedAlgo";
+// import MinimaxAlgo from "../components/4_10x_Dev_Algos/MinimaxAlgo";
+// import NQueensBacktrackingAlgo from "../components/4_10x_Dev_Algos/NQueensBacktrackingAlgo";
+// import NaiveBayesAlgo from "../components/4_10x_Dev_Algos/NaiveBayesAlgo";
+// import NeuralNetworkBackpropagationAlgo from "../components/4_10x_Dev_Algos/NeuralNetworkBackpropagationAlgo";
+// import PagerankAdvancedAlgo from "../components/4_10x_Dev_Algos/PagerankAdvancedAlgo";
+// import PcaAlgo from "../components/4_10x_Dev_Algos/PcaAlgo";
+// import RabinKarpHashingAlgo from "../components/4_10x_Dev_Algos/RabinKarpHashingAlgo";
+// import RandomForestAlgo from "../components/4_10x_Dev_Algos/RandomForestAlgo";
+// import RatInAMazeAlgo from "../components/4_10x_Dev_Algos/RatInAMazeAlgo";
+// import RungeKuttaAlgo from "../components/4_10x_Dev_Algos/RungeKuttaAlgo";
+// import SimpsonsRuleAlgo from "../components/4_10x_Dev_Algos/SimpsonsRuleAlgo";
+// import SpfaAlgorithmAlgo from "../components/4_10x_Dev_Algos/SpfaAlgorithmAlgo";
+// import SudokuSolverBacktrackingAlgo from "../components/4_10x_Dev_Algos/SudokuSolverBacktrackingAlgo";
+// import SvmAlgo from "../components/4_10x_Dev_Algos/SvmAlgo";
+// import TarjanSccAlgo from "../components/4_10x_Dev_Algos/TarjanSccAlgo";
+// import UkkonenSuffixTreeAlgo from "../components/4_10x_Dev_Algos/UkkonenSuffixTreeAlgo";
+// import VoronoiDiagramsAlgo from "../components/4_10x_Dev_Algos/VoronoiDiagramsAlgo";
+// import WordBreakDpAlgo from "../components/4_10x_Dev_Algos/WordBreakDpAlgo";
+// import ZAlgorithmAdvancedAlgo from "../components/4_10x_Dev_Algos/ZAlgorithmAdvancedAlgo";
 
 const Home = () => {
   const sections = useMemo(
     () => [
+      {
+        title: "Temporary Active Algorithms",
+        folder: "temp_mobile_focus",
+        items: [
+          { id: "binary-search", label: "Binary Search", component: BinarySearchAlgo },
+          { id: "kmp", label: "KMP Algorithm", component: KmpAlgorithmAlgo },
+          { id: "knapsack", label: "Knapsack Problem", component: KnapsackAlgo },
+          { id: "minimum-spanning-tree", label: "Minimum Spanning Tree", component: MinimumSpanningTreeAlgo },
+          { id: "aho-corasick", label: "Aho-Corasick", component: AhoCorasickAlgo },
+        ],
+      },
+
+      /*
       {
         title: "Beginner Algorithms",
         folder: "1_Beginner_Algos",
@@ -212,6 +225,7 @@ const Home = () => {
           { id: "z-algorithm-advanced", label: "Z Algorithm (Advanced)", component: ZAlgorithmAdvancedAlgo },
         ],
       },
+      */
     ],
     []
   );

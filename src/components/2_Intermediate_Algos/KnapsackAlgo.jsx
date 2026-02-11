@@ -4,6 +4,7 @@ import {
   CardContainer,
   Title,
   AlgoVisualizer,
+  AlgoVisualizerScroll,
   CodeBlock,
   Para
 } from "../Styled Components/styledComponents";
@@ -180,7 +181,7 @@ const KnapsackAlgo = () => {
 
         <AlgoVisualizer>
           <div className="algo-split">
-            <div className="algo-pane-main-wide" style={{ overflowX: "auto" }}>
+            <AlgoVisualizerScroll className="algo-pane-main-wide">
               <table style={{ borderCollapse: "collapse", minWidth: "min(100%, 520px)" }}>
                 <thead>
                   <tr>
@@ -236,7 +237,7 @@ const KnapsackAlgo = () => {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </AlgoVisualizerScroll>
 
             <div className="algo-pane-side">
               <div style={{ marginBottom: "12px" }}>

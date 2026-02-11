@@ -4,6 +4,7 @@ import {
   CardContainer,
   Title,
   AlgoVisualizer,
+  AlgoVisualizerScroll,
   CodeBlock,
   Para
 } from "../Styled Components/styledComponents";
@@ -272,7 +273,7 @@ const KmpAlgorithmAlgo = () => {
               <div style={{ marginBottom: "10px", color: "#4b5563", fontWeight: "600" }}>
                 Search alignment:
               </div>
-              <div style={{ overflowX: "auto", paddingBottom: "6px" }}>
+              <AlgoVisualizerScroll style={{ paddingBottom: "6px" }}>
                 <div style={{ minWidth: `${SAMPLE_TEXT.length * 34}px` }}>
                   <div style={{ display: "flex", gap: "6px", marginBottom: "8px" }}>
                     {SAMPLE_TEXT.split("").map((char, idx) => {
@@ -336,7 +337,7 @@ const KmpAlgorithmAlgo = () => {
                     })}
                   </div>
                 </div>
-              </div>
+              </AlgoVisualizerScroll>
             </div>
 
             <div className="algo-pane-side-wide">
