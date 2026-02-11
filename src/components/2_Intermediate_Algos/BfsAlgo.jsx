@@ -190,7 +190,7 @@ const BfsAlgo = ({ autoPlay = true, compact = false }) => {
                 width="100%"
                 viewBox="0 0 600 240"
                 preserveAspectRatio="xMidYMid meet"
-                className="mx-auto h-auto w-full max-w-[720px]"
+                className="mx-auto h-auto w-full max-w-180"
               >
                 {graphData.edges.map((edge) => {
                   const from = nodesById[edge.from];

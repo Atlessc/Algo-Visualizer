@@ -1,10 +1,10 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { cn } from "../lib/utils";
 
-function NavBar() {
+function NavBar({ onOpenAlgorithms, showAlgorithmsButton = false }) {
   return (
     <nav
       data-nav-root="true"
@@ -19,6 +19,19 @@ function NavBar() {
         </h1>
       </div>
       <div className="flex flex-wrap items-center gap-2 max-[420px]:w-full max-[420px]:justify-center">
+        {showAlgorithmsButton ? (
+          <Button
+            type="button"
+            size="sm"
+            variant="secondary"
+            className="min-[1081px]:hidden"
+            onClick={onOpenAlgorithms}
+            aria-haspopup="dialog"
+            aria-controls="mobile-toc-sidebar"
+          >
+            Algorithms
+          </Button>
+        ) : null}
         <Link to="/" className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-slate-600")}>
           Home
         </Link>

@@ -106,7 +106,7 @@ const PROJECT_FOLDER_LABELS = {
   "4_10x_Dev_Algos": "10x Dev Algorithms",
 };
 
-const Home = () => {
+const Home = ({ isTocOpen = false, setIsTocOpen = () => {} }) => {
   const sections = useMemo(
     () => [
       {
@@ -388,7 +388,6 @@ const Home = () => {
     []
   );
 
-  const allItems = useMemo(() => sections.flatMap((section) => section.items), [sections]);
   const tocGroups = useMemo(() => {
     const grouped = new Map(PROJECT_FOLDERS.map((folder) => [folder, []]));
 
@@ -412,9 +411,9 @@ const Home = () => {
       }))
       .filter((group) => group.items.length > 0);
   }, [sections]);
+  const allItems = useMemo(() => tocGroups.flatMap((group) => group.items), [tocGroups]);
   const allItemIds = useMemo(() => allItems.map((item) => item.id), [allItems]);
   const [activeId, setActiveId] = useState(allItems[0]?.id ?? "");
-  const [isTocOpen, setIsTocOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== "undefined" ? window.matchMedia("(max-width: 1080px)").matches : false
   );
@@ -624,16 +623,6 @@ const Home = () => {
       </aside>
 
       <div className="flex min-w-0 flex-col gap-4">
-        <Button
-          className="mb-1 hidden w-fit max-w-full self-start max-[1080px]:inline-flex max-[420px]:w-full"
-          onClick={() => setIsTocOpen(true)}
-          aria-haspopup="dialog"
-          aria-expanded={isTocOpen}
-          aria-controls="mobile-toc-sidebar"
-        >
-          Browse Algorithms
-        </Button>
-
         <section className="rounded-[18px] border border-slate-300/70 bg-gradient-to-b from-white/95 to-white/80 p-4 shadow-lg sm:p-5">
           <p className="m-0 text-[0.8rem] font-bold uppercase tracking-[0.08em] text-blue-700">
             Algorithm Playground
@@ -647,14 +636,11 @@ const Home = () => {
           </p>
         </section>
 
-        {sections.map((section) => (
-          <section className="flex min-w-0 flex-col gap-2" key={section.title}>
+        {tocGroups.map((section) => (
+          <section className="flex min-w-0 flex-col gap-2" key={section.folder}>
             <h3 className="m-0 mt-1 text-[1.1rem] font-semibold text-slate-900 max-[700px]:text-[1.03rem]">
               {section.title}
             </h3>
-            <p className="m-0 mb-1 text-[0.84rem] font-semibold text-slate-500">
-              Folder: {section.folder}
-            </p>
             {section.items.map((item) => {
               const AlgoComponent = item.component;
               const expanded = isItemExpanded(item.id);
