@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const POINTS = [
   [80, 90], [95, 75], [110, 100], [130, 85],
@@ -27,11 +28,15 @@ const buildSteps = () => {
   return steps;
 };
 
-const KMeansClusteringAlgo = () => {
+const KMeansClusteringAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -45,13 +50,31 @@ const KMeansClusteringAlgo = () => {
         <Title>K-Means Clustering</Title>
         <Para>Unsupervised clustering: assign each point to nearest centroid, then recompute centroids.</Para>
         <Para>{step.msg}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox="0 0 420 190" preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "700px", height: "auto" }}>
+          <svg
+            width="100%"
+            viewBox="0 0 420 190"
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[700px]"
+          >
             <rect x="0" y="0" width="420" height="190" fill="#f8fafc" rx="10" />
             {POINTS.map((p, i) => (
               <circle key={i} cx={p[0]} cy={p[1]} r="7" fill={COLORS[step.assign[i]]} />

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const DIMS = [40, 20, 30, 10, 30]; // A1=40x20, A2=20x30, A3=30x10, A4=10x30
 
@@ -23,10 +24,10 @@ const buildSteps = () => {
   return steps;
 };
 
-const MatrixChainMultiplicationAlgo = () => {
+const MatrixChainMultiplicationAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
   const n = DIMS.length - 1;
 
@@ -36,6 +37,10 @@ const MatrixChainMultiplicationAlgo = () => {
     return () => clearInterval(id);
   }, [isPlaying, stepIndex, steps.length]);
 
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
+
   return (
     <Container>
       <CardContainer>
@@ -43,40 +48,48 @@ const MatrixChainMultiplicationAlgo = () => {
         <Para>DP chooses parenthesization minimizing scalar multiplications.</Para>
         <Para>Matrices: A1(40×20), A2(20×30), A3(30×10), A4(10×30)</Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <Button size={compact ? "sm" : "default"} variant="secondary" onClick={() => setIsPlaying((p) => !p)}>
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="outline"
+            onClick={() => {
+              setStepIndex(0);
+              setIsPlaying(autoPlay);
+            }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <div style={{ overflowX: "auto", width: "100%" }}>
-            <table style={{ borderCollapse: "collapse", margin: "0 auto", minWidth: "min(100%, 420px)" }}>
+          <div className="w-full overflow-x-auto">
+            <table className="mx-auto border-collapse" style={{ minWidth: compact ? "360px" : "420px" }}>
               <thead>
                 <tr>
-                  <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}>i\j</th>
+                  <th className="border border-slate-300 p-1.5">i\j</th>
                   {Array.from({ length: n }, (_, j) => (
-                    <th key={j} style={{ border: "1px solid #cbd5e1", padding: "6px" }}>{j + 1}</th>
+                    <th key={j} className="border border-slate-300 p-1.5">{j + 1}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {Array.from({ length: n }, (_, i) => (
                   <tr key={i}>
-                    <th style={{ border: "1px solid #cbd5e1", padding: "6px", background: "#f1f5f9" }}>{i + 1}</th>
+                    <th className="border border-slate-300 bg-slate-100 p-1.5">{i + 1}</th>
                     {Array.from({ length: n }, (_, j) => {
                       const active = i === step.i && j === step.j;
                       const val = step.m[i][j];
                       return (
                         <td
                           key={`${i}-${j}`}
+                          className="border border-slate-300 p-1.5 text-center font-bold"
                           style={{
-                            border: "1px solid #cbd5e1",
-                            padding: "6px",
-                            textAlign: "center",
-                            minWidth: "min(100%, 40px)",
+                            minWidth: compact ? "34px" : "40px",
                             background: active ? "#0ea5e9" : "#fff",
-                            color: active ? "#fff" : "#0f172a",
-                            fontWeight: 700,
+                            color: active ? "#fff" : "#0f172a"
                           }}
                         >
                           {j < i ? "-" : Number.isFinite(val) ? val : "∞"}

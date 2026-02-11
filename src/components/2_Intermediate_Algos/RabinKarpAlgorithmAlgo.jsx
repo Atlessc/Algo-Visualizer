@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const TEXT = "ABCCDDAEFG";
 const PATTERN = "CDD";
@@ -38,11 +40,15 @@ const buildSteps = () => {
   return steps;
 };
 
-const RabinKarpAlgorithmAlgo = () => {
+const RabinKarpAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -56,33 +62,62 @@ const RabinKarpAlgorithmAlgo = () => {
         <Title>Rabin-Karp Algorithm</Title>
         <Para>Compares rolling hash of each text window with pattern hash, then verifies if needed.</Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
         <Para>Pattern: "{PATTERN}" | Pattern hash: {step.pHash} | Window hash: {step.tHash}</Para>
 
         <AlgoVisualizer>
-          <div style={{ overflowX: "auto", width: "100%" }}>
-            <div style={{ minWidth: `${TEXT.length * 38}px`, width: "fit-content", margin: "0 auto" }}>
-              <div style={{ display: "flex", gap: "6px", marginBottom: "8px" }}>
+          <div className="w-full overflow-x-auto">
+            <div className="mx-auto w-fit" style={{ minWidth: `${TEXT.length * 38}px` }}>
+              <div className="mb-2 flex gap-1.5">
                 {TEXT.split("").map((ch, idx) => {
                   const inWindow = idx >= step.i && idx < step.i + PATTERN.length;
                   const matchCell = inWindow && PATTERN[idx - step.i] === ch && step.equalHash;
                   const bg = inWindow ? (matchCell ? "#16a34a" : "#f59e0b") : "#d1d5db";
                   return (
-                    <div key={idx} style={{ width: "32px", height: "32px", borderRadius: "6px", background: bg, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700 }}>
+                    <div
+                      key={idx}
+                      className={cn(
+                        "flex h-8 w-8 items-center justify-center rounded-md text-sm font-bold text-white",
+                        compact && "h-7 w-7 text-xs"
+                      )}
+                      style={{ background: bg }}
+                    >
                       {ch}
                     </div>
                   );
                 })}
               </div>
-              <div style={{ display: "flex", gap: "6px" }}>
+              <div className="flex gap-1.5">
                 {TEXT.split("").map((_, idx) => {
                   const rel = idx - step.i;
                   const show = rel >= 0 && rel < PATTERN.length;
                   return (
-                    <div key={`p-${idx}`} style={{ width: "32px", height: "32px", borderRadius: "6px", background: show ? "#0ea5e9" : "transparent", color: show ? "#fff" : "transparent", border: show ? "1px solid #93c5fd" : "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700 }}>
+                    <div
+                      key={`p-${idx}`}
+                      className={cn(
+                        "flex h-8 w-8 items-center justify-center rounded-md border text-sm font-bold",
+                        compact && "h-7 w-7 text-xs",
+                        show
+                          ? "border-sky-300 bg-sky-500 text-white"
+                          : "border-transparent bg-transparent text-transparent"
+                      )}
+                    >
                       {show ? PATTERN[rel] : "_"}
                     </div>
                   );

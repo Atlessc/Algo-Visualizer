@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const SCENARIOS = [
   {
@@ -37,7 +39,7 @@ const drawTree = (nodes, edges, offsetY = 0) => {
   );
 };
 
-const AvlTreeRotationsAlgo = () => {
+const AvlTreeRotationsAlgo = ({ compact = false }) => {
   const [idx, setIdx] = useState(0);
   const s = SCENARIOS[idx];
 
@@ -46,17 +48,29 @@ const AvlTreeRotationsAlgo = () => {
       <CardContainer>
         <Title>AVL Tree Rotations</Title>
         <Para>AVL rebalances BST by rotations when balance factor becomes -1/0/+1 violated.</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           {SCENARIOS.map((sc, i) => (
-            <button key={sc.name} type="button" onClick={() => setIdx(i)} style={{ opacity: idx === i ? 1 : 0.8 }}>
+            <Button
+              key={sc.name}
+              type="button"
+              size={compact ? "sm" : "default"}
+              variant={idx === i ? "default" : "outline"}
+              className={cn(idx === i ? "" : "opacity-80")}
+              onClick={() => setIdx(i)}
+            >
               {sc.name}
-            </button>
+            </Button>
           ))}
         </div>
         <Para>{s.note}</Para>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox="0 0 360 520" preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "500px", height: "auto" }}>
+          <svg
+            width="100%"
+            viewBox="0 0 360 520"
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[500px]"
+          >
             <text x="18" y="20" fill="#0f172a" fontWeight="700">Before</text>
             {drawTree(s.before, s.edgesB, 20)}
             <line x1="20" y1="250" x2="340" y2="250" stroke="#cbd5e1" strokeDasharray="4 4" />

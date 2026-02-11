@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { cn } from "../../lib/utils";
 
 const TREE = {
   A: ["B", "C"],
@@ -43,7 +44,7 @@ const findLCA = (u, v) => {
   return pu.find((x) => pv.has(x));
 };
 
-const LowestCommonAncestorAlgo = () => {
+const LowestCommonAncestorAlgo = ({ compact = false }) => {
   const [u, setU] = useState("D");
   const [v, setV] = useState("G");
   const lca = useMemo(() => findLCA(u, v), [u, v]);
@@ -58,14 +59,37 @@ const LowestCommonAncestorAlgo = () => {
           The LCA of two nodes in a rooted tree is the deepest node that is an ancestor of both.
           It appears in queries on hierarchies, trees, and range/path problems.
         </Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <select value={u} onChange={(e) => setU(e.target.value)}>{Object.keys(TREE).map((x) => <option key={x}>{x}</option>)}</select>
-          <select value={v} onChange={(e) => setV(e.target.value)}>{Object.keys(TREE).map((x) => <option key={x}>{x}</option>)}</select>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <select
+            value={u}
+            onChange={(e) => setU(e.target.value)}
+            className={cn(
+              "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
+              compact ? "w-full min-w-0 text-sm" : "w-[110px] text-sm"
+            )}
+          >
+            {Object.keys(TREE).map((x) => <option key={x}>{x}</option>)}
+          </select>
+          <select
+            value={v}
+            onChange={(e) => setV(e.target.value)}
+            className={cn(
+              "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
+              compact ? "w-full min-w-0 text-sm" : "w-[110px] text-sm"
+            )}
+          >
+            {Object.keys(TREE).map((x) => <option key={x}>{x}</option>)}
+          </select>
         </div>
         <Para>LCA({u}, {v}) = <strong>{lca}</strong></Para>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox="0 0 440 250" preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "700px", height: "auto" }}>
+          <svg
+            width="100%"
+            viewBox="0 0 440 250"
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[700px]"
+          >
             {Object.entries(TREE).flatMap(([p, kids]) => kids.map((c) => (
               <line key={`${p}-${c}`} x1={POS[p][0]} y1={POS[p][1]} x2={POS[c][0]} y2={POS[c][1]} stroke="#94a3b8" strokeWidth="2" />
             )))}

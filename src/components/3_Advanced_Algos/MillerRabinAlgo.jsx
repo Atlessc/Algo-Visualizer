@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { cn } from "../../lib/utils";
 
 const modPow = (a, d, n) => {
   let res = 1n;
@@ -33,7 +34,7 @@ const millerRabinDetail = (n, base) => {
   return { composite: true, s, d, trail, reason: "Witness found." };
 };
 
-const MillerRabinAlgo = () => {
+const MillerRabinAlgo = ({ compact = false }) => {
   const [n, setN] = useState(561);
   const [a, setA] = useState(2);
   const result = useMemo(() => millerRabinDetail(n, a), [n, a]);
@@ -44,9 +45,29 @@ const MillerRabinAlgo = () => {
         <Title>Miller-Rabin Primality Test</Title>
         <Para>Probabilistic primality test using repeated squaring and witness bases.</Para>
 
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <input type="number" min="3" value={n} onChange={(e) => setN(Math.max(3, Number(e.target.value) | 1))} style={{ width: "130px" }} />
-          <input type="number" min="2" value={a} onChange={(e) => setA(Math.max(2, Number(e.target.value)))} style={{ width: "130px" }} />
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <input
+            type="number"
+            min="3"
+            value={n}
+            onChange={(e) => setN(Math.max(3, Number(e.target.value) | 1))}
+            className={cn(
+              "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
+              compact ? "w-full min-w-0 text-sm" : "w-[130px] text-sm"
+            )}
+            aria-label="Number n"
+          />
+          <input
+            type="number"
+            min="2"
+            value={a}
+            onChange={(e) => setA(Math.max(2, Number(e.target.value)))}
+            className={cn(
+              "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
+              compact ? "w-full min-w-0 text-sm" : "w-[130px] text-sm"
+            )}
+            aria-label="Witness base a"
+          />
         </div>
 
         <Para>
@@ -55,12 +76,12 @@ const MillerRabinAlgo = () => {
         </Para>
 
         <AlgoVisualizer>
-          <div style={{ width: "100%", maxWidth: "760px", margin: "0 auto", background: "#eef2ff", borderRadius: "12px", padding: "10px" }}>
-            {"d" in result && <div style={{ fontFamily: "monospace" }}>n-1 = 2^{result.s} * {result.d}</div>}
-            <div style={{ marginTop: "6px", fontFamily: "monospace" }}>
+          <div className={cn("mx-auto w-full max-w-[760px] rounded-xl bg-indigo-100 p-2.5", compact ? "text-xs" : "text-sm")}>
+            {"d" in result && <div className="font-mono">n-1 = 2^{result.s} * {result.d}</div>}
+            <div className="mt-1.5 font-mono">
               x sequence: {result.trail ? result.trail.join(" → ") : "(none)"}
             </div>
-            {result.reason && <div style={{ marginTop: "6px" }}>{result.reason}</div>}
+            {result.reason && <div className="mt-1.5">{result.reason}</div>}
           </div>
         </AlgoVisualizer>
 

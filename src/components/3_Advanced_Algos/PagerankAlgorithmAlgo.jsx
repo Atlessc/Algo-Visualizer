@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const NODES = ["A", "B", "C", "D"];
 const OUT = {
@@ -28,12 +29,16 @@ const buildSteps = () => {
   return steps;
 };
 
-const PagerankAlgorithmAlgo = () => {
+const PagerankAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
   const maxRank = Math.max(...Object.values(step.rank));
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -47,13 +52,31 @@ const PagerankAlgorithmAlgo = () => {
         <Title>PageRank Algorithm</Title>
         <Para>Iteratively updates node importance based on incoming rank contributions.</Para>
         <Para>{step.msg}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox="0 0 520 220" preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "760px", height: "auto" }}>
+          <svg
+            width="100%"
+            viewBox="0 0 520 220"
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[760px]"
+          >
             {NODES.map((n, i) => {
               const y = 30 + i * 46;
               const w = (step.rank[n] / maxRank) * 320;

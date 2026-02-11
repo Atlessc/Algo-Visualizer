@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const WORD = "banana$";
 
@@ -35,12 +37,16 @@ const listEdges = (node, prefix = "", out = []) => {
   return out;
 };
 
-const SuffixTreeConstructionAlgo = () => {
+const SuffixTreeConstructionAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
   const edgeList = listEdges(step.trie).slice(0, 28);
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -54,17 +60,36 @@ const SuffixTreeConstructionAlgo = () => {
         <Title>Suffix Tree Construction (Naive Suffix Trie View)</Title>
         <Para>Insert every suffix of a string. This visual shows the uncompressed suffix trie process.</Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
         <Para>Word: <strong>{WORD}</strong> | Current suffix: <strong>{step.suffix || "(none)"}</strong></Para>
 
         <AlgoVisualizer>
-          <div style={{ width: "100%", background: "#eef2ff", borderRadius: "12px", padding: "12px", maxWidth: "780px", margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "8px" }}>
+          <div className="mx-auto w-full max-w-[780px] rounded-xl bg-indigo-100 p-3">
+            <div className={cn("grid gap-2", compact ? "grid-cols-2" : "grid-cols-[repeat(auto-fit,minmax(130px,1fr))]")}>
               {edgeList.map((edge, i) => (
-                <div key={i} style={{ padding: "8px", borderRadius: "8px", background: "#fff", color: "#1e293b", fontFamily: "monospace", fontSize: "13px" }}>
+                <div
+                  key={i}
+                  className={cn(
+                    "rounded-lg bg-white px-2 py-2 font-mono text-slate-800",
+                    compact ? "text-xs" : "text-[13px]"
+                  )}
+                >
                   {edge}
                 </div>
               ))}

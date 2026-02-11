@@ -7,11 +7,12 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const INITIAL_ARRAY = [9, 5, 1, 4, 3, 8, 6];
 
-const InsertionSortAlgo = () => {
+const InsertionSortAlgo = ({ compact = false }) => {
   const [array, setArray] = useState(INITIAL_ARRAY);
   const [keyIndex, setKeyIndex] = useState(null);
   const [compareIndex, setCompareIndex] = useState(null);
@@ -76,11 +77,11 @@ const InsertionSortAlgo = () => {
     setStatus("Press Start Sort to run insertion sort.");
   };
 
-  const barW = 62;
-  const gap = 10;
+  const barW = compact ? 50 : 62;
+  const gap = compact ? 8 : 10;
   const chartW = array.length * (barW + gap) + gap;
-  const chartH = 280;
-  const floorY = 220;
+  const chartH = compact ? 248 : 280;
+  const floorY = compact ? 192 : 220;
   const maxValue = Math.max(...array, 1);
 
   return (
@@ -92,16 +93,26 @@ const InsertionSortAlgo = () => {
           correct position.
         </Para>
 
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
-          <button type="button" onClick={runSort} disabled={isSorting}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <Button size={compact ? "sm" : "default"} onClick={runSort} disabled={isSorting}>
             Start Sort
-          </button>
-          <button type="button" onClick={randomize} disabled={isSorting}>
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={randomize}
+            disabled={isSorting}
+          >
             Randomize
-          </button>
-          <button type="button" onClick={reset} disabled={isSorting}>
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="outline"
+            onClick={reset}
+            disabled={isSorting}
+          >
             Reset
-          </button>
+          </Button>
         </div>
 
         <Para>{status}</Para>
@@ -111,7 +122,7 @@ const InsertionSortAlgo = () => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            style={{ maxWidth: "920px", height: "auto" }}
+            className="mx-auto h-auto w-full max-w-[920px]"
           >
             {array.map((value, index) => {
               const x = gap + index * (barW + gap);

@@ -7,7 +7,9 @@ import {
   AlgoVisualizerScroll,
   CodeBlock,
   Para
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const items = [
   { name: "A", weight: 2, value: 3 },
@@ -126,16 +128,20 @@ const generateKnapsackSteps = (inputItems, maxCapacity) => {
   return steps;
 };
 
-const KnapsackAlgo = () => {
+const KnapsackAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => generateKnapsackSteps(items, capacity), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
 
   const currentStep = steps[stepIndex];
   const selectedItems = currentStep.selectedIndices.map((index) => items[index]);
   const selectedWeight = selectedItems.reduce((sum, item) => sum + item.weight, 0);
   const selectedValue = selectedItems.reduce((sum, item) => sum + item.value, 0);
   const bestValue = steps[steps.length - 1].dp[items.length][capacity];
+  const tableMinWidth = compact ? 420 : 520;
+  const cellPadding = compact ? "4px" : "6px";
+  const cellMinWidth = compact ? "28px" : "34px";
+  const cellFontSize = compact ? "11px" : "13px";
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) {
@@ -148,6 +154,10 @@ const KnapsackAlgo = () => {
 
     return () => clearInterval(intervalId);
   }, [isPlaying, stepIndex, steps.length]);
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   const getCellStyle = (row, col) => {
     let bg = "#f3f4f6";
@@ -182,16 +192,20 @@ const KnapsackAlgo = () => {
         <AlgoVisualizer>
           <div className="algo-split">
             <AlgoVisualizerScroll className="algo-pane-main-wide">
-              <table style={{ borderCollapse: "collapse", minWidth: "min(100%, 520px)" }}>
+              <table className="border-collapse" style={{ minWidth: `${tableMinWidth}px` }}>
                 <thead>
                   <tr>
-                    <th style={{ border: "1px solid #cbd5e1", padding: "6px", color: "#1f2937", fontSize: "13px" }}>
-                      i / w
+                    <th
+                      className="border border-slate-300 px-1 text-slate-800"
+                      style={{ padding: cellPadding, fontSize: cellFontSize }}
+                    >
+                      {compact ? "i/w" : "i / w"}
                     </th>
                     {Array.from({ length: capacity + 1 }, (_, w) => (
                       <th
                         key={`head-${w}`}
-                        style={{ border: "1px solid #cbd5e1", padding: "6px", color: "#1f2937", fontSize: "13px" }}
+                        className="border border-slate-300 px-1 text-slate-800"
+                        style={{ padding: cellPadding, fontSize: cellFontSize }}
                       >
                         {w}
                       </th>
@@ -202,31 +216,30 @@ const KnapsackAlgo = () => {
                   {Array.from({ length: items.length + 1 }, (_, row) => (
                     <tr key={`row-${row}`}>
                       <td
+                        className="border border-slate-300 font-bold text-slate-800"
                         style={{
-                          border: "1px solid #cbd5e1",
-                          padding: "6px",
-                          fontWeight: "700",
-                          color: "#1f2937",
+                          padding: cellPadding,
                           background: row === 0 ? "#e2e8f0" : "#e5e7eb",
-                          fontSize: "13px"
+                          fontSize: cellFontSize,
+                          whiteSpace: compact ? "nowrap" : "normal"
                         }}
                       >
-                        {row === 0 ? "0 items" : `${row} (${items[row - 1].name})`}
+                        {row === 0
+                          ? (compact ? "0" : "0 items")
+                          : (compact ? `${row}/${items[row - 1].name}` : `${row} (${items[row - 1].name})`)}
                       </td>
                       {Array.from({ length: capacity + 1 }, (_, col) => {
                         const cellStyle = getCellStyle(row, col);
                         return (
                           <td
                             key={`cell-${row}-${col}`}
+                            className="border border-slate-300 text-center font-bold"
                             style={{
-                              border: "1px solid #cbd5e1",
-                              padding: "6px",
-                              minWidth: "min(100%, 34px)",
-                              textAlign: "center",
-                              fontWeight: "700",
+                              padding: cellPadding,
+                              minWidth: cellMinWidth,
                               background: cellStyle.background,
                               color: cellStyle.color,
-                              fontSize: "13px"
+                              fontSize: cellFontSize
                             }}
                           >
                             {currentStep.dp[row][col]}
@@ -240,17 +253,11 @@ const KnapsackAlgo = () => {
             </AlgoVisualizerScroll>
 
             <div className="algo-pane-side">
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#4b5563" }}>Items:</strong>
+              <div className="mb-3">
+                <strong className="text-slate-600">Items:</strong>
                 <div
-                  style={{
-                    marginTop: "8px",
-                    padding: "10px",
-                    background: "#ecf0f1",
-                    borderRadius: "6px",
-                    color: "#1f2937",
-                    lineHeight: 1.6
-                  }}
+                  className={cn("mt-2 rounded-md bg-slate-100 text-slate-800", compact ? "p-2 text-sm" : "p-2.5 text-base")}
+                  style={{ lineHeight: compact ? 1.45 : 1.6 }}
                 >
                   {items.map((item) => (
                     <div key={`item-${item.name}`}>
@@ -260,33 +267,29 @@ const KnapsackAlgo = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f7a3f" }}>Chosen items:</strong>
+              <div className="mb-3">
+                <strong className="text-emerald-700">Chosen items:</strong>
                 <div
-                  style={{
-                    marginTop: "8px",
-                    padding: "10px",
-                    background: "#ecf0f1",
-                    borderRadius: "6px",
-                    minHeight: "44px",
-                    color: "#1f7a3f"
-                  }}
+                  className={cn(
+                    "mt-2 min-h-11 rounded-md bg-slate-100 text-emerald-700",
+                    compact ? "p-2 text-sm" : "p-2.5 text-base"
+                  )}
                 >
                   {selectedItems.length > 0
                     ? selectedItems.map((item) => item.name).join(" • ")
                     : "(none yet)"}
                 </div>
-                <div style={{ marginTop: "6px", color: "#1f2937" }}>
+                <div className="mt-1.5 text-slate-800">
                   Weight: {selectedWeight} / {capacity}
                 </div>
-                <div style={{ color: "#1f2937" }}>
+                <div className="text-slate-800">
                   Value so far: {selectedValue} (best possible: {bestValue})
                 </div>
               </div>
 
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f5f8b" }}>Phase:</strong>
-                <div style={{ marginTop: "8px", color: "#1f5f8b" }}>
+              <div className="mb-3">
+                <strong className="text-sky-800">Phase:</strong>
+                <div className="mt-2 text-sky-800">
                   {currentStep.phase === "fill"
                     ? "Fill DP table"
                     : currentStep.phase === "backtrack"
@@ -295,44 +298,32 @@ const KnapsackAlgo = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f5f8b" }}>Step:</strong>
-                <div style={{ marginTop: "8px", color: "#1f5f8b" }}>{currentStep.message}</div>
+              <div className="mb-3">
+                <strong className="text-sky-800">Step:</strong>
+                <div className={cn("mt-2 text-sky-800", compact ? "text-sm" : "text-base")}>
+                  {currentStep.message}
+                </div>
               </div>
 
-              <div style={{ display: "flex", gap: "10px" }}>
-                <button
-                  type="button"
+              <div className="flex flex-wrap gap-2.5">
+                <Button
+                  size={compact ? "sm" : "default"}
+                  variant="secondary"
                   onClick={() => setIsPlaying((prev) => !prev)}
-                  style={{
-                    padding: "8px 14px",
-                    borderRadius: "6px",
-                    border: "1px solid #bdc3c7",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                    color: "#c0392b"
-                  }}
                 >
                   {isPlaying ? "Pause" : "Play"}
-                </button>
+                </Button>
 
-                <button
-                  type="button"
+                <Button
+                  size={compact ? "sm" : "default"}
+                  variant="outline"
                   onClick={() => {
                     setStepIndex(0);
-                    setIsPlaying(true);
-                  }}
-                  style={{
-                    padding: "8px 14px",
-                    borderRadius: "6px",
-                    border: "1px solid #bdc3c7",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                    color: "#c0392b"
+                    setIsPlaying(autoPlay);
                   }}
                 >
                   Reset
-                </button>
+                </Button>
               </div>
             </div>
           </div>

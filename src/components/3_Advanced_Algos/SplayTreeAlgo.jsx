@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const STATES = [
   {
@@ -30,7 +32,7 @@ const STATES = [
   },
 ];
 
-const SplayTreeAlgo = () => {
+const SplayTreeAlgo = ({ compact = false }) => {
   const [idx, setIdx] = useState(0);
   const s = STATES[idx];
   const byV = Object.fromEntries(s.nodes.map((n) => [n.v, n]));
@@ -44,17 +46,29 @@ const SplayTreeAlgo = () => {
           the touched node is rotated to the root (splaying). This gives good amortized performance
           and keeps frequently accessed keys near the top.
         </Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           {STATES.map((st, i) => (
-            <button key={st.name} type="button" onClick={() => setIdx(i)} style={{ opacity: idx === i ? 1 : 0.8 }}>
+            <Button
+              key={st.name}
+              type="button"
+              size={compact ? "sm" : "default"}
+              variant={idx === i ? "default" : "outline"}
+              className={cn(idx === i ? "" : "opacity-80")}
+              onClick={() => setIdx(i)}
+            >
               {st.name}
-            </button>
+            </Button>
           ))}
         </div>
         <Para>{s.note}</Para>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox="0 0 460 260" preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "700px", height: "auto" }}>
+          <svg
+            width="100%"
+            viewBox="0 0 460 260"
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[700px]"
+          >
             {s.edges.map(([u, v]) => (
               <line key={`${u}-${v}`} x1={byV[u].x} y1={byV[u].y} x2={byV[v].x} y2={byV[v].y} stroke="#94a3b8" strokeWidth="2" />
             ))}

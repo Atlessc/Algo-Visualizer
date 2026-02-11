@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const WORD = "banana$";
 
@@ -19,11 +21,15 @@ const buildSteps = () => {
   return steps;
 };
 
-const SuffixArrayConstructionAlgo = () => {
+const SuffixArrayConstructionAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -38,26 +44,39 @@ const SuffixArrayConstructionAlgo = () => {
         <Para>Suffix array stores starting indices of all suffixes in lexicographic order.</Para>
         <Para>String: <strong>{WORD}</strong></Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <div style={{ width: "100%", display: "grid", gap: "12px", maxWidth: "900px", margin: "0 auto" }}>
-            <div style={{ background: "#eef2ff", borderRadius: "12px", padding: "10px" }}>
+          <div className="mx-auto grid w-full max-w-[900px] gap-3">
+            <div className="rounded-xl bg-indigo-100 p-2.5">
               <strong>Collected suffixes</strong>
               {step.suffixes.map((s) => (
-                <div key={s.index} style={{ fontFamily: "monospace", marginTop: "6px" }}>
+                <div key={s.index} className={cn("mt-1.5 font-mono", compact ? "text-xs" : "text-sm")}>
                   [{s.index}] {s.suffix}
                 </div>
               ))}
             </div>
             {step.sorted.length > 0 && (
-              <div style={{ background: "#f0fdf4", borderRadius: "12px", padding: "10px" }}>
+              <div className="rounded-xl bg-emerald-50 p-2.5">
                 <strong>Sorted suffixes (Suffix Array)</strong>
                 {step.sorted.map((s) => (
-                  <div key={`sorted-${s.index}`} style={{ fontFamily: "monospace", marginTop: "6px" }}>
+                  <div key={`sorted-${s.index}`} className={cn("mt-1.5 font-mono", compact ? "text-xs" : "text-sm")}>
                     SA includes index {s.index} because suffix = {s.suffix}
                   </div>
                 ))}

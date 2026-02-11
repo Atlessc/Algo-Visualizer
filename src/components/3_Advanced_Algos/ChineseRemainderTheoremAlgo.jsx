@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { cn } from "../../lib/utils";
 
 const egcd = (a, b) => {
   if (b === 0) return [a, 1, 0];
@@ -31,7 +32,7 @@ const solveCRT = (residues, moduli) => {
   return { ok: true, x, M, details };
 };
 
-const ChineseRemainderTheoremAlgo = () => {
+const ChineseRemainderTheoremAlgo = ({ compact = false }) => {
   const [residues, setResidues] = useState([2, 3, 2]);
   const [moduli, setModuli] = useState([3, 5, 7]);
   const result = useMemo(() => solveCRT(residues, moduli), [residues, moduli]);
@@ -46,13 +47,30 @@ const ChineseRemainderTheoremAlgo = () => {
         <Title>Chinese Remainder Theorem</Title>
         <Para>Solve a system of congruences x ≡ ai (mod mi) when moduli are pairwise coprime.</Para>
 
-        <div style={{ display: "grid", gap: "8px", width: "100%", maxWidth: "560px", margin: "0 auto" }}>
+        <div className="mx-auto grid w-full max-w-[560px] gap-2">
           {[0, 1, 2].map((i) => (
-            <div key={i} style={{ display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", flexWrap: "wrap" }}>
+            <div key={i} className="flex flex-wrap items-center justify-center gap-2.5">
               <span>x ≡</span>
-              <input type="number" value={residues[i]} onChange={(e) => update(setResidues, i, e.target.value)} style={{ width: "90px" }} />
+              <input
+                type="number"
+                value={residues[i]}
+                onChange={(e) => update(setResidues, i, e.target.value)}
+                className={cn(
+                  "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
+                  compact ? "w-[72px] text-xs" : "w-[90px] text-sm"
+                )}
+              />
               <span>(mod</span>
-              <input type="number" min="2" value={moduli[i]} onChange={(e) => update(setModuli, i, e.target.value)} style={{ width: "90px" }} />
+              <input
+                type="number"
+                min="2"
+                value={moduli[i]}
+                onChange={(e) => update(setModuli, i, e.target.value)}
+                className={cn(
+                  "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
+                  compact ? "w-[72px] text-xs" : "w-[90px] text-sm"
+                )}
+              />
               <span>)</span>
             </div>
           ))}
@@ -68,9 +86,9 @@ const ChineseRemainderTheoremAlgo = () => {
 
         <AlgoVisualizer>
           {result.ok && (
-            <div style={{ width: "100%", maxWidth: "760px", margin: "0 auto", background: "#eef2ff", borderRadius: "12px", padding: "10px" }}>
+            <div className="mx-auto w-full max-w-[760px] rounded-xl bg-indigo-100 p-2.5">
               {result.details.map((d, i) => (
-                <div key={i} style={{ fontFamily: "monospace", marginTop: "6px", fontSize: "13px" }}>
+                <div key={i} className={cn("mt-1.5 font-mono", compact ? "text-xs" : "text-[13px]")}>
                   term{i + 1}: a={d.ai}, m={d.mi}, Mᵢ={d.Mi}, inv={d.inv}, contribution={d.term}
                 </div>
               ))}

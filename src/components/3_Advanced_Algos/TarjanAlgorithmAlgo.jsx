@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const G = {
   A: ["B"],
@@ -56,11 +58,15 @@ const buildSteps = () => {
   return steps;
 };
 
-const TarjanAlgorithmAlgo = () => {
+const TarjanAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -78,21 +84,34 @@ const TarjanAlgorithmAlgo = () => {
           stack. Time complexity is O(V+E).
         </Para>
         <Para>{step.msg}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
         <AlgoVisualizer>
-          <div style={{ width: "100%", maxWidth: "820px", margin: "0 auto", display: "grid", gap: "10px" }}>
-            <div style={{ background: "#eef2ff", borderRadius: "12px", padding: "10px", fontFamily: "monospace" }}>
+          <div className="mx-auto grid w-full max-w-[820px] gap-2.5">
+            <div className={cn("rounded-xl bg-indigo-100 p-2.5 font-mono", compact ? "text-xs" : "text-sm")}>
               Stack: [{step.stack.join(", ")}]
             </div>
-            <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "10px", fontFamily: "monospace" }}>
+            <div className={cn("rounded-xl border border-slate-200 bg-slate-50 p-2.5 font-mono", compact ? "text-xs" : "text-sm")}>
               {Object.keys(G).map((u) => (
                 <div key={u}>{u}: index={step.index[u] ?? "-"}, low={step.low[u] ?? "-"}</div>
               ))}
             </div>
-            <div style={{ background: "#f0fdf4", borderRadius: "12px", padding: "10px", fontFamily: "monospace" }}>
+            <div className={cn("rounded-xl bg-emerald-50 p-2.5 font-mono", compact ? "text-xs" : "text-sm")}>
               SCCs: {step.sccs.map((c) => `{${c.join(", ")}}`).join(" ")}
             </div>
           </div>

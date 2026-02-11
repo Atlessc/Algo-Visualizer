@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const GRAPH = {
   nodes: [
@@ -67,14 +68,18 @@ const buildSteps = () => {
 
 const edgeKey = (u, v) => (u < v ? `${u}|${v}` : `${v}|${u}`);
 
-const HamiltonianPathAlgo = () => {
+const HamiltonianPathAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
   const byId = Object.fromEntries(GRAPH.nodes.map((n) => [n.id, n]));
   const pathEdges = new Set();
   for (let i = 0; i < step.path.length - 1; i++) pathEdges.add(edgeKey(step.path[i], step.path[i + 1]));
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -88,13 +93,31 @@ const HamiltonianPathAlgo = () => {
         <Title>Hamiltonian Path</Title>
         <Para>Backtracking visits each vertex exactly once.</Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox="0 0 540 260" preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "760px", height: "auto" }}>
+          <svg
+            width="100%"
+            viewBox="0 0 540 260"
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[760px]"
+          >
             {GRAPH.edges.map(([u, v]) => {
               const key = edgeKey(u, v);
               const inPath = pathEdges.has(key);

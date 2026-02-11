@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const INTERVALS = [
   { id: "I1", s: 1, e: 3 },
@@ -28,12 +29,16 @@ const buildSteps = () => {
   return steps;
 };
 
-const IntervalSchedulingMaximizationAlgo = () => {
+const IntervalSchedulingMaximizationAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
   const maxT = Math.max(...INTERVALS.map((x) => x.e));
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -51,13 +56,31 @@ const IntervalSchedulingMaximizationAlgo = () => {
           to a globally optimal solution for the unweighted case.
         </Para>
         <Para>{step.msg}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox="0 0 760 310" preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "940px", height: "auto" }}>
+          <svg
+            width="100%"
+            viewBox="0 0 760 310"
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[940px]"
+          >
             {step.sorted.map((it, i) => {
               const y = 22 + i * 45;
               const x = 80 + (it.s / maxT) * 620;

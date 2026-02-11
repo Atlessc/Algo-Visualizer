@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const GRAPH = {
   nodes: [
@@ -76,18 +78,26 @@ const MinimumSpanningTreeAlgo = () => {
       <CardContainer>
         <Title>Minimum Spanning Tree (MST)</Title>
         <Para>MST connects all vertices with minimum total edge weight and no cycles.</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setMethod("kruskal")} style={{ opacity: method === "kruskal" ? 1 : 0.8 }}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            onClick={() => setMethod("kruskal")}
+            variant={method === "kruskal" ? "default" : "secondary"}
+            className={cn("min-w-[108px]", method !== "kruskal" && "opacity-80")}
+          >
             Kruskal
-          </button>
-          <button type="button" onClick={() => setMethod("prim")} style={{ opacity: method === "prim" ? 1 : 0.8 }}>
+          </Button>
+          <Button
+            onClick={() => setMethod("prim")}
+            variant={method === "prim" ? "default" : "secondary"}
+            className={cn("min-w-[108px]", method !== "prim" && "opacity-80")}
+          >
             Prim
-          </button>
+          </Button>
         </div>
         <Para>Method: <strong>{method}</strong> | Total MST weight: <strong>{result.total}</strong></Para>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox="0 0 520 280" preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "740px", height: "auto" }}>
+          <svg width="100%" viewBox="0 0 520 280" preserveAspectRatio="xMidYMid meet" className="mx-auto h-auto w-full max-w-[740px]">
             {GRAPH.edges.map((e) => {
               const key = edgeKey(e.u, e.v);
               const inMst = mstSet.has(key);

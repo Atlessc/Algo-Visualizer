@@ -7,9 +7,10 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
-const LinearSearchAlgo = () => {
+const LinearSearchAlgo = ({ compact = false }) => {
   const initialArray = [8, 3, 14, 2, 9, 5, 1];
 
   const [array, setArray] = useState(initialArray);
@@ -64,6 +65,12 @@ const LinearSearchAlgo = () => {
     setStatus("Array randomized. Press Start Search.");
   };
 
+  const cellW = compact ? 68 : 80;
+  const rectW = compact ? 50 : 56;
+  const rectXOffset = rectW / 2;
+  const chartW = (array.length - 1) * cellW + 80;
+  const chartH = compact ? 128 : 140;
+
   return (
     <Container>
       <CardContainer>
@@ -74,42 +81,52 @@ const LinearSearchAlgo = () => {
           It is simple and works on unsorted arrays, with worst-case time complexity O(n).
         </Para>
 
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
           <input
             type="number"
             value={target}
             onChange={(e) => setTarget(Number(e.target.value))}
             disabled={isSearching}
-            style={{
-              padding: "8px",
-              borderRadius: "6px",
-              border: "1px solid #ccc",
-              width: "120px",
-            }}
+            className="h-10 w-24 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-900 outline-none focus-visible:ring-2 focus-visible:ring-sky-500 disabled:cursor-not-allowed disabled:opacity-70"
           />
-          <button type="button" onClick={runLinearSearch} disabled={isSearching}>
+          <Button size={compact ? "sm" : "default"} onClick={runLinearSearch} disabled={isSearching}>
             Start Search
-          </button>
-          <button type="button" onClick={randomizeArray} disabled={isSearching}>
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={randomizeArray}
+            disabled={isSearching}
+          >
             Randomize
-          </button>
-          <button type="button" onClick={resetDemo} disabled={isSearching}>
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="outline"
+            onClick={resetDemo}
+            disabled={isSearching}
+          >
             Reset
-          </button>
+          </Button>
         </div>
 
         <Para>{status}</Para>
 
         <AlgoVisualizer>
-          <svg width="600" height="140" viewBox="0 0 600 140">
+          <svg
+            width="100%"
+            viewBox={`0 0 ${chartW} ${chartH}`}
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[760px]"
+          >
             {array.map((value, index) => {
-              const x = index * 80 + 40;
+              const x = index * cellW + 40;
               const fill =
                 index === foundIndex ? "#2E8B57" : index === currentIndex ? "#FF8C42" : "#6B7280";
 
               return (
                 <motion.g key={`${value}-${index}`} animate={{ y: index === currentIndex ? -8 : 0 }}>
-                  <rect x={x - 28} y={45} width={56} height={56} rx={12} fill={fill} />
+                  <rect x={x - rectXOffset} y={45} width={rectW} height={56} rx={12} fill={fill} />
                   <text
                     x={x}
                     y={78}

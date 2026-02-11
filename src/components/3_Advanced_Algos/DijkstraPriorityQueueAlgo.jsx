@@ -6,7 +6,9 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const GRAPH = {
   A: [
@@ -56,11 +58,15 @@ const buildSteps = () => {
   return steps;
 };
 
-const DijkstraPriorityQueueAlgo = () => {
+const DijkstraPriorityQueueAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -79,65 +85,41 @@ const DijkstraPriorityQueueAlgo = () => {
           Min-priority queue always expands the closest unsettled node first.
         </Para>
         <Para>{step.msg}</Para>
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>
-            {isPlaying ? "Pause" : "Play"}
-          </button>
-          <button
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
             type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
             onClick={() => {
               setStepIndex(0);
               setIsPlaying(true);
             }}
           >
             Reset
-          </button>
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <div
-              style={{
-                background: "#eef2ff",
-                borderRadius: "12px",
-                padding: "10px",
-                minWidth: "min(100%, 220px)",
-              }}
-            >
+          <div className="flex w-full flex-wrap justify-center gap-3">
+            <div className="min-w-[220px] flex-1 rounded-xl bg-indigo-100 p-2.5">
               <strong>Distances</strong>
               {Object.entries(step.dist).map(([n, d]) => (
                 <div
                   key={n}
-                  style={{ marginTop: "6px", fontFamily: "monospace" }}
+                  className={cn("mt-1.5 font-mono", compact ? "text-xs" : "text-sm")}
                 >
                   {n}: {Number.isFinite(d) ? d : "∞"}
                 </div>
               ))}
             </div>
-            <div
-              style={{
-                background: "#f8fafc",
-                border: "1px solid #e2e8f0",
-                borderRadius: "12px",
-                padding: "10px",
-                minWidth: "min(100%, 220px)",
-              }}
-            >
+            <div className="min-w-[220px] flex-1 rounded-xl border border-slate-200 bg-slate-50 p-2.5">
               <strong>Priority Queue</strong>
               {(step.pq.length
                 ? [...step.pq].sort((a, b) => a.d - b.d)
@@ -145,14 +127,12 @@ const DijkstraPriorityQueueAlgo = () => {
               ).map((x, i) => (
                 <div
                   key={`${x.node}-${i}`}
-                  style={{ marginTop: "6px", fontFamily: "monospace" }}
+                  className={cn("mt-1.5 font-mono", compact ? "text-xs" : "text-sm")}
                 >
                   ({x.node}, {x.d})
                 </div>
               ))}
-              {step.pq.length === 0 && (
-                <div style={{ marginTop: "6px" }}>(empty)</div>
-              )}
+              {step.pq.length === 0 && <div className="mt-1.5">(empty)</div>}
             </div>
           </div>
         </AlgoVisualizer>

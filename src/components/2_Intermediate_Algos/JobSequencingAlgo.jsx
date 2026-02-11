@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const JOBS = [
   { id: "J1", deadline: 2, profit: 100 },
@@ -35,10 +37,10 @@ const buildSteps = () => {
   return steps;
 };
 
-const JobSequencingAlgo = () => {
+const JobSequencingAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
   const totalProfit = step.slots.filter(Boolean).reduce((s, j) => s + j.profit, 0);
 
@@ -48,32 +50,47 @@ const JobSequencingAlgo = () => {
     return () => clearInterval(id);
   }, [isPlaying, stepIndex, steps.length]);
 
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
+
   return (
     <Container>
       <CardContainer>
         <Title>Job Sequencing with Deadlines</Title>
         <Para>Greedy approach: schedule highest-profit jobs first in latest available slots.</Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <Button size={compact ? "sm" : "default"} variant="secondary" onClick={() => setIsPlaying((p) => !p)}>
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="outline"
+            onClick={() => {
+              setStepIndex(0);
+              setIsPlaying(autoPlay);
+            }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <div style={{ width: "100%", display: "grid", gap: "12px" }}>
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
+          <div className={cn("grid w-full", compact ? "gap-2.5" : "gap-3")}>
+            <div className={cn("flex flex-wrap justify-center", compact ? "gap-1.5" : "gap-2")}>
               {step.sorted.map((j) => {
                 const active = step.active === j.id;
                 return (
                   <div
                     key={j.id}
+                    className={cn(
+                      "rounded-[10px] text-white",
+                      compact ? "px-2 py-1.5 text-[11px]" : "px-2.5 py-2 text-xs"
+                    )}
                     style={{
-                      padding: "8px 10px",
-                      borderRadius: "10px",
                       background: active ? "#f59e0b" : "#64748b",
-                      color: "#fff",
-                      fontSize: "12px",
-                      fontWeight: 700,
+                      fontWeight: 700
                     }}
                   >
                     {j.id} (d{j.deadline}, p{j.profit})
@@ -81,25 +98,23 @@ const JobSequencingAlgo = () => {
                 );
               })}
             </div>
-            <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+            <div className={cn("flex flex-wrap justify-center", compact ? "gap-2" : "gap-2.5")}>
               {step.slots.map((job, idx) => (
                 <div
                   key={idx}
+                  className={cn(
+                    "flex flex-col items-center justify-center rounded-xl font-bold",
+                    compact ? "w-[78px] min-h-[62px] text-sm" : "w-[90px] min-h-[70px]"
+                  )}
                   style={{
-                    width: "90px",
-                    minHeight: "70px",
-                    borderRadius: "12px",
                     background: job ? "#16a34a" : "#e2e8f0",
-                    color: job ? "#fff" : "#475569",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontWeight: 700,
+                    color: job ? "#fff" : "#475569"
                   }}
                 >
                   <div>Slot {idx + 1}</div>
-                  <div style={{ fontSize: "12px" }}>{job ? `${job.id} (${job.profit})` : "empty"}</div>
+                  <div className={compact ? "text-[11px]" : "text-xs"}>
+                    {job ? `${job.id} (${job.profit})` : "empty"}
+                  </div>
                 </div>
               ))}
             </div>

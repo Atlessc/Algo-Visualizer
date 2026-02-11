@@ -7,7 +7,7 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
 
 const getEuclideanSteps = (inputA, inputB) => {
   let a = Math.abs(inputA);
@@ -27,7 +27,7 @@ const getEuclideanSteps = (inputA, inputB) => {
   return { steps, gcd: a };
 };
 
-const EuclideanAlgorithmAlgo = () => {
+const EuclideanAlgorithmAlgo = ({ compact = false }) => {
   const [a, setA] = useState(252);
   const [b, setB] = useState(105);
   const [highlightedStep, setHighlightedStep] = useState(0);
@@ -47,8 +47,8 @@ const EuclideanAlgorithmAlgo = () => {
     return Math.max(...steps.flatMap((step) => [step.a, step.b, step.remainder || 0]), 1);
   }, [steps]);
 
-  const chartW = 880;
-  const rowH = 66;
+  const chartW = compact ? 780 : 880;
+  const rowH = compact ? 62 : 66;
   const headerH = 42;
   const chartH = Math.max(steps.length * rowH + headerH + 20, 120);
 
@@ -61,26 +61,26 @@ const EuclideanAlgorithmAlgo = () => {
           <strong> (b, r)</strong> until remainder becomes 0. The final non-zero value is the GCD.
         </Para>
 
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
           <input
             type="number"
             min="0"
             value={a}
             onChange={(e) => setA(Number(e.target.value))}
-            style={{ width: "130px" }}
+            className="h-10 w-28 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-900 outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
           />
           <input
             type="number"
             min="0"
             value={b}
             onChange={(e) => setB(Number(e.target.value))}
-            style={{ width: "130px" }}
+            className="h-10 w-28 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-900 outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
           />
           <select
             value={highlightedStep}
             onChange={(e) => setHighlightedStep(Number(e.target.value))}
             disabled={steps.length === 0}
-            style={{ padding: "8px", borderRadius: "10px", border: "1px solid #cbd5e1" }}
+            className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-900 outline-none focus-visible:ring-2 focus-visible:ring-sky-500 disabled:cursor-not-allowed disabled:opacity-70"
           >
             {steps.length === 0 ? (
               <option value={0}>No steps</option>
@@ -105,7 +105,7 @@ const EuclideanAlgorithmAlgo = () => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            style={{ maxWidth: "980px", height: "auto" }}
+            className="mx-auto h-auto w-full max-w-[980px]"
           >
             <text x="16" y="26" fontSize="14" fill="#0f172a" fontWeight="700">
               Step equation view (a, b, remainder)

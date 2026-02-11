@@ -7,9 +7,10 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
-const SelectionSortAlgo = () => {
+const SelectionSortAlgo = ({ compact = false }) => {
   const initialArray = [29, 10, 14, 37, 13, 8];
 
   const [array, setArray] = useState(initialArray);
@@ -83,6 +84,12 @@ const SelectionSortAlgo = () => {
     setStatus("Press Start Sort to run selection sort.");
   };
 
+  const cellW = compact ? 84 : 95;
+  const rectW = compact ? 54 : 60;
+  const rectXOffset = rectW / 2;
+  const chartW = (array.length - 1) * cellW + 120;
+  const chartH = compact ? 138 : 150;
+
   return (
     <Container>
       <CardContainer>
@@ -93,24 +100,39 @@ const SelectionSortAlgo = () => {
           it to the front. It always performs O(n²) comparisons, but uses few swaps.
         </Para>
 
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
-          <button type="button" onClick={runSelectionSort} disabled={isSorting}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <Button size={compact ? "sm" : "default"} onClick={runSelectionSort} disabled={isSorting}>
             Start Sort
-          </button>
-          <button type="button" onClick={randomizeArray} disabled={isSorting}>
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={randomizeArray}
+            disabled={isSorting}
+          >
             Randomize
-          </button>
-          <button type="button" onClick={resetDemo} disabled={isSorting}>
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="outline"
+            onClick={resetDemo}
+            disabled={isSorting}
+          >
             Reset
-          </button>
+          </Button>
         </div>
 
         <Para>{status}</Para>
 
         <AlgoVisualizer>
-          <svg width="620" height="150" viewBox="0 0 620 150">
+          <svg
+            width="100%"
+            viewBox={`0 0 ${chartW} ${chartH}`}
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[780px]"
+          >
             {array.map((value, index) => {
-              const x = index * 95 + 60;
+              const x = index * cellW + 60;
               const isSorted = index <= sortedBoundary;
               let fill = "#6B7280";
 
@@ -121,7 +143,7 @@ const SelectionSortAlgo = () => {
 
               return (
                 <motion.g key={`${value}-${index}`} animate={{ y: index === currentJ ? -8 : 0 }}>
-                  <rect x={x - 30} y={45} width={60} height={60} rx={12} fill={fill} />
+                  <rect x={x - rectXOffset} y={45} width={rectW} height={60} rx={12} fill={fill} />
                   <text
                     x={x}
                     y={80}

@@ -7,7 +7,9 @@ import {
   AlgoVisualizerScroll,
   CodeBlock,
   Para
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const SAMPLE_TEXT = "ABABDABACDABABCABAB";
 const SAMPLE_PATTERN = "ABABCABAB";
@@ -194,14 +196,34 @@ const generateKmpSteps = (text, pattern) => {
   return [...lpsSteps, ...searchSteps];
 };
 
-const KmpAlgorithmAlgo = () => {
+const KmpAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => generateKmpSteps(SAMPLE_TEXT, SAMPLE_PATTERN), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
 
   const currentStep = steps[stepIndex];
   const isSearchPhase = currentStep.phase === "search";
   const currentMatches = currentStep.matches ?? [];
+  const cellSize = compact ? 24 : 30;
+  const cellGap = compact ? 4 : 6;
+  const cellRadius = compact ? 5 : 6;
+  const cellFontSize = compact ? "0.82rem" : "0.95rem";
+  const alignmentMinWidth = Math.max(260, SAMPLE_TEXT.length * (cellSize + cellGap) + cellGap);
+
+  const getCharCellStyle = (bg, options = {}) => ({
+    width: `${cellSize}px`,
+    height: `${cellSize}px`,
+    borderRadius: `${cellRadius}px`,
+    background: bg,
+    color: bg === "transparent" ? "transparent" : getTextColorForBackground(bg),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "700",
+    fontSize: cellFontSize,
+    border: options.border ?? "1px solid transparent",
+    flex: "0 0 auto"
+  });
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) {
@@ -215,6 +237,10 @@ const KmpAlgorithmAlgo = () => {
     return () => clearInterval(intervalId);
   }, [isPlaying, stepIndex, steps.length]);
 
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
+
   return (
     <Container>
       <CardContainer>
@@ -227,19 +253,15 @@ const KmpAlgorithmAlgo = () => {
         <AlgoVisualizer>
           <div className="algo-split">
             <div className="algo-pane-main-wide">
-              <div style={{ marginBottom: "16px", color: "#1f2937", fontWeight: "600", wordBreak: "break-all" }}>
+              <div className={cn("break-all font-semibold text-slate-800", compact ? "mb-3" : "mb-4")}>
                 Text: {SAMPLE_TEXT}
               </div>
-              <div style={{ marginBottom: "10px", color: "#4b5563", fontWeight: "600" }}>
+              <div className={cn("font-semibold text-slate-600", compact ? "mb-2" : "mb-2.5")}>
                 Pattern:
               </div>
               <div
-                style={{
-                  display: "flex",
-                  gap: "6px",
-                  marginBottom: "16px",
-                  flexWrap: "wrap"
-                }}
+                className={cn("flex flex-wrap", compact ? "mb-3" : "mb-4")}
+                style={{ gap: `${cellGap}px` }}
               >
                 {SAMPLE_PATTERN.split("").map((char, idx) => {
                   let bg = "#cbd5e1";
@@ -252,17 +274,7 @@ const KmpAlgorithmAlgo = () => {
                   return (
                     <div
                       key={`pattern-top-${idx}`}
-                      style={{
-                        width: "30px",
-                        height: "30px",
-                        borderRadius: "6px",
-                        background: bg,
-                        color: getTextColorForBackground(bg),
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontWeight: "700"
-                      }}
+                      style={getCharCellStyle(bg)}
                     >
                       {char}
                     </div>
@@ -270,35 +282,25 @@ const KmpAlgorithmAlgo = () => {
                 })}
               </div>
 
-              <div style={{ marginBottom: "10px", color: "#4b5563", fontWeight: "600" }}>
+              <div className="mb-2.5 font-semibold text-slate-600">
                 Search alignment:
               </div>
-              <AlgoVisualizerScroll style={{ paddingBottom: "6px" }}>
-                <div style={{ minWidth: `${SAMPLE_TEXT.length * 34}px` }}>
-                  <div style={{ display: "flex", gap: "6px", marginBottom: "8px" }}>
+              <AlgoVisualizerScroll className={compact ? "pb-1" : "pb-1.5"}>
+                <div style={{ minWidth: `${alignmentMinWidth}px` }}>
+                  <div className={compact ? "mb-1.5 flex" : "mb-2 flex"} style={{ gap: `${cellGap}px` }}>
                     {SAMPLE_TEXT.split("").map((char, idx) => {
                       const bg = isSearchPhase && currentStep.textIndex === idx ? "#ef4444" : "#d1d5db";
                       return (
                         <div
                           key={`text-${idx}`}
-                          style={{
-                            width: "30px",
-                            height: "30px",
-                            borderRadius: "6px",
-                            background: bg,
-                            color: getTextColorForBackground(bg),
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontWeight: "700"
-                          }}
+                          style={getCharCellStyle(bg)}
                         >
                           {char}
                         </div>
                       );
                     })}
                   </div>
-                  <div style={{ display: "flex", gap: "6px" }}>
+                  <div className="flex" style={{ gap: `${cellGap}px` }}>
                     {SAMPLE_TEXT.split("").map((_, idx) => {
                       const relativePatternIndex = isSearchPhase
                         ? idx - currentStep.windowStart
@@ -318,18 +320,9 @@ const KmpAlgorithmAlgo = () => {
                       return (
                         <div
                           key={`align-${idx}`}
-                          style={{
-                            width: "30px",
-                            height: "30px",
-                            borderRadius: "6px",
-                            background: bg,
-                            color: bg === "transparent" ? "transparent" : getTextColorForBackground(bg),
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontWeight: "700",
+                          style={getCharCellStyle(bg, {
                             border: isPatternHere ? "1px solid #93c5fd" : "1px solid transparent"
-                          }}
+                          })}
                         >
                           {isPatternHere ? SAMPLE_PATTERN[relativePatternIndex] : "_"}
                         </div>
@@ -341,21 +334,20 @@ const KmpAlgorithmAlgo = () => {
             </div>
 
             <div className="algo-pane-side-wide">
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f5f8b" }}>Phase:</strong>
-                <div style={{ marginTop: "8px", color: "#1f5f8b" }}>
+              <div className="mb-3">
+                <strong className="text-sky-800">Phase:</strong>
+                <div className="mt-2 text-sky-800">
                   {isSearchPhase ? "Search" : "LPS Construction"}
                 </div>
               </div>
 
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#4b5563" }}>LPS Array:</strong>
+              <div className="mb-3">
+                <strong className="text-slate-600">LPS Array:</strong>
                 <div
+                  className="mt-2 grid"
                   style={{
-                    marginTop: "8px",
-                    display: "grid",
-                    gridTemplateColumns: `repeat(${SAMPLE_PATTERN.length}, minmax(24px, 1fr))`,
-                    gap: "6px"
+                    gridTemplateColumns: `repeat(${SAMPLE_PATTERN.length}, minmax(${compact ? 20 : 24}px, 1fr))`,
+                    gap: compact ? "4px" : "6px"
                   }}
                 >
                   {currentStep.lps.map((value, idx) => {
@@ -363,13 +355,13 @@ const KmpAlgorithmAlgo = () => {
                     return (
                       <div
                         key={`lps-${idx}`}
+                        className="text-center font-bold"
                         style={{
-                          padding: "6px 4px",
-                          borderRadius: "6px",
+                          padding: compact ? "5px 3px" : "6px 4px",
+                          borderRadius: compact ? "5px" : "6px",
                           background: bg,
                           color: getTextColorForBackground(bg),
-                          textAlign: "center",
-                          fontWeight: "700"
+                          fontSize: compact ? "0.8rem" : "0.95rem"
                         }}
                         title={`LPS[${idx}]`}
                       >
@@ -380,17 +372,13 @@ const KmpAlgorithmAlgo = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f7a3f" }}>Matches found:</strong>
+              <div className="mb-3">
+                <strong className="text-emerald-700">Matches found:</strong>
                 <div
-                  style={{
-                    marginTop: "8px",
-                    padding: "10px",
-                    background: "#ecf0f1",
-                    borderRadius: "6px",
-                    minHeight: "40px",
-                    color: "#1f7a3f"
-                  }}
+                  className={cn(
+                    "mt-2 min-h-10 rounded-md bg-slate-100 text-emerald-700",
+                    compact ? "p-2 text-sm" : "p-2.5 text-base"
+                  )}
                 >
                   {currentMatches.length > 0
                     ? currentMatches.map((idx) => `index ${idx}`).join(" • ")
@@ -398,44 +386,32 @@ const KmpAlgorithmAlgo = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f5f8b" }}>Step:</strong>
-                <div style={{ marginTop: "8px", color: "#1f5f8b" }}>{currentStep.message}</div>
+              <div className="mb-3">
+                <strong className="text-sky-800">Step:</strong>
+                <div className={cn("mt-2 text-sky-800", compact ? "text-sm" : "text-base")}>
+                  {currentStep.message}
+                </div>
               </div>
 
-              <div style={{ display: "flex", gap: "10px" }}>
-                <button
-                  type="button"
+              <div className="flex flex-wrap gap-2.5">
+                <Button
+                  size={compact ? "sm" : "default"}
+                  variant="secondary"
                   onClick={() => setIsPlaying((prev) => !prev)}
-                  style={{
-                    padding: "8px 14px",
-                    borderRadius: "6px",
-                    border: "1px solid #bdc3c7",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                    color: "#c0392b"
-                  }}
                 >
                   {isPlaying ? "Pause" : "Play"}
-                </button>
+                </Button>
 
-                <button
-                  type="button"
+                <Button
+                  size={compact ? "sm" : "default"}
+                  variant="outline"
                   onClick={() => {
                     setStepIndex(0);
-                    setIsPlaying(true);
-                  }}
-                  style={{
-                    padding: "8px 14px",
-                    borderRadius: "6px",
-                    border: "1px solid #bdc3c7",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                    color: "#c0392b"
+                    setIsPlaying(autoPlay);
                   }}
                 >
                   Reset
-                </button>
+                </Button>
               </div>
             </div>
           </div>

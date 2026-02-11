@@ -6,7 +6,7 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
 
 const PRICES = [1, 5, 8, 9, 10, 17, 17, 20];
 
@@ -38,17 +38,17 @@ const solveRodCutting = (rodLength) => {
   return { dp, firstCut, cuts };
 };
 
-const RodCuttingAlgo = () => {
+const RodCuttingAlgo = ({ compact = false }) => {
   const [rodLength, setRodLength] = useState(8);
   const { dp, cuts } = useMemo(() => solveRodCutting(rodLength), [rodLength]);
   const bestValue = dp[rodLength];
   const maxDp = Math.max(...dp, 1);
 
-  const barW = 54;
-  const gap = 10;
+  const barW = compact ? 46 : 54;
+  const gap = compact ? 8 : 10;
   const chartW = (rodLength + 1) * (barW + gap) + gap;
-  const chartH = 290;
-  const floorY = 220;
+  const chartH = compact ? 264 : 290;
+  const floorY = compact ? 196 : 220;
 
   return (
     <Container>
@@ -59,8 +59,8 @@ const RodCuttingAlgo = () => {
           each rod length from 1..n.
         </Para>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center" }}>
-          <label htmlFor="rod-length" style={{ fontWeight: 600, color: "#334155" }}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <label htmlFor="rod-length" className="font-semibold text-slate-700">
             Rod length:
           </label>
           <input
@@ -70,8 +70,9 @@ const RodCuttingAlgo = () => {
             max="8"
             value={rodLength}
             onChange={(e) => setRodLength(Number(e.target.value))}
+            className="accent-sky-600"
           />
-          <strong>{rodLength}</strong>
+          <strong className="text-slate-900">{rodLength}</strong>
         </div>
 
         <Para>
@@ -84,7 +85,7 @@ const RodCuttingAlgo = () => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            style={{ maxWidth: "940px", height: "auto" }}
+            className="mx-auto h-auto w-full max-w-[940px]"
           >
             {dp.map((value, len) => {
               const x = gap + len * (barW + gap);

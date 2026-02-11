@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
 
 const nodes = [
   { v: 20, x: 220, y: 50, c: "black" },
@@ -12,7 +12,7 @@ const nodes = [
 ];
 const edges = [[20, 10], [20, 30], [10, 5], [10, 15], [30, 25], [30, 35]];
 
-const RedBlackTreeAlgo = () => {
+const RedBlackTreeAlgo = ({ compact = false }) => {
   const byV = Object.fromEntries(nodes.map((n) => [n.v, n]));
   return (
     <Container>
@@ -24,7 +24,12 @@ const RedBlackTreeAlgo = () => {
         </Para>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox="0 0 430 270" preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "620px", height: "auto" }}>
+          <svg
+            width="100%"
+            viewBox="0 0 430 270"
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[620px]"
+          >
             {edges.map(([u, v]) => (
               <line key={`${u}-${v}`} x1={byV[u].x} y1={byV[u].y} x2={byV[v].x} y2={byV[v].y} stroke="#94a3b8" strokeWidth="2" />
             ))}

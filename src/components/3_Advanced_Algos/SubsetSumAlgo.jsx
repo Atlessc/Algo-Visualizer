@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const NUMS = [3, 34, 4, 12, 5, 2];
 const TARGET = 9;
@@ -26,11 +28,15 @@ const buildSteps = () => {
   return steps;
 };
 
-const SubsetSumAlgo = () => {
+const SubsetSumAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -49,26 +55,52 @@ const SubsetSumAlgo = () => {
         </Para>
         <Para>Numbers: [{NUMS.join(", ")}], Target: {TARGET}</Para>
         <Para>{step.msg}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <div style={{ overflowX: "auto", width: "100%" }}>
-            <table style={{ borderCollapse: "collapse", margin: "0 auto", minWidth: "min(100%, 580px)" }}>
+          <div className="w-full overflow-x-auto">
+            <table
+              className={cn("mx-auto border-collapse", compact ? "text-xs" : "text-sm")}
+              style={{ minWidth: "580px" }}
+            >
               <thead>
                 <tr>
-                  <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}>i/s</th>
+                  <th className={cn("border border-slate-300", compact ? "px-1.5 py-1" : "px-2 py-1.5")}>i/s</th>
                   {Array.from({ length: TARGET + 1 }, (_, s) => (
-                    <th key={s} style={{ border: "1px solid #cbd5e1", padding: "6px" }}>{s}</th>
+                    <th
+                      key={s}
+                      className={cn("border border-slate-300", compact ? "px-1.5 py-1" : "px-2 py-1.5")}
+                    >
+                      {s}
+                    </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {step.dp.map((row, i) => (
                   <tr key={i}>
-                    <th style={{ border: "1px solid #cbd5e1", padding: "6px", background: "#f1f5f9" }}>
+                    <th
+                      className={cn(
+                        "border border-slate-300 bg-slate-100",
+                        compact ? "px-1.5 py-1" : "px-2 py-1.5"
+                      )}
+                    >
                       {i === 0 ? "0 items" : i}
                     </th>
                     {row.map((v, s) => {
@@ -76,14 +108,15 @@ const SubsetSumAlgo = () => {
                       return (
                         <td
                           key={`${i}-${s}`}
-                          style={{
-                            border: "1px solid #cbd5e1",
-                            padding: "6px",
-                            textAlign: "center",
-                            background: active ? "#0ea5e9" : v ? "#dcfce7" : "#fff",
-                            color: active ? "#fff" : "#0f172a",
-                            fontWeight: 700,
-                          }}
+                          className={cn(
+                            "border border-slate-300 text-center font-bold",
+                            compact ? "px-1.5 py-1" : "px-2 py-1.5",
+                            active
+                              ? "bg-sky-500 text-white"
+                              : v
+                                ? "bg-emerald-100 text-slate-900"
+                                : "bg-white text-slate-900"
+                          )}
                         >
                           {v ? "T" : "F"}
                         </td>

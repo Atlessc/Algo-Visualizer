@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const TEXT = "aabcaabxaaaz";
 
@@ -30,13 +31,17 @@ const buildSteps = () => {
   return steps;
 };
 
-const ZAlgorithmAlgo = () => {
+const ZAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
   const cellW = 34;
   const chartW = TEXT.length * (cellW + 4);
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -50,15 +55,33 @@ const ZAlgorithmAlgo = () => {
         <Title>Z Algorithm</Title>
         <Para>Computes Z[i]: length of the longest substring starting at i that matches the prefix.</Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
         <Para>String: <strong>{TEXT}</strong></Para>
 
         <AlgoVisualizer>
-          <div style={{ overflowX: "auto", width: "100%" }}>
-            <svg width="100%" viewBox={`0 0 ${chartW + 10} 170`} preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "860px", height: "auto" }}>
+          <div className="w-full overflow-x-auto">
+            <svg
+              width="100%"
+              viewBox={`0 0 ${chartW + 10} 170`}
+              preserveAspectRatio="xMidYMid meet"
+              className="mx-auto h-auto w-full max-w-[860px]"
+            >
               {TEXT.split("").map((ch, i) => {
                 const x = 6 + i * (cellW + 4);
                 const inWindow = i >= step.l && i <= step.r;

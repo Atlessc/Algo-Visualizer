@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const buildSteps = (n) => {
   const prime = Array(n + 1).fill(true);
@@ -21,17 +23,21 @@ const buildSteps = (n) => {
   return steps;
 };
 
-const SieveOfEratosthenesAlgo = () => {
+const SieveOfEratosthenesAlgo = ({ autoPlay = true, compact = false }) => {
   const [n, setN] = useState(50);
   const steps = useMemo(() => buildSteps(n), [n]);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
 
   useEffect(() => {
     setStepIndex(0);
-    setIsPlaying(true);
-  }, [n]);
+    setIsPlaying(autoPlay);
+  }, [n, autoPlay]);
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -46,16 +52,36 @@ const SieveOfEratosthenesAlgo = () => {
       <CardContainer>
         <Title>Sieve of Eratosthenes</Title>
         <Para>Find all primes up to n by crossing out multiples of each prime.</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <input type="range" min="20" max="1000" value={n} onChange={(e) => setN(Number(e.target.value))} />
-          <strong>n={n}</strong>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <input
+            type="range"
+            min="20"
+            max="1000"
+            value={n}
+            onChange={(e) => setN(Number(e.target.value))}
+            className={cn("w-full", compact ? "max-w-[260px]" : "max-w-[340px]")}
+          />
+          <strong className={cn(compact ? "text-sm" : "text-base")}>n={n}</strong>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
         <Para>{step.msg}</Para>
 
         <AlgoVisualizer>
-          <div style={{ width: "100%", maxWidth: "900px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(34px, 1fr))", gap: "6px" }}>
+          <div className={cn("mx-auto grid w-full max-w-[900px] gap-1.5", compact ? "grid-cols-[repeat(auto-fit,minmax(26px,1fr))]" : "grid-cols-[repeat(auto-fit,minmax(34px,1fr))]")}>
             {Array.from({ length: n + 1 }, (_, i) => {
               const isMarked = step.marked.includes(i);
               let bg = "#e2e8f0";
@@ -63,7 +89,14 @@ const SieveOfEratosthenesAlgo = () => {
               if (isMarked) bg = "#ef4444";
               if (i < 2) bg = "#94a3b8";
               return (
-                <div key={i} style={{ borderRadius: "6px", padding: "6px 0", textAlign: "center", color: "#fff", background: bg, fontSize: "12px", fontWeight: 700 }}>
+                <div
+                  key={i}
+                  className={cn(
+                    "rounded-md py-1 text-center font-bold text-white",
+                    compact ? "text-[10px]" : "text-xs"
+                  )}
+                  style={{ background: bg }}
+                >
                   {i}
                 </div>
               );

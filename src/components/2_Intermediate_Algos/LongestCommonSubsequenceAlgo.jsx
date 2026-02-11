@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const X = "AGGTAB";
 const Y = "GXTXAYB";
@@ -37,10 +39,10 @@ const buildSteps = () => {
   return { steps, lcs };
 };
 
-const LongestCommonSubsequenceAlgo = () => {
+const LongestCommonSubsequenceAlgo = ({ autoPlay = true, compact = false }) => {
   const { steps, lcs } = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
 
   useEffect(() => {
@@ -49,47 +51,76 @@ const LongestCommonSubsequenceAlgo = () => {
     return () => clearInterval(id);
   }, [isPlaying, stepIndex, steps.length]);
 
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
+
   return (
     <Container>
       <CardContainer>
         <Title>Longest Common Subsequence</Title>
         <Para>Find the longest sequence appearing in both strings in the same order (not necessarily contiguous).</Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
         <Para>X = "{X}", Y = "{Y}", LCS = <strong>{lcs}</strong></Para>
 
         <AlgoVisualizer>
-          <div style={{ overflowX: "auto", width: "100%" }}>
-            <table style={{ borderCollapse: "collapse", minWidth: "min(100%, 560px)", margin: "0 auto" }}>
+          <div className="w-full overflow-x-auto">
+            <table
+              className={cn("mx-auto border-collapse", compact ? "text-xs" : "text-sm")}
+              style={{ minWidth: "560px" }}
+            >
               <thead>
                 <tr>
-                  <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}> </th>
-                  <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}>∅</th>
+                  <th className={cn("border border-slate-300", compact ? "px-1.5 py-1" : "px-2 py-1.5")}> </th>
+                  <th className={cn("border border-slate-300", compact ? "px-1.5 py-1" : "px-2 py-1.5")}>∅</th>
                   {Y.split("").map((ch, j) => (
-                    <th key={j} style={{ border: "1px solid #cbd5e1", padding: "6px" }}>{ch}</th>
+                    <th
+                      key={j}
+                      className={cn("border border-slate-300", compact ? "px-1.5 py-1" : "px-2 py-1.5")}
+                    >
+                      {ch}
+                    </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {step.dp.map((row, i) => (
                   <tr key={i}>
-                    <th style={{ border: "1px solid #cbd5e1", padding: "6px", background: "#f1f5f9" }}>{i === 0 ? "∅" : X[i - 1]}</th>
+                    <th
+                      className={cn(
+                        "border border-slate-300 bg-slate-100",
+                        compact ? "px-1.5 py-1" : "px-2 py-1.5"
+                      )}
+                    >
+                      {i === 0 ? "∅" : X[i - 1]}
+                    </th>
                     {row.map((val, j) => {
                       const active = i === step.i && j === step.j;
                       return (
                         <td
                           key={j}
-                          style={{
-                            border: "1px solid #cbd5e1",
-                            padding: "6px",
-                            textAlign: "center",
-                            fontWeight: 700,
-                            background: active ? "#0ea5e9" : "#fff",
-                            color: active ? "#fff" : "#0f172a",
-                          }}
+                          className={cn(
+                            "border border-slate-300 text-center font-bold",
+                            compact ? "px-1.5 py-1" : "px-2 py-1.5",
+                            active ? "bg-sky-500 text-white" : "bg-white text-slate-900"
+                          )}
                         >
                           {val}
                         </td>

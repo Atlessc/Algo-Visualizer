@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { cn } from "../../lib/utils";
 
 const INPUT = [3, 1, 0, 4, 8, 6, 2, 5];
 
@@ -17,7 +18,7 @@ const splitStages = (arr) => {
   return stages;
 };
 
-const FftAlgo = () => {
+const FftAlgo = ({ compact = false }) => {
   const stages = useMemo(() => splitStages(INPUT), []);
   const [idx, setIdx] = useState(0);
   const s = stages[idx];
@@ -34,17 +35,30 @@ const FftAlgo = () => {
           convolution.
         </Para>
         <Para>Input sequence: [{INPUT.join(", ")}]</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <input type="range" min="0" max={stages.length - 1} value={idx} onChange={(e) => setIdx(Number(e.target.value))} />
-          <strong>{idx + 1}/{stages.length}</strong>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <input
+            type="range"
+            min="0"
+            max={stages.length - 1}
+            value={idx}
+            onChange={(e) => setIdx(Number(e.target.value))}
+            className={cn("w-full", compact ? "max-w-[260px]" : "max-w-[340px]")}
+          />
+          <strong className={cn(compact ? "text-sm" : "text-base")}>{idx + 1}/{stages.length}</strong>
         </div>
         <Para>Stage: {s.label} (depth {s.depth}/{maxDepth})</Para>
 
         <AlgoVisualizer>
-          <div style={{ width: "100%", maxWidth: "860px", margin: "0 auto", background: "#eef2ff", borderRadius: "12px", padding: "12px" }}>
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
+          <div className="mx-auto w-full max-w-[860px] rounded-xl bg-indigo-100 p-3">
+            <div className="flex flex-wrap justify-center gap-2">
               {s.values.map((v, i) => (
-                <div key={i} style={{ minWidth: "min(100%, 46px)", padding: "8px 10px", borderRadius: "8px", background: "#0ea5e9", color: "#fff", textAlign: "center", fontWeight: 700 }}>
+                <div
+                  key={i}
+                  className={cn(
+                    "min-w-[46px] rounded-lg bg-sky-500 px-2.5 py-2 text-center font-bold text-white",
+                    compact ? "text-xs" : "text-sm"
+                  )}
+                >
                   {v}
                 </div>
               ))}

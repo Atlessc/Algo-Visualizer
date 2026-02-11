@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { cn } from "../../lib/utils";
 
 const WORDS = ["cat", "car", "cart", "dog", "dove"];
 
@@ -38,7 +39,7 @@ const collectBranches = (node, prefix = "", out = []) => {
   return out;
 };
 
-const TrieOperationsAlgo = () => {
+const TrieOperationsAlgo = ({ compact = false }) => {
   const trie = useMemo(() => buildTrie(WORDS), []);
   const [query, setQuery] = useState("car");
   const result = traversePrefix(trie, query);
@@ -49,8 +50,17 @@ const TrieOperationsAlgo = () => {
       <CardContainer>
         <Title>Trie Operations</Title>
         <Para>Trie supports efficient insert/search/prefix checks by sharing common prefixes.</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <input type="text" value={query} onChange={(e) => setQuery(e.target.value.toLowerCase())} style={{ width: "180px" }} />
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value.toLowerCase())}
+            className={cn(
+              "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
+              compact ? "w-full min-w-0 text-sm" : "w-[180px] text-sm"
+            )}
+            aria-label="Trie search query"
+          />
         </div>
         <Para>
           Prefix exists: <strong>{result.foundPrefix ? "Yes" : "No"}</strong> | Exact word:{" "}
@@ -58,19 +68,26 @@ const TrieOperationsAlgo = () => {
         </Para>
 
         <AlgoVisualizer>
-          <div style={{ width: "100%", maxWidth: "820px", margin: "0 auto", display: "grid", gap: "10px" }}>
-            <div style={{ background: "#eef2ff", borderRadius: "12px", padding: "10px", display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
+          <div className="mx-auto grid w-full max-w-[820px] gap-2.5">
+            <div className="flex flex-wrap items-center justify-center gap-2 rounded-xl bg-indigo-100 p-2.5">
               {WORDS.map((w) => (
-                <span key={w} style={{ background: "#334155", color: "#fff", padding: "6px 10px", borderRadius: "999px", fontSize: "12px" }}>
+                <span key={w} className={cn("rounded-full bg-slate-700 px-2.5 py-1 text-white", compact ? "text-[11px]" : "text-xs")}>
                   {w}
                 </span>
               ))}
             </div>
-            <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "10px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: "8px" }}>
+            <div className={cn("grid gap-2 rounded-xl border border-slate-200 bg-slate-50 p-2.5", compact ? "grid-cols-2" : "grid-cols-[repeat(auto-fit,minmax(110px,1fr))]")}>
               {branches.map((b, i) => {
                 const active = query && b.text.startsWith(query) ? "#0ea5e9" : result.path.join("") === b.text ? "#f59e0b" : "#fff";
                 return (
-                  <div key={i} style={{ borderRadius: "8px", padding: "8px", background: active, color: active === "#fff" ? "#1e293b" : "#fff", fontFamily: "monospace", fontSize: "13px", fontWeight: 600 }}>
+                  <div
+                    key={i}
+                    className={cn(
+                      "rounded-lg p-2 font-mono font-semibold",
+                      compact ? "text-xs" : "text-[13px]"
+                    )}
+                    style={{ background: active, color: active === "#fff" ? "#1e293b" : "#fff" }}
+                  >
                     {b.text}{b.word ? " *" : ""}
                   </div>
                 );

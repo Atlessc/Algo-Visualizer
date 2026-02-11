@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { cn } from "../../lib/utils";
 
 const ARR = [2, 1, 5, 3, 4];
 
@@ -23,7 +24,7 @@ const buildTree = () => {
   return steps;
 };
 
-const SegmentTreeAlgo = () => {
+const SegmentTreeAlgo = ({ compact = false }) => {
   const steps = useMemo(() => buildTree(), []);
   const [stepIndex, setStepIndex] = useState(steps.length - 1);
   const step = steps[stepIndex];
@@ -34,28 +35,36 @@ const SegmentTreeAlgo = () => {
       <CardContainer>
         <Title>Segment Tree</Title>
         <Para>Hierarchical structure for range queries and point updates in O(log n).</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <input
             type="range"
             min="0"
             max={steps.length - 1}
             value={stepIndex}
             onChange={(e) => setStepIndex(Number(e.target.value))}
+            className={cn("w-full", compact ? "max-w-[240px]" : "max-w-[320px]")}
           />
-          <strong>{stepIndex + 1}/{steps.length}</strong>
+          <strong className={cn(compact ? "text-sm" : "text-base")}>{stepIndex + 1}/{steps.length}</strong>
         </div>
         <Para>{step.msg}</Para>
 
         <AlgoVisualizer>
-          <div style={{ width: "100%", overflowX: "auto" }}>
-            <div style={{ minWidth: "min(100%, 680px)", display: "flex", gap: "8px", justifyContent: "center" }}>
+          <div className="w-full overflow-x-auto">
+            <div className="mx-auto flex min-w-[680px] justify-center gap-2">
               {values.map((v, i) => {
                 const nodeIdx = i + 1;
                 const active = nodeIdx === step.node;
                 return (
-                  <div key={nodeIdx} style={{ width: "clamp(42px, 8vw, 54px)", borderRadius: "8px", background: active ? "#0ea5e9" : "#e2e8f0", color: active ? "#fff" : "#0f172a", padding: "8px 4px", textAlign: "center", fontFamily: "monospace" }}>
-                    <div style={{ fontSize: "11px" }}>{nodeIdx}</div>
-                    <div style={{ fontWeight: 700 }}>{v}</div>
+                  <div
+                    key={nodeIdx}
+                    className={cn(
+                      "rounded-lg px-1 py-2 text-center font-mono",
+                      compact ? "w-10" : "w-12",
+                      active ? "bg-sky-500 text-white" : "bg-slate-200 text-slate-900"
+                    )}
+                  >
+                    <div className={cn(compact ? "text-[10px]" : "text-[11px]")}>{nodeIdx}</div>
+                    <div className="font-bold">{v}</div>
                   </div>
                 );
               })}

@@ -6,7 +6,9 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const weightedGraphData = {
   nodes: [
@@ -235,11 +237,11 @@ const generateDijkstraSteps = (graph, startNode) => {
   return steps;
 };
 
-const DijkstraAlgorithmAlgo = () => {
+const DijkstraAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
   const startNode = "A";
   const steps = useMemo(() => generateDijkstraSteps(weightedGraphData, startNode), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [hoveredTarget, setHoveredTarget] = useState(null);
 
   const edgeWeights = useMemo(
@@ -268,6 +270,10 @@ const DijkstraAlgorithmAlgo = () => {
 
     return () => clearInterval(intervalId);
   }, [isPlaying, stepIndex, steps.length]);
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   const getNodeStyle = (nodeId) => {
     if (hoveredTarget) {
@@ -334,7 +340,7 @@ const DijkstraAlgorithmAlgo = () => {
                 width="100%"
                 viewBox="0 0 620 260"
                 preserveAspectRatio="xMidYMid meet"
-                style={{ maxWidth: "760px", height: "auto" }}
+                className="mx-auto h-auto w-full max-w-[760px]"
               >
                 {weightedGraphData.edges.map((edge) => {
                   const from = nodesById[edge.from];
@@ -403,25 +409,21 @@ const DijkstraAlgorithmAlgo = () => {
                 })}
               </svg>
               <div className="algo-legend-row">
-                <span style={{ background: "#e74c3c", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>current</span>
-                <span style={{ background: "#3498db", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>frontier</span>
-                <span style={{ background: "#2ecc71", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>settled</span>
-                <span style={{ background: "#0ea5e9", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>hover path</span>
+                <span className="rounded-full bg-red-500 px-2 py-1 text-xs text-white">current</span>
+                <span className="rounded-full bg-sky-500 px-2 py-1 text-xs text-white">frontier</span>
+                <span className="rounded-full bg-emerald-500 px-2 py-1 text-xs text-white">settled</span>
+                <span className="rounded-full bg-cyan-500 px-2 py-1 text-xs text-white">hover path</span>
               </div>
             </div>
 
             <div className="algo-pane-side">
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f5f8b" }}>Frontier:</strong>
+              <div className="mb-3">
+                <strong className="text-sky-800">Frontier:</strong>
                 <div
-                  style={{
-                    marginTop: "8px",
-                    padding: "10px",
-                    background: "#ecf0f1",
-                    borderRadius: "6px",
-                    minHeight: "40px",
-                    color: "#1f5f8b"
-                  }}
+                  className={cn(
+                    "mt-2 min-h-10 rounded-md bg-slate-100 text-sky-800",
+                    compact ? "p-2 text-sm" : "p-2.5 text-base"
+                  )}
                 >
                   {currentStep.frontier.length > 0
                     ? currentStep.frontier
@@ -431,17 +433,13 @@ const DijkstraAlgorithmAlgo = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f7a3f" }}>Settled order:</strong>
+              <div className="mb-3">
+                <strong className="text-emerald-700">Settled order:</strong>
                 <div
-                  style={{
-                    marginTop: "8px",
-                    padding: "10px",
-                    background: "#ecf0f1",
-                    borderRadius: "6px",
-                    minHeight: "40px",
-                    color: "#1f7a3f"
-                  }}
+                  className={cn(
+                    "mt-2 min-h-10 rounded-md bg-slate-100 text-emerald-700",
+                    compact ? "p-2 text-sm" : "p-2.5 text-base"
+                  )}
                 >
                   {currentStep.settledOrder.length > 0
                     ? currentStep.settledOrder.join(" → ")
@@ -449,19 +447,15 @@ const DijkstraAlgorithmAlgo = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#4b5563" }}>
+              <div className="mb-3">
+                <strong className="text-slate-600">
                   Shortest paths from {startNode} (hover destination):
                 </strong>
                 <div
-                  style={{
-                    marginTop: "8px",
-                    padding: "10px",
-                    background: "#ecf0f1",
-                    borderRadius: "6px",
-                    color: "#1f2937",
-                    lineHeight: 1.5
-                  }}
+                  className={cn(
+                    "mt-2 rounded-md bg-slate-100 text-slate-800",
+                    compact ? "p-2 text-sm leading-6" : "p-2.5 text-base leading-6"
+                  )}
                 >
                   {sortedNodes.map((node) => {
                     const pathNodes = buildPathNodes(node.id, finalStep.previous, startNode);
@@ -469,11 +463,8 @@ const DijkstraAlgorithmAlgo = () => {
                     return (
                       <div key={`path-${node.id}`}>
                         <strong
-                          style={{
-                            color: hoveredTarget === node.id ? "#0b5c81" : "#1f2937",
-                            cursor: "pointer",
-                            textDecoration: "underline"
-                          }}
+                          className="cursor-pointer underline focus-visible:outline-none"
+                          style={{ color: hoveredTarget === node.id ? "#0b5c81" : "#1f2937" }}
                           onMouseEnter={() => setHoveredTarget(node.id)}
                           onMouseLeave={() => setHoveredTarget(null)}
                           onFocus={() => setHoveredTarget(node.id)}
@@ -490,44 +481,32 @@ const DijkstraAlgorithmAlgo = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f5f8b" }}>Step:</strong>
-                <div style={{ marginTop: "8px", color: "#1f5f8b" }}>{currentStep.message}</div>
+              <div className="mb-3">
+                <strong className="text-sky-800">Step:</strong>
+                <div className={cn("mt-2 text-sky-800", compact ? "text-sm" : "text-base")}>
+                  {currentStep.message}
+                </div>
               </div>
 
-              <div style={{ display: "flex", gap: "10px" }}>
-                <button
-                  type="button"
+              <div className="flex flex-wrap gap-2.5">
+                <Button
+                  size={compact ? "sm" : "default"}
+                  variant="secondary"
                   onClick={() => setIsPlaying((prev) => !prev)}
-                  style={{
-                    padding: "8px 14px",
-                    borderRadius: "6px",
-                    border: "1px solid #bdc3c7",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                    color: "#c0392b"
-                  }}
                 >
                   {isPlaying ? "Pause" : "Play"}
-                </button>
+                </Button>
 
-                <button
-                  type="button"
+                <Button
+                  size={compact ? "sm" : "default"}
+                  variant="outline"
                   onClick={() => {
                     setStepIndex(0);
-                    setIsPlaying(true);
-                  }}
-                  style={{
-                    padding: "8px 14px",
-                    borderRadius: "6px",
-                    border: "1px solid #bdc3c7",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                    color: "#c0392b"
+                    setIsPlaying(autoPlay);
                   }}
                 >
                   Reset
-                </button>
+                </Button>
               </div>
             </div>
           </div>

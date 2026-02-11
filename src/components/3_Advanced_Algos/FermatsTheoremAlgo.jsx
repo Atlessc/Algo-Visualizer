@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { cn } from "../../lib/utils";
 
 const modPow = (a, e, m) => {
   let res = 1n;
@@ -14,7 +15,7 @@ const modPow = (a, e, m) => {
   return Number(res);
 };
 
-const FermatsTheoremAlgo = () => {
+const FermatsTheoremAlgo = ({ compact = false }) => {
   const [a, setA] = useState(2);
   const [p, setP] = useState(13);
   const value = useMemo(() => modPow(a, p - 1, p), [a, p]);
@@ -24,9 +25,29 @@ const FermatsTheoremAlgo = () => {
       <CardContainer>
         <Title>Fermat&apos;s Little Theorem</Title>
         <Para>If p is prime and gcd(a,p)=1, then a^(p-1) ≡ 1 (mod p).</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <input type="number" min="2" value={a} onChange={(e) => setA(Math.max(2, Number(e.target.value)))} style={{ width: "120px" }} />
-          <input type="number" min="3" value={p} onChange={(e) => setP(Math.max(3, Number(e.target.value)))} style={{ width: "120px" }} />
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <input
+            type="number"
+            min="2"
+            value={a}
+            onChange={(e) => setA(Math.max(2, Number(e.target.value)))}
+            className={cn(
+              "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
+              compact ? "w-full min-w-0 text-sm" : "w-[120px] text-sm"
+            )}
+            aria-label="Base a"
+          />
+          <input
+            type="number"
+            min="3"
+            value={p}
+            onChange={(e) => setP(Math.max(3, Number(e.target.value)))}
+            className={cn(
+              "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
+              compact ? "w-full min-w-0 text-sm" : "w-[120px] text-sm"
+            )}
+            aria-label="Prime candidate p"
+          />
         </div>
 
         <Para>
@@ -34,9 +55,9 @@ const FermatsTheoremAlgo = () => {
         </Para>
 
         <AlgoVisualizer>
-          <div style={{ width: "100%", maxWidth: "700px", margin: "0 auto", background: "#eef2ff", borderRadius: "12px", padding: "12px" }}>
-            <div style={{ fontFamily: "monospace" }}>{a}^{p - 1} mod {p} = {value}</div>
-            <div style={{ marginTop: "6px" }}>
+          <div className={cn("mx-auto w-full max-w-[700px] rounded-xl bg-indigo-100 p-3", compact ? "text-xs" : "text-sm")}>
+            <div className="font-mono">{a}^{p - 1} mod {p} = {value}</div>
+            <div className="mt-1.5">
               {value === 1 ? "Passes Fermat check (prime or Carmichael)." : "Fails Fermat check (composite)."}
             </div>
           </div>

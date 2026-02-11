@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const A = "kitten";
 const B = "sitting";
@@ -34,10 +35,10 @@ const buildSteps = () => {
   return steps;
 };
 
-const EditDistanceAlgo = () => {
+const EditDistanceAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
 
   useEffect(() => {
@@ -46,33 +47,48 @@ const EditDistanceAlgo = () => {
     return () => clearInterval(id);
   }, [isPlaying, stepIndex, steps.length]);
 
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
+
   return (
     <Container>
       <CardContainer>
         <Title>Edit Distance (Levenshtein)</Title>
         <Para>Minimum operations (insert, delete, replace) to transform one string into another.</Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <Button size={compact ? "sm" : "default"} variant="secondary" onClick={() => setIsPlaying((p) => !p)}>
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="outline"
+            onClick={() => {
+              setStepIndex(0);
+              setIsPlaying(autoPlay);
+            }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <div style={{ overflowX: "auto", width: "100%" }}>
-            <table style={{ borderCollapse: "collapse", minWidth: "min(100%, 520px)", margin: "0 auto" }}>
+          <div className="w-full overflow-x-auto">
+            <table className="mx-auto border-collapse" style={{ minWidth: compact ? "420px" : "520px" }}>
               <thead>
                 <tr>
-                  <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}> </th>
-                  <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}>∅</th>
+                  <th className="border border-slate-300 p-1.5"> </th>
+                  <th className="border border-slate-300 p-1.5">∅</th>
                   {B.split("").map((ch, j) => (
-                    <th key={j} style={{ border: "1px solid #cbd5e1", padding: "6px" }}>{ch}</th>
+                    <th key={j} className="border border-slate-300 p-1.5">{ch}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {step.dp.map((row, i) => (
                   <tr key={i}>
-                    <th style={{ border: "1px solid #cbd5e1", padding: "6px", background: "#f1f5f9" }}>
+                    <th className="border border-slate-300 bg-slate-100 p-1.5">
                       {i === 0 ? "∅" : A[i - 1]}
                     </th>
                     {row.map((val, j) => {
@@ -80,14 +96,11 @@ const EditDistanceAlgo = () => {
                       return (
                         <td
                           key={j}
+                          className="border border-slate-300 p-1.5 text-center font-bold"
                           style={{
-                            border: "1px solid #cbd5e1",
-                            padding: "6px",
-                            minWidth: "min(100%, 32px)",
-                            textAlign: "center",
+                            minWidth: compact ? "28px" : "32px",
                             background: active ? "#0ea5e9" : "#fff",
-                            color: active ? "#fff" : "#0f172a",
-                            fontWeight: 700,
+                            color: active ? "#fff" : "#0f172a"
                           }}
                         >
                           {val}

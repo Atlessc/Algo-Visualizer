@@ -6,7 +6,9 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const CHIP_COLORS = ["#e0f2fe", "#dcfce7", "#fef9c3", "#fee2e2", "#ede9fe", "#fce7f3"];
 
@@ -20,11 +22,14 @@ const TenXAlgoRenderer = ({
   useCase,
   steps,
   code,
-  speedMs = 1300
+  speedMs = 1300,
+  autoPlay = true,
+  compact = false
 }) => {
   const timeline = useMemo(() => steps ?? [], [steps]);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
+  const cardMinWidth = compact ? 118 : 160;
 
   const currentStep = timeline[stepIndex] ?? timeline[0];
 
@@ -40,6 +45,10 @@ const TenXAlgoRenderer = ({
     return () => window.clearInterval(timerId);
   }, [isPlaying, stepIndex, timeline.length, speedMs]);
 
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
+
   return (
     <Container>
       <CardContainer>
@@ -52,20 +61,13 @@ const TenXAlgoRenderer = ({
           <strong>Time Complexity:</strong> {complexity} | <strong>Use Case:</strong> {useCase}
         </Para>
 
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap"
-          }}
-        >
-          <button type="button" onClick={() => setIsPlaying((prev) => !prev)}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <Button size={compact ? "sm" : "default"} onClick={() => setIsPlaying((prev) => !prev)}>
             {isPlaying ? "Pause" : "Play"}
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="secondary"
             onClick={() => {
               setStepIndex((prev) => Math.min(prev + 1, timeline.length - 1));
               setIsPlaying(false);
@@ -73,52 +75,39 @@ const TenXAlgoRenderer = ({
             disabled={timeline.length === 0 || stepIndex >= timeline.length - 1}
           >
             Next Step
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="outline"
             onClick={() => {
               setStepIndex(0);
-              setIsPlaying(true);
+              setIsPlaying(autoPlay);
             }}
             disabled={timeline.length === 0}
           >
             Reset
-          </button>
-          <div style={{ fontSize: "0.9rem", color: "#334155", fontWeight: 600 }}>
+          </Button>
+          <div className={cn("font-semibold text-slate-600", compact ? "text-xs" : "text-sm")}>
             Step {timeline.length === 0 ? 0 : stepIndex + 1} / {timeline.length}
           </div>
         </div>
 
         <AlgoVisualizer>
           <div
-            style={{
-              width: "100%",
-              maxWidth: "920px",
-              margin: "0 auto",
-              display: "grid",
-              gap: "10px"
-            }}
+            className={cn("mx-auto grid w-full", compact ? "max-w-[760px] gap-2" : "max-w-[920px] gap-2.5")}
           >
-            <div
-              style={{
-                background: "#f8fafc",
-                border: "1px solid #e2e8f0",
-                borderRadius: "12px",
-                padding: "10px"
-              }}
-            >
-              <div style={{ fontWeight: 700, color: "#0f172a", marginBottom: "6px" }}>
+            <div className={cn("rounded-xl border border-slate-200 bg-slate-50", compact ? "p-2" : "p-2.5")}>
+              <div className="mb-1.5 font-bold text-slate-900">
                 {currentStep?.title ?? "No timeline steps configured"}
               </div>
-              <div style={{ color: "#334155", fontSize: "0.95rem" }}>{currentStep?.detail ?? ""}</div>
+              <div className={cn("text-slate-700", compact ? "text-sm" : "text-[0.95rem]")}>
+                {currentStep?.detail ?? ""}
+              </div>
             </div>
 
             <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-                gap: "8px"
-              }}
+              className={cn("grid", compact ? "gap-1.5" : "gap-2")}
+              style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${cardMinWidth}px, 1fr))` }}
             >
               {timeline.map((step, index) => {
                 const isActive = index === stepIndex;
@@ -127,20 +116,21 @@ const TenXAlgoRenderer = ({
                 return (
                   <div
                     key={`${step.title}-${index}`}
+                    className={cn(
+                      "flex flex-col justify-between rounded-xl text-slate-900",
+                      compact ? "min-h-[66px] p-[7px]" : "min-h-[74px] p-2"
+                    )}
                     style={{
-                      borderRadius: "12px",
                       border: isActive ? "2px solid #2563eb" : "1px solid #dbeafe",
-                      background: isVisited ? getChipColor(index) : "#f8fafc",
-                      color: "#0f172a",
-                      padding: "8px",
-                      minHeight: "74px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between"
+                      background: isVisited ? getChipColor(index) : "#f8fafc"
                     }}
                   >
-                    <div style={{ fontWeight: 700, fontSize: "0.84rem" }}>{step.title}</div>
-                    <div style={{ fontSize: "0.8rem", color: "#334155" }}>{step.metric}</div>
+                    <div className={cn("font-bold", compact ? "text-xs" : "text-[0.84rem]")}>
+                      {step.title}
+                    </div>
+                    <div className={cn("text-slate-700", compact ? "text-[0.74rem]" : "text-[0.8rem]")}>
+                      {step.metric}
+                    </div>
                   </div>
                 );
               })}

@@ -6,7 +6,7 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
 
 const gcd = (a, b) => {
   let x = Math.abs(a);
@@ -19,7 +19,7 @@ const gcd = (a, b) => {
   return x;
 };
 
-const GcdLcmAlgo = () => {
+const GcdLcmAlgo = ({ compact = false }) => {
   const [a, setA] = useState(24);
   const [b, setB] = useState(36);
 
@@ -30,7 +30,7 @@ const GcdLcmAlgo = () => {
     return { gcdValue: g, lcmValue: safeLcm, scaleMax: max };
   }, [a, b]);
 
-  const toWidth = (value) => Math.max((Math.abs(value) / scaleMax) * 480, 20);
+  const toWidth = (value) => Math.max((Math.abs(value) / scaleMax) * (compact ? 420 : 480), 20);
 
   return (
     <Container>
@@ -41,18 +41,18 @@ const GcdLcmAlgo = () => {
           divisible by both. They are linked by <strong>gcd(a,b) × lcm(a,b) = |a × b|</strong>.
         </Para>
 
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
           <input
             type="number"
             value={a}
             onChange={(e) => setA(Number(e.target.value))}
-            style={{ width: "130px" }}
+            className="h-10 w-28 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-900 outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
           />
           <input
             type="number"
             value={b}
             onChange={(e) => setB(Number(e.target.value))}
-            style={{ width: "130px" }}
+            className="h-10 w-28 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-900 outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
           />
         </div>
 
@@ -65,7 +65,7 @@ const GcdLcmAlgo = () => {
             width="100%"
             viewBox="0 0 560 240"
             preserveAspectRatio="xMidYMid meet"
-            style={{ maxWidth: "780px", height: "auto" }}
+            className="mx-auto h-auto w-full max-w-[780px]"
           >
             <text x="24" y="30" fontSize="14" fill="#0f172a" fontWeight="700">
               Relative magnitudes

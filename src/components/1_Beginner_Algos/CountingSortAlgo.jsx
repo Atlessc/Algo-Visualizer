@@ -7,13 +7,14 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const INITIAL_ARRAY = [4, 2, 2, 8, 3, 3, 1];
 const INITIAL_COUNTS = Array(Math.max(...INITIAL_ARRAY) + 1).fill(0);
 const INITIAL_OUTPUT = Array(INITIAL_ARRAY.length).fill(null);
 
-const CountingSortAlgo = () => {
+const CountingSortAlgo = ({ compact = false }) => {
   const [array, setArray] = useState(INITIAL_ARRAY);
   const [counts, setCounts] = useState(INITIAL_COUNTS);
   const [output, setOutput] = useState(INITIAL_OUTPUT);
@@ -96,13 +97,13 @@ const CountingSortAlgo = () => {
     setIsRunning(false);
   };
 
-  const cellW = 64;
-  const gap = 12;
+  const cellW = compact ? 52 : 64;
+  const gap = compact ? 8 : 12;
   const rowPadding = 12;
-  const rowHeight = 74;
+  const rowHeight = compact ? 68 : 74;
   const longestRow = Math.max(array.length, counts.length, output.length, 1);
   const chartW = longestRow * (cellW + gap) + rowPadding * 2;
-  const chartH = 290;
+  const chartH = compact ? 272 : 290;
 
   const drawRow = (values, y, activeIndex, palette) =>
     values.map((value, index) => {
@@ -138,16 +139,26 @@ const CountingSortAlgo = () => {
           It runs in O(n + k), where k is the value range.
         </Para>
 
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
-          <button type="button" onClick={runCountingSort} disabled={isRunning}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <Button size={compact ? "sm" : "default"} onClick={runCountingSort} disabled={isRunning}>
             Start Sort
-          </button>
-          <button type="button" onClick={randomize} disabled={isRunning}>
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={randomize}
+            disabled={isRunning}
+          >
             Randomize
-          </button>
-          <button type="button" onClick={() => resetState()} disabled={isRunning}>
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="outline"
+            onClick={() => resetState()}
+            disabled={isRunning}
+          >
             Reset
-          </button>
+          </Button>
         </div>
 
         <Para>
@@ -159,7 +170,7 @@ const CountingSortAlgo = () => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            style={{ maxWidth: "980px", height: "auto" }}
+            className="mx-auto h-auto w-full max-w-[980px]"
           >
             <text x={12} y={22} fontSize="14" fill="#0f172a" fontWeight="600">
               Input Array

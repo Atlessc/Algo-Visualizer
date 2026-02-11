@@ -6,7 +6,7 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
 
 const GRAPH = {
   nodes: [

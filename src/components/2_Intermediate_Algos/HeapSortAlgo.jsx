@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const INITIAL = [12, 11, 13, 5, 6, 7];
 
@@ -33,11 +34,11 @@ const buildSteps = (arr) => {
   return steps;
 };
 
-const HeapSortAlgo = () => {
+const HeapSortAlgo = ({ autoPlay = true, compact = false }) => {
   const [source, setSource] = useState(INITIAL);
   const steps = useMemo(() => buildSteps(source), [source]);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
 
   useEffect(() => {
@@ -46,16 +47,22 @@ const HeapSortAlgo = () => {
     return () => clearInterval(id);
   }, [isPlaying, stepIndex, steps.length]);
 
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
+
   const randomize = () => {
     setSource(Array.from({ length: 6 }, () => Math.floor(Math.random() * 20) + 1));
     setStepIndex(0);
-    setIsPlaying(true);
+    setIsPlaying(autoPlay);
   };
 
   const max = Math.max(...step.array, 1);
-  const barW = 68;
-  const gap = 10;
+  const barW = compact ? 58 : 68;
+  const gap = compact ? 8 : 10;
   const chartW = step.array.length * (barW + gap) + gap;
+  const chartH = compact ? 246 : 280;
+  const floorY = compact ? 192 : 220;
 
   return (
     <Container>
@@ -63,18 +70,34 @@ const HeapSortAlgo = () => {
         <Title>Heap Sort</Title>
         <Para>Build a max heap, then repeatedly extract the maximum element.</Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
-          <button type="button" onClick={randomize}>Randomize</button>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <Button size={compact ? "sm" : "default"} variant="secondary" onClick={() => setIsPlaying((p) => !p)}>
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="outline"
+            onClick={() => {
+              setStepIndex(0);
+              setIsPlaying(autoPlay);
+            }}
+          >
+            Reset
+          </Button>
+          <Button size={compact ? "sm" : "default"} onClick={randomize}>Randomize</Button>
         </div>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox={`0 0 ${chartW} 280`} preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "920px", height: "auto" }}>
+          <svg
+            width="100%"
+            viewBox={`0 0 ${chartW} ${chartH}`}
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[920px]"
+          >
             {step.array.map((v, i) => {
               const x = gap + i * (barW + gap);
               const h = 36 + (v / max) * 140;
-              const y = 220 - h;
+              const y = floorY - h;
               let fill = "#64748b";
               if (i >= step.boundary) fill = "#16a34a";
               if (i === step.active) fill = "#f59e0b";

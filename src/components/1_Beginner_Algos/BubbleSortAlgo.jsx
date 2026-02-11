@@ -7,11 +7,12 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const INITIAL_ARRAY = [32, 12, 25, 9, 41, 18, 5, 29];
 
-const BubbleSortAlgo = () => {
+const BubbleSortAlgo = ({ compact = false }) => {
   const [array, setArray] = useState(INITIAL_ARRAY);
   const [current, setCurrent] = useState(null);
   const [comparing, setComparing] = useState(null);
@@ -70,11 +71,11 @@ const BubbleSortAlgo = () => {
     setIsSorting(false);
   };
 
-  const barW = 60;
-  const gap = 12;
+  const barW = compact ? 48 : 60;
+  const gap = compact ? 8 : 12;
   const chartW = array.length * (barW + gap) + gap;
-  const chartH = 280;
-  const floorY = 220;
+  const chartH = compact ? 246 : 280;
+  const floorY = compact ? 192 : 220;
   const maxValue = Math.max(...array);
 
   return (
@@ -86,16 +87,26 @@ const BubbleSortAlgo = () => {
           wrong order. Largest values bubble to the right each pass.
         </Para>
 
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
-          <button type="button" onClick={runSort} disabled={isSorting}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <Button size={compact ? "sm" : "default"} onClick={runSort} disabled={isSorting}>
             Start Sort
-          </button>
-          <button type="button" onClick={randomize} disabled={isSorting}>
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={randomize}
+            disabled={isSorting}
+          >
             Randomize
-          </button>
-          <button type="button" onClick={reset} disabled={isSorting}>
+          </Button>
+          <Button
+            size={compact ? "sm" : "default"}
+            variant="outline"
+            onClick={reset}
+            disabled={isSorting}
+          >
             Reset
-          </button>
+          </Button>
         </div>
 
         <Para>{status}</Para>
@@ -105,7 +116,7 @@ const BubbleSortAlgo = () => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            style={{ maxWidth: "980px", height: "auto" }}
+            className="mx-auto h-auto w-full max-w-[980px]"
           >
             {array.map((value, index) => {
               const x = gap + index * (barW + gap);

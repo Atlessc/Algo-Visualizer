@@ -7,7 +7,7 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
 
 const buildByCount = (count) => {
   const n = Math.max(2, count);
@@ -28,7 +28,7 @@ const buildUntilValue = (maxValue) => {
   return fib;
 };
 
-const FibonacciSequenceIterativeAlgo = ({ maxElements = 10, endOnValue }) => {
+const FibonacciSequenceIterativeAlgo = ({ maxElements = 10, endOnValue, compact = false }) => {
   const defaultCount = Math.max(5, maxElements);
   const [count, setCount] = useState(defaultCount);
 
@@ -37,11 +37,11 @@ const FibonacciSequenceIterativeAlgo = ({ maxElements = 10, endOnValue }) => {
   }, [count, endOnValue]);
 
   const maxValue = Math.max(...sequence, 1);
-  const barW = 54;
-  const gap = 10;
+  const barW = compact ? 44 : 54;
+  const gap = compact ? 8 : 10;
   const chartW = sequence.length * (barW + gap) + gap;
-  const chartH = 300;
-  const floorY = 210;
+  const chartH = compact ? 266 : 300;
+  const floorY = compact ? 188 : 210;
 
   return (
     <Container>
@@ -53,8 +53,8 @@ const FibonacciSequenceIterativeAlgo = ({ maxElements = 10, endOnValue }) => {
         </Para>
 
         {!endOnValue && (
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center" }}>
-            <label htmlFor="fib-count" style={{ color: "#334155", fontWeight: 600 }}>
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
+            <label htmlFor="fib-count" className="font-semibold text-slate-700">
               Elements:
             </label>
             <input
@@ -64,8 +64,9 @@ const FibonacciSequenceIterativeAlgo = ({ maxElements = 10, endOnValue }) => {
               max="15"
               value={count}
               onChange={(e) => setCount(Number(e.target.value))}
+              className="accent-sky-600"
             />
-            <span style={{ minWidth: "min(100%, 24px)", fontWeight: 700, color: "#0f172a" }}>{count}</span>
+            <span className="min-w-6 text-center font-bold text-slate-900">{count}</span>
           </div>
         )}
 
@@ -79,7 +80,7 @@ const FibonacciSequenceIterativeAlgo = ({ maxElements = 10, endOnValue }) => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            style={{ maxWidth: "980px", height: "auto" }}
+            className="mx-auto h-auto w-full max-w-[980px]"
           >
             {sequence.map((value, index) => {
               const x = gap + index * (barW + gap);

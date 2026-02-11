@@ -6,7 +6,7 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
 
 const ACTIVITIES = [
   { id: "A", start: 1, end: 4 },

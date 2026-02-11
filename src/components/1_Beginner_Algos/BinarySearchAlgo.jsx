@@ -7,7 +7,8 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const SOURCE_ARRAY = [7, 14, 21, 28, 35, 42, 49, 56, 63];
 
@@ -87,12 +88,12 @@ const BinarySearchAlgo = () => {
           low/high boundaries shrink until the target is found.
         </Para>
 
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
           <select
             value={target}
             onChange={(e) => setTarget(Number(e.target.value))}
             disabled={isRunning}
-            style={{ padding: "8px", borderRadius: "10px", border: "1px solid #cbd5e1" }}
+            className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-900 outline-none focus-visible:ring-2 focus-visible:ring-sky-500 disabled:cursor-not-allowed disabled:opacity-70"
           >
             {array.map((value) => (
               <option value={value} key={value}>
@@ -100,12 +101,12 @@ const BinarySearchAlgo = () => {
               </option>
             ))}
           </select>
-          <button type="button" onClick={startSearch} disabled={isRunning}>
+          <Button onClick={startSearch} disabled={isRunning}>
             Start Search
-          </button>
-          <button type="button" onClick={resetState} disabled={isRunning}>
+          </Button>
+          <Button variant="secondary" onClick={resetState} disabled={isRunning}>
             Reset
-          </button>
+          </Button>
         </div>
 
         <Para>{status}</Para>
@@ -115,7 +116,7 @@ const BinarySearchAlgo = () => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            style={{ maxWidth: "980px", height: "auto" }}
+            className="mx-auto h-auto w-full max-w-[980px]"
           >
             {array.map((value, index) => {
               const x = gap + index * (barW + gap);

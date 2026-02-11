@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const START = [
   [5, 3, 0, 0, 7, 0, 0, 0, 0],
@@ -53,12 +54,16 @@ const buildSteps = () => {
   return steps;
 };
 
-const SudokuSolverAlgo = () => {
+const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
   const size = 44;
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -72,13 +77,31 @@ const SudokuSolverAlgo = () => {
         <Title>Sudoku Solver (Backtracking)</Title>
         <Para>Try valid digits recursively; backtrack when a dead-end is reached.</Para>
         <Para>{step.message}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox={`0 0 ${9 * size} ${9 * size}`} preserveAspectRatio="xMidYMid meet" style={{ maxWidth: "460px", height: "auto" }}>
+          <svg
+            width="100%"
+            viewBox={`0 0 ${9 * size} ${9 * size}`}
+            preserveAspectRatio="xMidYMid meet"
+            className="mx-auto h-auto w-full max-w-[460px]"
+          >
             {step.grid.map((row, r) =>
               row.map((v, c) => {
                 const active = step.cell && step.cell[0] === r && step.cell[1] === c;

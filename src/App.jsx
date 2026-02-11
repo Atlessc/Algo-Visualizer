@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import "./App.css";
 
 function App() {
   const setWindowWidth = useStore((state) => state.setWindowWidth);
@@ -26,11 +25,11 @@ function App() {
   }, [setWindowWidth]);
 
   return (
-    <div className="app-shell">
-      <div className="app-glow app-glow-left" />
-      <div className="app-glow app-glow-right" />
+    <div className="relative mx-auto min-h-screen w-full max-w-screen-xl overflow-x-clip px-3 pb-8 pt-4 sm:px-6 sm:pb-10">
+      <div className="pointer-events-none fixed -left-24 -top-14 -z-10 h-72 w-72 rounded-full bg-indigo-600/30 blur-3xl sm:h-80 sm:w-80" />
+      <div className="pointer-events-none fixed -right-24 top-24 -z-10 h-72 w-72 rounded-full bg-teal-500/25 blur-3xl sm:h-80 sm:w-80" />
       <NavBar />
-      <main className="app-main">
+      <main className="flex flex-col gap-4 sm:gap-5">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

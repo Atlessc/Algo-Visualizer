@@ -6,7 +6,9 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const graphData = {
   nodes: [
@@ -126,10 +128,10 @@ const getTextColorForBackground = (hexColor) => {
   return luminance > 0.6 ? "#1f2937" : "#ffffff";
 };
 
-const BfsAlgo = () => {
+const BfsAlgo = ({ autoPlay = true, compact = false }) => {
   const steps = useMemo(() => generateBfsSteps(graphData, "A"), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) {
@@ -142,6 +144,10 @@ const BfsAlgo = () => {
 
     return () => clearInterval(intervalId);
   }, [isPlaying, stepIndex, steps.length]);
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   const currentStep = steps[stepIndex];
   const nodesById = useMemo(() => {
@@ -184,7 +190,7 @@ const BfsAlgo = () => {
                 width="100%"
                 viewBox="0 0 600 240"
                 preserveAspectRatio="xMidYMid meet"
-                style={{ maxWidth: "720px", height: "auto" }}
+                className="mx-auto h-auto w-full max-w-[720px]"
               >
                 {graphData.edges.map((edge) => {
                   const from = nodesById[edge.from];
@@ -227,82 +233,62 @@ const BfsAlgo = () => {
                 })}
               </svg>
               <div className="algo-legend-row">
-                <span style={{ background: "#e74c3c", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>current</span>
-                <span style={{ background: "#f1c40f", color: "#1f2937", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>queued</span>
-                <span style={{ background: "#2ecc71", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>visited</span>
+                <span className="rounded-full bg-red-500 px-2 py-1 text-xs text-white">current</span>
+                <span className="rounded-full bg-amber-300 px-2 py-1 text-xs text-slate-800">queued</span>
+                <span className="rounded-full bg-emerald-500 px-2 py-1 text-xs text-white">visited</span>
               </div>
             </div>
             <div className="algo-pane-side">
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#7a5b00" }}>Queue:</strong>
+              <div className="mb-3">
+                <strong className="text-amber-800">Queue:</strong>
                 <div
-                  style={{
-                    marginTop: "8px",
-                    padding: "10px",
-                    background: "#ecf0f1",
-                    borderRadius: "6px",
-                    minHeight: "40px",
-                    color: "#7a5b00"
-                  }}
+                  className={cn(
+                    "mt-2 min-h-10 rounded-md bg-slate-100 text-amber-800",
+                    compact ? "p-2 text-sm" : "p-2.5 text-base"
+                  )}
                 >
                   {currentStep.queue.length > 0
                     ? currentStep.queue.join(" → ")
                     : "(empty)"}
                 </div>
               </div>
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f7a3f" }}>Traversal order:</strong>
+              <div className="mb-3">
+                <strong className="text-emerald-700">Traversal order:</strong>
                 <div
-                  style={{
-                    marginTop: "8px",
-                    padding: "10px",
-                    background: "#ecf0f1",
-                    borderRadius: "6px",
-                    minHeight: "40px",
-                    color: "#1f7a3f"
-                  }}
+                  className={cn(
+                    "mt-2 min-h-10 rounded-md bg-slate-100 text-emerald-700",
+                    compact ? "p-2 text-sm" : "p-2.5 text-base"
+                  )}
                 >
                   {currentStep.traversal.length > 0
                     ? currentStep.traversal.join(" → ")
                     : "(none yet)"}
                 </div>
               </div>
-              <div style={{ marginBottom: "12px" }}>
-                <strong style={{ color: "#1f5f8b" }}>Step:</strong>
-                <div style={{ marginTop: "8px", color: "#1f5f8b" }}>{currentStep.message}</div>
+              <div className="mb-3">
+                <strong className="text-sky-800">Step:</strong>
+                <div className={cn("mt-2 text-sky-800", compact ? "text-sm" : "text-base")}>
+                  {currentStep.message}
+                </div>
               </div>
-              <div style={{ display: "flex", gap: "10px" }}>
-                <button
-                  type="button"
+              <div className="flex flex-wrap gap-2.5">
+                <Button
+                  size={compact ? "sm" : "default"}
+                  variant="secondary"
                   onClick={() => setIsPlaying((prev) => !prev)}
-                  style={{
-                    padding: "8px 14px",
-                    borderRadius: "6px",
-                    border: "1px solid #bdc3c7",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                    color: "#e74c3c"
-                  }}
                 >
                   {isPlaying ? "Pause" : "Play"}
-                </button>
-                <button
-                  type="button"
+                </Button>
+                <Button
+                  size={compact ? "sm" : "default"}
+                  variant="outline"
                   onClick={() => {
                     setStepIndex(0);
-                    setIsPlaying(true);
-                  }}
-                  style={{
-                    padding: "8px 14px",
-                    borderRadius: "6px",
-                    border: "1px solid #bdc3c7",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                    color: "#e74c3c"
+                    setIsPlaying(autoPlay);
                   }}
                 >
                   Reset
-                </button>
+                </Button>
               </div>
             </div>
           </div>

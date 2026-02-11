@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../Styled Components/styledComponents";
+import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
+import { Button } from "../ui/button";
 
 const N = 5;
 const MOVES = [
@@ -44,16 +45,20 @@ const generateTour = () => {
   return path;
 };
 
-const KnightsTourAlgo = () => {
+const KnightsTourAlgo = ({ autoPlay = true, compact = false }) => {
   const path = useMemo(() => generateTour(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= path.length - 1) return undefined;
     const id = setInterval(() => setStepIndex((p) => Math.min(p + 1, path.length - 1)), 450);
     return () => clearInterval(id);
   }, [isPlaying, stepIndex, path.length]);
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   const visited = new Map();
   for (let i = 0; i <= stepIndex; i++) {
@@ -68,9 +73,22 @@ const KnightsTourAlgo = () => {
         <Title>Knight&apos;s Tour</Title>
         <Para>Visit each square exactly once using legal knight moves.</Para>
         <Para>Step {stepIndex + 1} / {path.length}</Para>
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>
-          <button type="button" onClick={() => { setStepIndex(0); setIsPlaying(true); }}>Reset</button>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
+            onClick={() => { setStepIndex(0); setIsPlaying(true); }}
+          >
+            Reset
+          </Button>
         </div>
 
         <AlgoVisualizer>
@@ -78,7 +96,7 @@ const KnightsTourAlgo = () => {
             width="100%"
             viewBox={`0 0 ${N * size} ${N * size}`}
             preserveAspectRatio="xMidYMid meet"
-            style={{ maxWidth: "460px", height: "auto" }}
+            className="mx-auto h-auto w-full max-w-[460px]"
           >
             {Array.from({ length: N }).map((_, r) =>
               Array.from({ length: N }).map((__, c) => {

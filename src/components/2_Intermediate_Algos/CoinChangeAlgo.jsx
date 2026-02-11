@@ -6,7 +6,7 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
 
 const COINS = [1, 3, 4];
 const INF = Number.POSITIVE_INFINITY;

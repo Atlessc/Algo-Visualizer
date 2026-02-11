@@ -6,7 +6,9 @@ import {
   AlgoVisualizer,
   CodeBlock,
   Para,
-} from "../Styled Components/styledComponents";
+} from "../ui/algo-primitives";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
 const CANDIDATES = [2, 3, 6, 7];
 const TARGET = 7;
@@ -54,11 +56,15 @@ const buildSteps = () => {
   return { steps, result };
 };
 
-const CombinationSumAlgo = () => {
+const CombinationSumAlgo = ({ autoPlay = true, compact = false }) => {
   const { steps, result } = useMemo(() => buildSteps(), []);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
+
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
@@ -83,45 +89,35 @@ const CombinationSumAlgo = () => {
           Candidates: [{CANDIDATES.join(", ")}], Target: {TARGET}
         </Para>
         <Para>{step.action}</Para>
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          <button type="button" onClick={() => setIsPlaying((p) => !p)}>
-            {isPlaying ? "Pause" : "Play"}
-          </button>
-          <button
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
+          <Button
             type="button"
+            size={compact ? "sm" : "default"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="secondary"
             onClick={() => {
               setStepIndex(0);
               setIsPlaying(true);
             }}
           >
             Reset
-          </button>
+          </Button>
         </div>
         <AlgoVisualizer>
-          <div
-            style={{
-              width: "100%",
-              maxWidth: "760px",
-              margin: "0 auto",
-              background: "#eef2ff",
-              borderRadius: "12px",
-              padding: "12px",
-            }}
-          >
-            <div style={{ fontFamily: "monospace", marginBottom: "6px" }}>
+          <div className="mx-auto w-full max-w-[760px] rounded-xl bg-indigo-100 p-3">
+            <div className={cn("mb-1.5 font-mono", compact ? "text-xs" : "text-sm")}>
               Path: [{step.path.join(", ")}]
             </div>
-            <div style={{ fontFamily: "monospace", marginBottom: "6px" }}>
+            <div className={cn("mb-1.5 font-mono", compact ? "text-xs" : "text-sm")}>
               Remaining: {step.remain}
             </div>
-            <div style={{ fontFamily: "monospace" }}>
+            <div className={cn("font-mono", compact ? "text-xs" : "text-sm")}>
               Solutions: {result.map((x) => `[${x.join(", ")}]`).join(" ")}
             </div>
           </div>
