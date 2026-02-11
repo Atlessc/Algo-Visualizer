@@ -2,17 +2,190 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
 import { Button } from "../ui/button";
 
-const START = [
-  [5, 3, 0, 0, 7, 0, 0, 0, 0],
-  [6, 0, 0, 1, 9, 5, 0, 0, 0],
-  [0, 9, 8, 0, 0, 0, 0, 6, 0],
-  [8, 0, 0, 0, 6, 0, 0, 0, 3],
-  [4, 0, 0, 8, 0, 3, 0, 0, 1],
-  [7, 0, 0, 0, 2, 0, 0, 0, 6],
-  [0, 6, 0, 0, 0, 0, 2, 8, 0],
-  [0, 0, 0, 4, 1, 9, 0, 0, 5],
-  [0, 0, 0, 0, 8, 0, 0, 7, 9],
+const STARTER_GRIDS = [
+  // 1) 102 steps
+  {
+    id: "starter-easy-1",
+    label: "Starter A (Easy)",
+    steps: 102,
+    grid: [
+      [0, 0, 0, 0, 7, 8, 0, 0, 2],
+      [6, 7, 0, 1, 9, 5, 3, 4, 0],
+      [1, 0, 8, 3, 4, 2, 0, 6, 7],
+      [0, 0, 9, 7, 6, 1, 4, 2, 3],
+      [4, 2, 6, 0, 5, 3, 7, 9, 1],
+      [7, 0, 0, 9, 0, 0, 0, 5, 0],
+      [9, 6, 1, 5, 3, 7, 2, 8, 4],
+      [2, 0, 7, 4, 0, 9, 6, 3, 5],
+      [0, 0, 5, 2, 8, 6, 1, 7, 9],
+    ],
+  },
+
+  // 2) 110 steps
+  {
+    id: "starter-easy-2",
+    label: "Starter B (Easy+)",
+    steps: 110,
+    grid: [
+      [0, 0, 1, 7, 9, 3, 0, 2, 5],
+      [7, 9, 5, 2, 6, 4, 0, 1, 3],
+      [0, 0, 0, 0, 0, 0, 0, 7, 9],
+      [0, 0, 0, 0, 7, 0, 0, 5, 8],
+      [1, 5, 7, 0, 0, 0, 9, 6, 2],
+      [0, 2, 8, 6, 0, 0, 3, 4, 7],
+      [0, 7, 0, 4, 8, 9, 5, 3, 1],
+      [5, 3, 0, 1, 2, 6, 0, 8, 4],
+      [0, 0, 4, 0, 0, 7, 2, 0, 6],
+    ],
+  },
+
+  // 3) 134 steps
+  {
+    id: "starter-easy-3",
+    label: "Starter C (Easy++)",
+    steps: 134,
+    grid: [
+      [0, 0, 0, 0, 3, 0, 5, 0, 0],
+      [0, 3, 0, 0, 5, 0, 0, 0, 4],
+      [0, 5, 0, 1, 8, 0, 0, 7, 0],
+      [0, 2, 5, 0, 7, 0, 8, 9, 0],
+      [8, 0, 7, 4, 2, 0, 0, 5, 6],
+      [3, 6, 0, 5, 9, 8, 4, 2, 7],
+      [0, 7, 6, 2, 1, 3, 9, 0, 8],
+      [0, 4, 3, 8, 0, 5, 7, 0, 2],
+      [1, 0, 0, 0, 0, 7, 6, 3, 0],
+    ],
+  },
+
+  // 4) 197 steps
+  {
+    id: "starter-medium-1",
+    label: "Starter D (Medium)",
+    steps: 197,
+    grid: [
+      [0, 0, 0, 0, 3, 0, 1, 0, 0],
+      [0, 3, 0, 0, 1, 0, 0, 0, 2],
+      [0, 1, 0, 7, 6, 0, 0, 4, 0],
+      [2, 5, 1, 0, 4, 0, 6, 8, 0],
+      [6, 8, 4, 2, 5, 0, 0, 1, 9],
+      [3, 9, 7, 1, 8, 6, 2, 5, 4],
+      [1, 4, 9, 5, 7, 3, 8, 0, 6],
+      [0, 2, 3, 6, 0, 1, 4, 0, 5],
+      [7, 0, 0, 0, 0, 4, 9, 3, 1],
+    ],
+  },
+
+  // 5) 198 steps
+  {
+    id: "starter-medium-2",
+    label: "Starter E (Medium+)",
+    steps: 198,
+    grid: [
+      [0, 0, 5, 7, 8, 9, 0, 2, 3],
+      [7, 8, 3, 2, 1, 6, 0, 5, 9],
+      [0, 0, 0, 0, 0, 0, 0, 7, 8],
+      [0, 0, 0, 0, 7, 0, 0, 3, 4],
+      [5, 3, 7, 0, 0, 0, 8, 1, 2],
+      [0, 2, 4, 1, 0, 0, 9, 6, 7],
+      [0, 7, 0, 6, 4, 8, 3, 9, 5],
+      [3, 9, 0, 5, 2, 1, 0, 4, 6],
+      [0, 0, 6, 0, 0, 7, 2, 0, 1],
+    ],
+  },
+
+  // 6) 416 steps
+  {
+    id: "starter-medium-3",
+    label: "Starter F (Medium++)",
+    steps: 416,
+    grid: [
+      [0, 8, 9, 0, 0, 3, 0, 5, 0],
+      [6, 0, 7, 0, 0, 0, 0, 9, 3],
+      [5, 0, 3, 0, 9, 0, 0, 0, 0],
+      [3, 0, 0, 0, 0, 0, 0, 7, 0],
+      [9, 7, 0, 0, 1, 0, 2, 0, 0],
+      [2, 5, 0, 4, 0, 9, 3, 0, 0],
+      [0, 6, 5, 0, 0, 0, 7, 0, 9],
+      [0, 3, 2, 9, 5, 0, 6, 8, 0],
+      [8, 9, 0, 0, 3, 6, 5, 2, 4],
+    ],
+  },
+
+  // 7) 586 steps
+  {
+    id: "starter-hard-1",
+    label: "Starter G (Hard)",
+    steps: 586,
+    grid: [
+      [0, 0, 0, 0, 5, 6, 0, 0, 1],
+      [0, 5, 0, 7, 4, 8, 9, 2, 0],
+      [0, 0, 6, 9, 2, 1, 0, 3, 5],
+      [0, 0, 0, 5, 3, 7, 2, 1, 9],
+      [0, 1, 3, 0, 8, 9, 5, 4, 7],
+      [5, 0, 0, 4, 0, 0, 0, 8, 0],
+      [0, 3, 7, 8, 9, 5, 1, 6, 2],
+      [1, 0, 5, 2, 0, 4, 3, 9, 8],
+      [0, 0, 8, 1, 6, 3, 7, 5, 4],
+    ],
+  },
+
+  // 8) 901 steps
+  {
+    id: "starter-hard-2",
+    label: "Starter H (Hard+)",
+    steps: 901,
+    grid: [
+      [0, 0, 1, 0, 4, 3, 0, 8, 6],
+      [2, 4, 6, 0, 7, 9, 0, 1, 3],
+      [0, 0, 0, 0, 0, 0, 0, 2, 4],
+      [0, 0, 0, 0, 2, 0, 0, 6, 5],
+      [0, 6, 2, 0, 0, 0, 4, 7, 8],
+      [0, 8, 5, 7, 0, 0, 3, 0, 2],
+      [0, 2, 0, 9, 5, 4, 6, 3, 1],
+      [6, 3, 0, 1, 0, 7, 0, 5, 9],
+      [0, 0, 9, 0, 0, 2, 8, 0, 7],
+    ],
+  },
+
+  // 9) 1231 steps
+  {
+    id: "starter-hard-3",
+    label: "Starter I (Expert)",
+    steps: 1231,
+    grid: [
+      [4, 2, 6, 0, 0, 7, 0, 3, 0],
+      [5, 9, 1, 0, 0, 0, 0, 6, 7],
+      [3, 0, 7, 0, 6, 0, 4, 0, 0],
+      [7, 0, 0, 0, 0, 0, 0, 1, 0],
+      [6, 1, 0, 0, 4, 0, 9, 8, 0],
+      [9, 3, 0, 8, 0, 6, 7, 0, 0],
+      [0, 5, 3, 0, 0, 0, 1, 0, 6],
+      [0, 7, 9, 6, 3, 0, 5, 2, 4],
+      [2, 6, 0, 0, 7, 5, 3, 9, 8],
+    ],
+  },
+
+  // 10) 2151 steps
+  {
+    id: "starter-hard-4",
+    label: "Starter J (Expert+)",
+    steps: 2151,
+    grid: [
+      [8, 6, 0, 9, 1, 2, 0, 0, 0],
+      [9, 0, 0, 4, 3, 0, 0, 0, 0],
+      [4, 3, 2, 0, 0, 5, 8, 9, 0],
+      [0, 0, 0, 0, 0, 4, 7, 0, 0],
+      [7, 0, 9, 0, 8, 0, 0, 3, 0],
+      [1, 0, 0, 3, 0, 7, 0, 8, 0],
+      [3, 9, 4, 8, 6, 0, 0, 2, 0],
+      [5, 2, 1, 7, 4, 0, 0, 0, 8],
+      [0, 7, 0, 0, 0, 9, 4, 1, 0],
+    ],
+  },
 ];
+
+
+
 
 const clone = (g) => g.map((r) => [...r]);
 
@@ -26,8 +199,8 @@ const valid = (grid, r, c, v) => {
   return true;
 };
 
-const buildSteps = () => {
-  const grid = clone(START);
+const buildSteps = (startGrid) => {
+  const grid = clone(startGrid);
   const steps = [{ grid: clone(grid), cell: null, message: "Start puzzle." }];
 
   const solve = () => {
@@ -49,33 +222,57 @@ const buildSteps = () => {
     return true;
   };
 
-  solve();
-  steps.push({ grid: clone(grid), cell: null, message: "Sudoku solved." });
+  const solved = solve();
+  if (solved) {
+    steps.push({ grid: clone(grid), cell: null, message: "Sudoku solved." });
+  } else {
+    steps.push({ grid: clone(grid), cell: null, message: "No solution found for this starter grid." });
+  }
   return steps;
 };
 
 const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
-  const steps = useMemo(() => buildSteps(), []);
+  const [selectedStarterId, setSelectedStarterId] = useState(STARTER_GRIDS[0].id);
+  const selectedStarter = useMemo(
+    () => STARTER_GRIDS.find((preset) => preset.id === selectedStarterId) ?? STARTER_GRIDS[0],
+    [selectedStarterId]
+  );
+  const steps = useMemo(() => buildSteps(selectedStarter.grid), [selectedStarter]);
   const [stepIndex, setStepIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
-  const step = steps[stepIndex];
-  const isComplete = stepIndex >= steps.length - 1;
+  const currentStepIndex = Math.min(stepIndex, steps.length - 1);
+  const step = steps[currentStepIndex];
+  const isComplete = currentStepIndex >= steps.length - 1;
+  const totalSteps = Math.max(1, steps.length - 1);
   const size = 44;
-  const stepAdvance = compact ? 24 : 16;
-  const tickMs = compact ? 40 : 55;
+
+  // Fewer solving steps play slower; larger searches move faster, but overall cadence is intentionally slower.
+  const speedMultiplier = compact ? 1.2 : 1.3;
+  const baseTickMs = Math.max(
+    compact ? 90 : 105,
+    Math.round((compact ? 140 : 165) - totalSteps / 22)
+  );
+  const tickMs = Math.round(baseTickMs * speedMultiplier);
+  const targetFrames = Math.max(100, Math.round(165 - totalSteps / 10));
+  const stepAdvance = Math.max(1, Math.min(1, Math.ceil(totalSteps / targetFrames)));
 
   useEffect(() => {
     setIsPlaying(autoPlay);
   }, [autoPlay]);
 
   useEffect(() => {
-    if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
+    setStepIndex(0);
+    setIsPlaying(autoPlay);
+  }, [selectedStarterId, autoPlay]);
+
+  useEffect(() => {
+    if (!isPlaying || currentStepIndex >= steps.length - 1) return undefined;
     const id = setInterval(
       () => setStepIndex((p) => Math.min(p + stepAdvance, steps.length - 1)),
       tickMs
     );
     return () => clearInterval(id);
-  }, [isPlaying, stepIndex, steps.length, stepAdvance, tickMs]);
+  }, [isPlaying, currentStepIndex, steps.length, stepAdvance, tickMs]);
 
   useEffect(() => {
     if (isPlaying && isComplete) {
@@ -88,7 +285,28 @@ const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
       <CardContainer>
         <Title>Sudoku Solver (Backtracking)</Title>
         <Para>Try valid digits recursively; backtrack when a dead-end is reached.</Para>
-        <Para>Step {stepIndex + 1} / {steps.length}</Para>
+        <div className="mb-2 flex flex-wrap items-center justify-center gap-2">
+          <label htmlFor="sudoku-starter-grid" className="text-sm font-semibold text-slate-700">
+            Starter Grid
+          </label>
+          <select
+            id="sudoku-starter-grid"
+            value={selectedStarterId}
+            onChange={(event) => {
+              setStepIndex(0);
+              setIsPlaying(autoPlay);
+              setSelectedStarterId(event.target.value);
+            }}
+            className="rounded-md border border-slate-300 bg-white px-2 py-1 text-sm text-slate-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+          >
+            {STARTER_GRIDS.map((preset) => (
+              <option key={preset.id} value={preset.id}>
+                {preset.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <Para>Step {currentStepIndex + 1} / {steps.length}</Para>
         <Para>{step.message}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button
@@ -134,7 +352,7 @@ const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
               row.map((v, c) => {
                 const active = step.cell && step.cell[0] === r && step.cell[1] === c;
                 const blockShade = (Math.floor(r / 3) + Math.floor(c / 3)) % 2 === 0;
-                const isGiven = START[r][c] !== 0;
+                const isGiven = selectedStarter.grid[r][c] !== 0;
                 const digitColor = isGiven ? "#000000" : "#dc2626";
                 return (
                   <g key={`${r}-${c}`}>
