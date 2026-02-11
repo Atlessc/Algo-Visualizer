@@ -92,6 +92,20 @@ import { cn } from "../lib/utils";
 // import WordBreakDpAlgo from "../components/4_10x_Dev_Algos/WordBreakDpAlgo";
 // import ZAlgorithmAdvancedAlgo from "../components/4_10x_Dev_Algos/ZAlgorithmAdvancedAlgo";
 
+const PROJECT_FOLDERS = [
+  "1_Beginner_Algos",
+  "2_Intermediate_Algos",
+  "3_Advanced_Algos",
+  "4_10x_Dev_Algos",
+];
+
+const PROJECT_FOLDER_LABELS = {
+  "1_Beginner_Algos": "Beginner Algorithms",
+  "2_Intermediate_Algos": "Intermediate Algorithms",
+  "3_Advanced_Algos": "Advanced Algorithms",
+  "4_10x_Dev_Algos": "10x Dev Algorithms",
+};
+
 const Home = () => {
   const sections = useMemo(
     () => [
@@ -99,11 +113,11 @@ const Home = () => {
         title: "Temporary Active Algorithms",
         folder: "temp_mobile_focus",
         items: [
-          { id: "binary-search", label: "Binary Search", component: BinarySearchAlgo },
-          { id: "kmp", label: "KMP Algorithm", component: KmpAlgorithmAlgo },
-          { id: "knapsack", label: "Knapsack Problem", component: KnapsackAlgo },
-          { id: "minimum-spanning-tree", label: "Minimum Spanning Tree", component: MinimumSpanningTreeAlgo },
-          { id: "aho-corasick", label: "Aho-Corasick", component: AhoCorasickAlgo },
+          { id: "binary-search", label: "Binary Search", component: BinarySearchAlgo, tocFolder: "1_Beginner_Algos" },
+          { id: "kmp", label: "KMP Algorithm", component: KmpAlgorithmAlgo, tocFolder: "2_Intermediate_Algos" },
+          { id: "knapsack", label: "Knapsack Problem", component: KnapsackAlgo, tocFolder: "2_Intermediate_Algos" },
+          { id: "minimum-spanning-tree", label: "Minimum Spanning Tree", component: MinimumSpanningTreeAlgo, tocFolder: "3_Advanced_Algos" },
+          { id: "aho-corasick", label: "Aho-Corasick", component: AhoCorasickAlgo, tocFolder: "4_10x_Dev_Algos" },
         ],
       },
       {
@@ -375,6 +389,29 @@ const Home = () => {
   );
 
   const allItems = useMemo(() => sections.flatMap((section) => section.items), [sections]);
+  const tocGroups = useMemo(() => {
+    const grouped = new Map(PROJECT_FOLDERS.map((folder) => [folder, []]));
+
+    sections.forEach((section) => {
+      section.items.forEach((item) => {
+        const folderKey = item.tocFolder ?? section.folder;
+        if (!grouped.has(folderKey)) return;
+
+        const list = grouped.get(folderKey);
+        if (!list.some((existing) => existing.id === item.id)) {
+          list.push(item);
+        }
+      });
+    });
+
+    return PROJECT_FOLDERS
+      .map((folder) => ({
+        folder,
+        title: PROJECT_FOLDER_LABELS[folder] ?? folder,
+        items: grouped.get(folder) ?? [],
+      }))
+      .filter((group) => group.items.length > 0);
+  }, [sections]);
   const allItemIds = useMemo(() => allItems.map((item) => item.id), [allItems]);
   const [activeId, setActiveId] = useState(allItems[0]?.id ?? "");
   const [isTocOpen, setIsTocOpen] = useState(false);
@@ -546,17 +583,17 @@ const Home = () => {
   const isItemExpanded = (id) => !isMobile || expandedIds.has(id);
 
   const renderTocGroups = (onItemSelect, isMobileNav = false) =>
-    sections.map((section, sectionIndex) => (
-      <div key={`toc-${section.folder}-${section.title}-${sectionIndex}`} className="flex min-w-0 flex-col">
+    tocGroups.map((group) => (
+      <div key={`toc-${group.folder}`} className="flex min-w-0 flex-col">
         <p
           className={cn(
             "mb-1 mt-2 text-[0.72rem] font-bold uppercase tracking-[0.04em] text-slate-500",
             isMobileNav && "mt-2.5"
           )}
         >
-          {section.title}
+          {group.title}
         </p>
-        {section.items.map((item) => (
+        {group.items.map((item) => (
           <a
             key={item.id}
             href={`#${item.id}`}
