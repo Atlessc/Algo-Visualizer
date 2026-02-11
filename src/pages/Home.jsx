@@ -182,7 +182,7 @@ const Home = ({ isTocOpen = false, setIsTocOpen = () => {} }) => {
         items: [
           { id: "n-queens", label: "N-Queens Problem", component: NQueensAlgo },
           { id: "rabin-karp", label: "Rabin-Karp Algorithm", component: RabinKarpAlgorithmAlgo },
-          { id: "sudoku-solver", label: "Sudoku Solver", component: SudokuSolverAlgo },
+          { id: "sudoku-solver", label: "Sudoku Solver", component: SudokuSolverAlgo, props: { autoPlayOnMobile: true } },
           { id: "z-algorithm", label: "Z Algorithm", component: ZAlgorithmAlgo },
         ],
       },
@@ -644,10 +644,11 @@ const Home = ({ isTocOpen = false, setIsTocOpen = () => {} }) => {
             {section.items.map((item) => {
               const AlgoComponent = item.component;
               const expanded = isItemExpanded(item.id);
+              const { autoPlayOnMobile = false, ...itemProps } = item.props ?? {};
               const runtimeProps = {
-                ...(item.props ?? {}),
+                ...itemProps,
                 compact: isMobile,
-                autoPlay: !isMobile,
+                autoPlay: isMobile ? autoPlayOnMobile : true,
               };
 
               return (

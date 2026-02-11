@@ -59,7 +59,10 @@ const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
   const [stepIndex, setStepIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const step = steps[stepIndex];
+  const isComplete = stepIndex >= steps.length - 1;
   const size = 44;
+  const stepAdvance = compact ? 24 : 16;
+  const tickMs = compact ? 40 : 55;
 
   useEffect(() => {
     setIsPlaying(autoPlay);
@@ -67,23 +70,40 @@ const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
 
   useEffect(() => {
     if (!isPlaying || stepIndex >= steps.length - 1) return undefined;
-    const id = setInterval(() => setStepIndex((p) => Math.min(p + 1, steps.length - 1)), 90);
+    const id = setInterval(
+      () => setStepIndex((p) => Math.min(p + stepAdvance, steps.length - 1)),
+      tickMs
+    );
     return () => clearInterval(id);
-  }, [isPlaying, stepIndex, steps.length]);
+  }, [isPlaying, stepIndex, steps.length, stepAdvance, tickMs]);
+
+  useEffect(() => {
+    if (isPlaying && isComplete) {
+      setIsPlaying(false);
+    }
+  }, [isPlaying, isComplete]);
 
   return (
     <Container>
       <CardContainer>
         <Title>Sudoku Solver (Backtracking)</Title>
         <Para>Try valid digits recursively; backtrack when a dead-end is reached.</Para>
+        <Para>Step {stepIndex + 1} / {steps.length}</Para>
         <Para>{step.message}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button
             type="button"
             size={compact ? "sm" : "default"}
-            onClick={() => setIsPlaying((p) => !p)}
+            onClick={() => {
+              if (isComplete) {
+                setStepIndex(0);
+                setIsPlaying(true);
+                return;
+              }
+              setIsPlaying((p) => !p);
+            }}
           >
-            {isPlaying ? "Pause" : "Play"}
+            {isComplete && !isPlaying ? "Replay" : isPlaying ? "Pause" : "Play"}
           </Button>
           <Button
             type="button"
@@ -92,6 +112,14 @@ const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
             onClick={() => { setStepIndex(0); setIsPlaying(true); }}
           >
             Reset
+          </Button>
+          <Button
+            type="button"
+            size={compact ? "sm" : "default"}
+            variant="outline"
+            onClick={() => { setStepIndex(steps.length - 1); setIsPlaying(false); }}
+          >
+            Jump To Solved
           </Button>
         </div>
 
@@ -106,11 +134,13 @@ const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
               row.map((v, c) => {
                 const active = step.cell && step.cell[0] === r && step.cell[1] === c;
                 const blockShade = (Math.floor(r / 3) + Math.floor(c / 3)) % 2 === 0;
+                const isGiven = START[r][c] !== 0;
+                const digitColor = isGiven ? "#000000" : "#dc2626";
                 return (
                   <g key={`${r}-${c}`}>
                     <rect x={c * size} y={r * size} width={size - 1} height={size - 1} fill={active ? "#0ea5e9" : blockShade ? "#e2e8f0" : "#f8fafc"} />
                     {v !== 0 && (
-                      <text x={c * size + size / 2} y={r * size + size / 2 + 6} textAnchor="middle" fill={active ? "#fff" : "#0f172a"} fontSize="18" fontWeight="700">
+                      <text x={c * size + size / 2} y={r * size + size / 2 + 6} textAnchor="middle" fill={digitColor} fontSize="18" fontWeight="700">
                         {v}
                       </text>
                     )}
