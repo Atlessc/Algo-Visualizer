@@ -184,9 +184,6 @@ const STARTER_GRIDS = [
   },
 ];
 
-
-
-
 const clone = (g) => g.map((r) => [...r]);
 
 const valid = (grid, r, c, v) => {
