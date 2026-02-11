@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import useStore from './ZustandStore.js';
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
@@ -8,7 +8,6 @@ import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
-  const windowWidth = useStore((state) => state.windowWidth);
   const setWindowWidth = useStore((state) => state.setWindowWidth);
 
   useEffect(() => {

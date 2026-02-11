@@ -218,10 +218,17 @@ const Home = () => {
 
   const allItems = useMemo(() => sections.flatMap((section) => section.items), [sections]);
   const [activeId, setActiveId] = useState(allItems[0]?.id ?? "");
+  const [isTocOpen, setIsTocOpen] = useState(false);
 
   useEffect(() => {
-    const offsetFromTop = 140;
     let ticking = false;
+
+    const getOffsetFromTop = () => {
+      const nav = document.querySelector(".top-nav");
+      const navTop = nav ? Number.parseFloat(window.getComputedStyle(nav).top || "0") || 0 : 0;
+      const navHeight = nav ? nav.getBoundingClientRect().height : 0;
+      return navHeight + navTop + 16;
+    };
 
     const getCurrentInViewId = () => {
       const positions = allItems
@@ -234,6 +241,7 @@ const Home = () => {
 
       if (positions.length === 0) return "";
 
+      const offsetFromTop = getOffsetFromTop();
       const passed = positions.filter((position) => position.top <= offsetFromTop);
       if (passed.length > 0) {
         return passed[passed.length - 1].id;
@@ -261,6 +269,7 @@ const Home = () => {
       const hashId = window.location.hash.replace("#", "");
       if (hashId) {
         setActiveId(hashId);
+        setIsTocOpen(false);
       }
       updateActiveFromScroll();
     };
@@ -278,42 +287,65 @@ const Home = () => {
     };
   }, [allItems]);
 
+  useEffect(() => {
+    document.body.classList.toggle("toc-open", isTocOpen);
+    return () => {
+      document.body.classList.remove("toc-open");
+    };
+  }, [isTocOpen]);
+
+  useEffect(() => {
+    if (!isTocOpen) return undefined;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsTocOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isTocOpen]);
+
+  const renderTocGroups = (onItemSelect) =>
+    sections.map((section) => (
+      <div key={`toc-${section.folder}`} className="toc-group">
+        <p className="toc-group-title">{section.title}</p>
+        {section.items.map((item) => (
+          <a
+            key={item.id}
+            href={`#${item.id}`}
+            className={activeId === item.id ? "active" : ""}
+            aria-current={activeId === item.id ? "true" : undefined}
+            onClick={onItemSelect ? () => onItemSelect(item.id) : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+    ));
+
   return (
-    <div className="home-with-toc">
-      <aside className="toc-sidebar">
+    <div className={`home-with-toc ${isTocOpen ? "toc-drawer-open" : ""}`}>
+      <aside className="toc-sidebar toc-sidebar-desktop">
         <h3>Algorithms By Folder</h3>
         <nav aria-label="Algorithm table of contents">
-          {sections.map((section) => (
-            <div key={`toc-${section.folder}`} style={{ display: "flex", flexDirection: "column", }}>
-              <p
-                style={{
-                  margin: "0.45rem 0 0.2rem",
-                  fontSize: "0.74rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.04em",
-                  textTransform: "uppercase",
-                  color: "#64748b",
-                }}
-              >
-                {section.title}
-              </p>
-              {section.items.map((item) => (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  className={activeId === item.id ? "active" : ""}
-                  aria-current={activeId === item.id ? "true" : undefined}
-                  onClick={() => setActiveId(item.id)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          ))}
+          {renderTocGroups((id) => setActiveId(id))}
         </nav>
       </aside>
 
       <div className="home-layout">
+        <button
+          type="button"
+          className="toc-mobile-trigger"
+          onClick={() => setIsTocOpen(true)}
+          aria-haspopup="dialog"
+          aria-expanded={isTocOpen}
+          aria-controls="mobile-toc-sidebar"
+        >
+          Browse Algorithms
+        </button>
+
         <section className="hero-panel">
           <p className="hero-eyebrow">Algorithm Playground</p>
           <h2>Visualize how classic algorithms work step-by-step.</h2>
@@ -347,6 +379,32 @@ const Home = () => {
           </section>
         ))}
       </div>
+
+      <div
+        className={`toc-mobile-overlay ${isTocOpen ? "open" : ""}`}
+        onClick={() => setIsTocOpen(false)}
+        aria-hidden={isTocOpen ? "false" : "true"}
+      />
+      <aside
+        id="mobile-toc-sidebar"
+        className={`toc-sidebar toc-sidebar-mobile ${isTocOpen ? "open" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Algorithm navigation"
+      >
+        <div className="toc-mobile-header">
+          <h3>Algorithms</h3>
+          <button type="button" className="toc-mobile-close" onClick={() => setIsTocOpen(false)}>
+            Close
+          </button>
+        </div>
+        <nav aria-label="Algorithm table of contents">
+          {renderTocGroups((id) => {
+            setActiveId(id);
+            setIsTocOpen(false);
+          })}
+        </nav>
+      </aside>
     </div>
   );
 } 

@@ -178,15 +178,8 @@ const BfsAlgo = () => {
           it ideal for shortest paths in unweighted graphs.
         </Para>
         <AlgoVisualizer>
-          <div style={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: "24px",
-            width: "100%",
-            flexWrap: "wrap",
-            alignItems: "stretch"
-          }}>
-            <div style={{ flex: "2 1 420px", minWidth: "min(100%, 340px)" }}>
+          <div className="algo-split">
+            <div className="algo-pane-main">
               <svg
                 width="100%"
                 viewBox="0 0 600 240"
@@ -233,13 +226,13 @@ const BfsAlgo = () => {
                   );
                 })}
               </svg>
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
+              <div className="algo-legend-row">
                 <span style={{ background: "#e74c3c", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>current</span>
                 <span style={{ background: "#f1c40f", color: "#1f2937", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>queued</span>
                 <span style={{ background: "#2ecc71", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>visited</span>
               </div>
             </div>
-            <div style={{ flex: "1 1 240px", minWidth: "min(100%, 260px)" }}>
+            <div className="algo-pane-side">
               <div style={{ marginBottom: "12px" }}>
                 <strong style={{ color: "#7a5b00" }}>Queue:</strong>
                 <div

@@ -328,17 +328,8 @@ const DijkstraAlgorithmAlgo = () => {
         </Para>
 
         <AlgoVisualizer>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "24px",
-              width: "100%",
-              flexWrap: "wrap",
-              alignItems: "stretch"
-            }}
-          >
-            <div style={{ flex: "2 1 440px", minWidth: "min(100%, 340px)" }}>
+          <div className="algo-split">
+            <div className="algo-pane-main">
               <svg
                 width="100%"
                 viewBox="0 0 620 260"
@@ -411,7 +402,7 @@ const DijkstraAlgorithmAlgo = () => {
                   );
                 })}
               </svg>
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
+              <div className="algo-legend-row">
                 <span style={{ background: "#e74c3c", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>current</span>
                 <span style={{ background: "#3498db", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>frontier</span>
                 <span style={{ background: "#2ecc71", color: "#fff", padding: "4px 8px", borderRadius: "999px", fontSize: "12px" }}>settled</span>
@@ -419,7 +410,7 @@ const DijkstraAlgorithmAlgo = () => {
               </div>
             </div>
 
-            <div style={{ flex: "1 1 260px", minWidth: "min(100%, 270px)" }}>
+            <div className="algo-pane-side">
               <div style={{ marginBottom: "12px" }}>
                 <strong style={{ color: "#1f5f8b" }}>Frontier:</strong>
                 <div

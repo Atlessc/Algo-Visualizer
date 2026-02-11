@@ -45,12 +45,12 @@ const FenwickTreeAlgo = () => {
 
         <AlgoVisualizer>
           <div style={{ width: "100%", overflowX: "auto" }}>
-            <div style={{ minWidth: "640px", display: "flex", gap: "8px", justifyContent: "center" }}>
+            <div style={{ minWidth: "min(100%, 640px)", display: "flex", gap: "8px", justifyContent: "center" }}>
               {step.bit.slice(1).map((v, i) => {
                 const idx = i + 1;
                 const active = idx === step.idx;
                 return (
-                  <div key={idx} style={{ width: "50px", borderRadius: "8px", background: active ? "#0ea5e9" : "#e2e8f0", color: active ? "#fff" : "#0f172a", padding: "8px", textAlign: "center", fontFamily: "monospace" }}>
+                  <div key={idx} style={{ width: "clamp(40px, 8vw, 50px)", borderRadius: "8px", background: active ? "#0ea5e9" : "#e2e8f0", color: active ? "#fff" : "#0f172a", padding: "8px 4px", textAlign: "center", fontFamily: "monospace" }}>
                     <div style={{ fontSize: "11px" }}>{idx}</div>
                     <div style={{ fontWeight: 700 }}>{v}</div>
                   </div>

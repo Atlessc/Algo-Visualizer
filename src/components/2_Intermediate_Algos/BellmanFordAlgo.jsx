@@ -151,7 +151,7 @@ const BellmanFordAlgo = () => {
               ))}
             </svg>
 
-            <div style={{ flex: "1 1 200px", minWidth: "180px" }}>
+            <div style={{ flex: "1 1 200px", minWidth: "min(100%, 180px)" }}>
               <strong>Round {step.iteration}</strong>
               <div style={{ marginTop: "8px", background: "#eef2ff", borderRadius: "10px", padding: "10px" }}>
                 {GRAPH.nodes.map((n) => (

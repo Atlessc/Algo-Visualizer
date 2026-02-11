@@ -65,7 +65,7 @@ const FibonacciSequenceIterativeAlgo = ({ maxElements = 10, endOnValue }) => {
               value={count}
               onChange={(e) => setCount(Number(e.target.value))}
             />
-            <span style={{ minWidth: "24px", fontWeight: 700, color: "#0f172a" }}>{count}</span>
+            <span style={{ minWidth: "min(100%, 24px)", fontWeight: 700, color: "#0f172a" }}>{count}</span>
           </div>
         )}
 

@@ -56,7 +56,7 @@ const SubsetSumAlgo = () => {
 
         <AlgoVisualizer>
           <div style={{ overflowX: "auto", width: "100%" }}>
-            <table style={{ borderCollapse: "collapse", margin: "0 auto", minWidth: "580px" }}>
+            <table style={{ borderCollapse: "collapse", margin: "0 auto", minWidth: "min(100%, 580px)" }}>
               <thead>
                 <tr>
                   <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}>i/s</th>

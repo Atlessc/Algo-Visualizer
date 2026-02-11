@@ -88,7 +88,7 @@ const JohnsonsAlgorithmAlgo = () => {
             </div>
           ) : (
             <div style={{ overflowX: "auto", width: "100%" }}>
-              <table style={{ borderCollapse: "collapse", margin: "0 auto", minWidth: "360px" }}>
+              <table style={{ borderCollapse: "collapse", margin: "0 auto", minWidth: "min(100%, 360px)" }}>
                 <thead>
                   <tr>
                     <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}>src\dst</th>

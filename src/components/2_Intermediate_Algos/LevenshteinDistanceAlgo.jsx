@@ -56,7 +56,7 @@ const LevenshteinDistanceAlgo = () => {
 
         <AlgoVisualizer>
           <div style={{ overflowX: "auto", width: "100%" }}>
-            <table style={{ borderCollapse: "collapse", minWidth: "560px", margin: "0 auto" }}>
+            <table style={{ borderCollapse: "collapse", minWidth: "min(100%, 560px)", margin: "0 auto" }}>
               <thead>
                 <tr>
                   <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}> </th>

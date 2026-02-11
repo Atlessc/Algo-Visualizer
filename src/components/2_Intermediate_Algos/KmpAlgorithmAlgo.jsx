@@ -224,17 +224,8 @@ const KmpAlgorithmAlgo = () => {
         </Para>
 
         <AlgoVisualizer>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "24px",
-              width: "100%",
-              flexWrap: "wrap",
-              alignItems: "stretch"
-            }}
-          >
-            <div style={{ flex: "2 1 500px", minWidth: "min(100%, 320px)" }}>
+          <div className="algo-split">
+            <div className="algo-pane-main-wide">
               <div style={{ marginBottom: "16px", color: "#1f2937", fontWeight: "600", wordBreak: "break-all" }}>
                 Text: {SAMPLE_TEXT}
               </div>
@@ -348,7 +339,7 @@ const KmpAlgorithmAlgo = () => {
               </div>
             </div>
 
-            <div style={{ flex: "1 1 260px", minWidth: "min(100%, 280px)" }}>
+            <div className="algo-pane-side-wide">
               <div style={{ marginBottom: "12px" }}>
                 <strong style={{ color: "#1f5f8b" }}>Phase:</strong>
                 <div style={{ marginTop: "8px", color: "#1f5f8b" }}>

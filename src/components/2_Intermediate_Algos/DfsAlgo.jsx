@@ -123,7 +123,7 @@ const DfsAlgo = () => {
                 );
               })}
             </svg>
-            <div style={{ flex: "1 1 220px", minWidth: "180px" }}>
+            <div style={{ flex: "1 1 220px", minWidth: "min(100%, 180px)" }}>
               <div style={{ marginBottom: "8px" }}><strong>Stack:</strong> {step.stack.length ? step.stack.join(" → ") : "(empty)"}</div>
               <div style={{ marginBottom: "8px" }}><strong>Visited:</strong> {step.visited.join(" → ")}</div>
               <div><strong>Traversal:</strong> {step.order.join(" → ")}</div>

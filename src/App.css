@@ -7,6 +7,7 @@
   width: min(1120px, 100%);
   margin: 0 auto;
   padding: 1.25rem clamp(0.75rem, 2vw, 1.5rem) 2.5rem;
+  overflow: clip;
 }
 
 .app-main {
@@ -36,4 +37,34 @@
   top: 120px;
   right: -120px;
   background: #14b8a6;
+}
+
+@media (max-width: 900px) {
+  .app-shell {
+    width: 100%;
+    padding: 1rem 0.8rem 2rem;
+  }
+
+  .app-main {
+    gap: 1rem;
+  }
+
+  .app-glow {
+    width: 260px;
+    height: 260px;
+    filter: blur(70px);
+    opacity: 0.24;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-shell {
+    padding: 0.8rem 0.62rem 1.5rem;
+  }
+
+  .app-glow {
+    width: 220px;
+    height: 220px;
+    filter: blur(62px);
+  }
 }

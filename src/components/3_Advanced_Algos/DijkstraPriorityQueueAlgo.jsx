@@ -116,7 +116,7 @@ const DijkstraPriorityQueueAlgo = () => {
                 background: "#eef2ff",
                 borderRadius: "12px",
                 padding: "10px",
-                minWidth: "220px",
+                minWidth: "min(100%, 220px)",
               }}
             >
               <strong>Distances</strong>
@@ -135,7 +135,7 @@ const DijkstraPriorityQueueAlgo = () => {
                 border: "1px solid #e2e8f0",
                 borderRadius: "12px",
                 padding: "10px",
-                minWidth: "220px",
+                minWidth: "min(100%, 220px)",
               }}
             >
               <strong>Priority Queue</strong>

@@ -179,18 +179,9 @@ const KnapsackAlgo = () => {
         </Para>
 
         <AlgoVisualizer>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "24px",
-              width: "100%",
-              flexWrap: "wrap",
-              alignItems: "stretch"
-            }}
-          >
-            <div style={{ flex: "2 1 560px", overflowX: "auto", minWidth: "min(100%, 330px)" }}>
-              <table style={{ borderCollapse: "collapse", minWidth: "520px" }}>
+          <div className="algo-split">
+            <div className="algo-pane-main-wide" style={{ overflowX: "auto" }}>
+              <table style={{ borderCollapse: "collapse", minWidth: "min(100%, 520px)" }}>
                 <thead>
                   <tr>
                     <th style={{ border: "1px solid #cbd5e1", padding: "6px", color: "#1f2937", fontSize: "13px" }}>
@@ -229,7 +220,7 @@ const KnapsackAlgo = () => {
                             style={{
                               border: "1px solid #cbd5e1",
                               padding: "6px",
-                              minWidth: "34px",
+                              minWidth: "min(100%, 34px)",
                               textAlign: "center",
                               fontWeight: "700",
                               background: cellStyle.background,
@@ -247,7 +238,7 @@ const KnapsackAlgo = () => {
               </table>
             </div>
 
-            <div style={{ flex: "1 1 260px", minWidth: "min(100%, 270px)" }}>
+            <div className="algo-pane-side">
               <div style={{ marginBottom: "12px" }}>
                 <strong style={{ color: "#4b5563" }}>Items:</strong>
                 <div

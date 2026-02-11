@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div.attrs({ className: "algo-card" })`
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.82));
   border: 1px solid rgba(148, 163, 184, 0.35);
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
@@ -13,9 +13,18 @@ export const Container = styled.div`
   margin-top: 8px;
   position: relative;
   width: min(100%, 1060px);
+
+  @media (max-width: 700px) {
+    border-radius: 14px;
+    padding: 11px;
+  }
+
+  @media (max-width: 520px) {
+    padding: 10px;
+  }
 `;
 
-export const CardContainer = styled.div`
+export const CardContainer = styled.div.attrs({ className: "algo-card-content" })`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -24,6 +33,10 @@ export const CardContainer = styled.div`
   margin-top: 0;
   position: relative;
   width: min(100%, 1020px);
+
+  @media (max-width: 700px) {
+    gap: 12px;
+  }
 `;
 
 export const Title = styled.h1`
@@ -41,6 +54,15 @@ export const AlgoVisualizer = styled.div`
   width: 100%;
   overflow-x: auto;
   padding-bottom: 6px;
+
+  > div {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    padding-bottom: 4px;
+  }
 `;
 
 export const CodeBlock = styled.pre`
@@ -55,6 +77,12 @@ export const CodeBlock = styled.pre`
   margin: 0 0 8px;
   width: 100%;
   overflow-x: auto;
+
+  @media (max-width: 700px) {
+    font-size: 12px;
+    border-radius: 10px;
+    padding: 10px;
+  }
 `;
 
 export const Para = styled.p`
@@ -65,6 +93,15 @@ export const Para = styled.p`
   width: min(100%, 880px);
   text-align: center;
   margin: 0 auto;
+
+  @media (max-width: 700px) {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 520px) {
+    font-size: 14px;
+  }
 `;
 
 export const StyledInput = styled.input`

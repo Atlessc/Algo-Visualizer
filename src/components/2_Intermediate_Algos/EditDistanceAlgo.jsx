@@ -59,7 +59,7 @@ const EditDistanceAlgo = () => {
 
         <AlgoVisualizer>
           <div style={{ overflowX: "auto", width: "100%" }}>
-            <table style={{ borderCollapse: "collapse", minWidth: "520px", margin: "0 auto" }}>
+            <table style={{ borderCollapse: "collapse", minWidth: "min(100%, 520px)", margin: "0 auto" }}>
               <thead>
                 <tr>
                   <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}> </th>
@@ -83,7 +83,7 @@ const EditDistanceAlgo = () => {
                           style={{
                             border: "1px solid #cbd5e1",
                             padding: "6px",
-                            minWidth: "32px",
+                            minWidth: "min(100%, 32px)",
                             textAlign: "center",
                             background: active ? "#0ea5e9" : "#fff",
                             color: active ? "#fff" : "#0f172a",

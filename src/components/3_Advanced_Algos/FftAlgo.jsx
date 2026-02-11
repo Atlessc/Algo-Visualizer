@@ -44,7 +44,7 @@ const FftAlgo = () => {
           <div style={{ width: "100%", maxWidth: "860px", margin: "0 auto", background: "#eef2ff", borderRadius: "12px", padding: "12px" }}>
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
               {s.values.map((v, i) => (
-                <div key={i} style={{ minWidth: "46px", padding: "8px 10px", borderRadius: "8px", background: "#0ea5e9", color: "#fff", textAlign: "center", fontWeight: 700 }}>
+                <div key={i} style={{ minWidth: "min(100%, 46px)", padding: "8px 10px", borderRadius: "8px", background: "#0ea5e9", color: "#fff", textAlign: "center", fontWeight: 700 }}>
                   {v}
                 </div>
               ))}

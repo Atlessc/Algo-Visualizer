@@ -48,12 +48,12 @@ const SegmentTreeAlgo = () => {
 
         <AlgoVisualizer>
           <div style={{ width: "100%", overflowX: "auto" }}>
-            <div style={{ minWidth: "680px", display: "flex", gap: "8px", justifyContent: "center" }}>
+            <div style={{ minWidth: "min(100%, 680px)", display: "flex", gap: "8px", justifyContent: "center" }}>
               {values.map((v, i) => {
                 const nodeIdx = i + 1;
                 const active = nodeIdx === step.node;
                 return (
-                  <div key={nodeIdx} style={{ width: "54px", borderRadius: "8px", background: active ? "#0ea5e9" : "#e2e8f0", color: active ? "#fff" : "#0f172a", padding: "8px", textAlign: "center", fontFamily: "monospace" }}>
+                  <div key={nodeIdx} style={{ width: "clamp(42px, 8vw, 54px)", borderRadius: "8px", background: active ? "#0ea5e9" : "#e2e8f0", color: active ? "#fff" : "#0f172a", padding: "8px 4px", textAlign: "center", fontFamily: "monospace" }}>
                     <div style={{ fontSize: "11px" }}>{nodeIdx}</div>
                     <div style={{ fontWeight: 700 }}>{v}</div>
                   </div>

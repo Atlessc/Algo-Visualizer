@@ -50,7 +50,7 @@ const MatrixChainMultiplicationAlgo = () => {
 
         <AlgoVisualizer>
           <div style={{ overflowX: "auto", width: "100%" }}>
-            <table style={{ borderCollapse: "collapse", margin: "0 auto", minWidth: "420px" }}>
+            <table style={{ borderCollapse: "collapse", margin: "0 auto", minWidth: "min(100%, 420px)" }}>
               <thead>
                 <tr>
                   <th style={{ border: "1px solid #cbd5e1", padding: "6px" }}>i\j</th>
@@ -73,7 +73,7 @@ const MatrixChainMultiplicationAlgo = () => {
                             border: "1px solid #cbd5e1",
                             padding: "6px",
                             textAlign: "center",
-                            minWidth: "40px",
+                            minWidth: "min(100%, 40px)",
                             background: active ? "#0ea5e9" : "#fff",
                             color: active ? "#fff" : "#0f172a",
                             fontWeight: 700,
