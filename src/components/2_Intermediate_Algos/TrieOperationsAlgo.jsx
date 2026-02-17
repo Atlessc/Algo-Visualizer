@@ -49,7 +49,10 @@ const TrieOperationsAlgo = ({ compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Trie Operations</Title>
-        <Para>Trie supports efficient insert/search/prefix checks by sharing common prefixes.</Para>
+        <Para>
+          A trie is a prefix tree where words share starting letters. This makes prefix checks and
+          dictionary lookups fast, which is useful for autocomplete and spell-check features.
+        </Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <input
             type="text"

@@ -47,7 +47,11 @@ const AvlTreeRotationsAlgo = ({ compact = false }) => {
     <Container>
       <CardContainer>
         <Title>AVL Tree Rotations</Title>
-        <Para>AVL rebalances BST by rotations when balance factor becomes -1/0/+1 violated.</Para>
+        <Para>
+          An AVL tree is a binary search tree that keeps itself balanced after inserts and deletes.
+          If one side becomes too tall, it performs a small rotation (LL, RR, LR, or RL) so lookups
+          stay fast.
+        </Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           {SCENARIOS.map((sc, i) => (
             <Button

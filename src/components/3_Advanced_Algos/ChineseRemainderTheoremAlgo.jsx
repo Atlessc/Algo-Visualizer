@@ -45,7 +45,11 @@ const ChineseRemainderTheoremAlgo = ({ compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Chinese Remainder Theorem</Title>
-        <Para>Solve a system of congruences x ≡ ai (mod mi) when moduli are pairwise coprime.</Para>
+        <Para>
+          The Chinese Remainder Theorem combines several remainder rules into one answer. If the
+          moduli are pairwise coprime, there is one unique solution modulo the product of all
+          moduli.
+        </Para>
 
         <div className="mx-auto grid w-full max-w-[560px] gap-2">
           {[0, 1, 2].map((i) => (

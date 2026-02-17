@@ -42,7 +42,11 @@ const FenwickTreeAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Fenwick Tree (Binary Indexed Tree)</Title>
-        <Para>Supports prefix sums and point updates in O(log n).</Para>
+        <Para>
+          A Fenwick Tree (Binary Indexed Tree) stores prefix information so updates and
+          prefix/range-sum queries are both fast. It is great when values change often and you still
+          need quick running totals.
+        </Para>
         <Para>{step.msg}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button

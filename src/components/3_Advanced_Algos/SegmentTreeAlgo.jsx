@@ -34,7 +34,10 @@ const SegmentTreeAlgo = ({ compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Segment Tree</Title>
-        <Para>Hierarchical structure for range queries and point updates in O(log n).</Para>
+        <Para>
+          A Segment Tree breaks an array into nested ranges, so each node summarizes a segment. This
+          makes range queries and point updates efficient, even on large arrays.
+        </Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <input
             type="range"

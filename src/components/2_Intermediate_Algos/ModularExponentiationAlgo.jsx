@@ -53,7 +53,11 @@ const ModularExponentiationAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Modular Exponentiation</Title>
-        <Para>Fast power computes base^exp mod m in O(log exp) using binary exponentiation.</Para>
+        <Para>
+          Modular exponentiation computes base^exp mod m efficiently using exponent bits. It
+          repeatedly squares and only multiplies when needed, reducing work from linear to
+          logarithmic in the exponent.
+        </Para>
         <div className="flex flex-wrap items-center justify-center gap-2.5">
           <input
             type="number"

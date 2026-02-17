@@ -43,7 +43,11 @@ const MillerRabinAlgo = ({ compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Miller-Rabin Primality Test</Title>
-        <Para>Probabilistic primality test using repeated squaring and witness bases.</Para>
+        <Para>
+          Miller-Rabin is a fast primality test used in practice. It can prove a number is
+          composite, or report it is &quot;probably prime&quot; with very high confidence by testing
+          several bases.
+        </Para>
 
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <input

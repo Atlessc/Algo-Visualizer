@@ -24,7 +24,11 @@ const FermatsTheoremAlgo = ({ compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Fermat&apos;s Little Theorem</Title>
-        <Para>If p is prime and gcd(a,p)=1, then a^(p-1) ≡ 1 (mod p).</Para>
+        <Para>
+          Fermat&apos;s Little Theorem gives a quick number-theory check: for prime p, a^(p-1) mod p
+          should equal 1 when a and p are coprime. This is useful for fast filtering, but passing
+          this check alone does not guarantee that p is prime.
+        </Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <input
             type="number"

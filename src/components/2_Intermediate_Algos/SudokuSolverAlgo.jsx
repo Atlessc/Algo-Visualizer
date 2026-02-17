@@ -281,7 +281,11 @@ const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Sudoku Solver (Backtracking)</Title>
-        <Para>Try valid digits recursively; backtrack when a dead-end is reached.</Para>
+        <Para>
+          This solver uses backtracking: place a valid digit, move forward, and undo when a
+          contradiction appears. It systematically explores possibilities until the puzzle is solved
+          or no solution remains.
+        </Para>
         <div className="mb-2 flex flex-wrap items-center justify-center gap-2">
           <label htmlFor="sudoku-starter-grid" className="text-sm font-semibold text-slate-700">
             Starter Grid

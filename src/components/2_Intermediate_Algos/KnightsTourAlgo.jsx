@@ -71,7 +71,10 @@ const KnightsTourAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Knight&apos;s Tour</Title>
-        <Para>Visit each square exactly once using legal knight moves.</Para>
+        <Para>
+          In the Knight&apos;s Tour, the knight must visit every square exactly once using legal moves.
+          Backtracking explores moves step-by-step and rewinds when a move blocks future progress.
+        </Para>
         <Para>Step {stepIndex + 1} / {path.length}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button
