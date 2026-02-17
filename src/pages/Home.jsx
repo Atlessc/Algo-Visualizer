@@ -1,7 +1,7 @@
+import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { Button } from "../components/ui/button";
-import { ALGO_SECTIONS } from "../data/algoCatalog";
+import { ALGO_COMPONENT_LOADERS, ALGO_SECTIONS } from "../data/algoCatalog";
 import { cn } from "../lib/utils";
-import { useEffect, useMemo, useState } from "react";
 
 const noop = () => {};
 
@@ -25,6 +25,16 @@ const Home = ({ isTocOpen = false, setIsTocOpen = noop }) => {
   }, [tocGroups]);
   const allItems = useMemo(() => tocGroups.flatMap((group) => group.items), [tocGroups]);
   const allItemIds = useMemo(() => allItems.map((item) => item.id), [allItems]);
+  const missingLoaderIds = useMemo(
+    () => allItemIds.filter((id) => typeof ALGO_COMPONENT_LOADERS[id] !== "function"),
+    [allItemIds]
+  );
+  const lazyComponentsById = useMemo(() => {
+    const componentEntries = allItemIds
+      .filter((id) => typeof ALGO_COMPONENT_LOADERS[id] === "function")
+      .map((id) => [id, lazy(ALGO_COMPONENT_LOADERS[id])]);
+    return new Map(componentEntries);
+  }, [allItemIds]);
   const [activeId, setActiveId] = useState(allItems[0]?.id ?? "");
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== "undefined" ? window.matchMedia("(max-width: 1080px)").matches : false
@@ -37,6 +47,11 @@ const Home = ({ isTocOpen = false, setIsTocOpen = noop }) => {
     if (duplicateAlgoIds.length === 0) return;
     console.warn(`[Home] Duplicate algorithm ids detected: ${duplicateAlgoIds.join(", ")}`);
   }, [duplicateAlgoIds]);
+
+  useEffect(() => {
+    if (missingLoaderIds.length === 0) return;
+    console.warn(`[Home] Missing algorithm loaders for ids: ${missingLoaderIds.join(", ")}`);
+  }, [missingLoaderIds]);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -259,7 +274,7 @@ const Home = ({ isTocOpen = false, setIsTocOpen = noop }) => {
               {section.title}
             </h3>
             {section.items.map((item) => {
-              const AlgoComponent = item.component;
+              const AlgoComponent = lazyComponentsById.get(item.id);
               const expanded = isItemExpanded(item.id);
               const { autoPlayOnMobile = false, ...itemProps } = item.props ?? {};
               const runtimeProps = {
@@ -288,7 +303,21 @@ const Home = ({ isTocOpen = false, setIsTocOpen = noop }) => {
                   ) : null}
 
                   {expanded ? (
-                    <AlgoComponent {...runtimeProps} />
+                    AlgoComponent ? (
+                      <Suspense
+                        fallback={
+                          <div className="rounded-xl border border-slate-300 bg-slate-50/90 px-3 py-3 text-sm text-slate-600">
+                            Loading visualizer...
+                          </div>
+                        }
+                      >
+                        <AlgoComponent {...runtimeProps} />
+                      </Suspense>
+                    ) : (
+                      <div className="rounded-xl border border-red-200 bg-red-50/90 px-3 py-3 text-sm text-red-700">
+                        Unable to load this visualizer right now.
+                      </div>
+                    )
                   ) : (
                     <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50/90 px-3 py-3 text-sm text-slate-600">
                       Visualizer is collapsed on mobile to keep scrolling smooth. Tap

@@ -14,7 +14,7 @@ This file tracks the 10-step responsive cleanup rollout, verification status, an
 |---|---|---|---|---|---|
 | 1 | Baseline checks and QA guardrails (`check` script, lint scope, smoke checklist) | Complete | User + Codex | 2026-02-17 | Build/lint baseline stabilized for phased rollout. |
 | 2 | Single source of truth for active algos and folder-based Home/TOC sync | Complete | User + Codex | 2026-02-17 | `algoCatalog.js` now drives both TOC and main content. |
-| 3 | Next rollout step | Pending | - | - | - |
+| 3 | Code-split algorithm visualizers with lazy loading + runtime load guards | Complete (Pending User Verification) | Codex | 2026-02-17 | `Home` now loads algos on demand from `ALGO_COMPONENT_LOADERS`; main bundle reduced significantly. |
 | 4 | Next rollout step | Pending | - | - | - |
 | 5 | Next rollout step | Pending | - | - | - |
 | 6 | Next rollout step | Pending | - | - | - |
@@ -28,3 +28,4 @@ This file tracks the 10-step responsive cleanup rollout, verification status, an
 ### 2026-02-17
 - Added tracker file for phased rollout control.
 - Seeded with Step 1 and Step 2 completion details.
+- Implemented Step 3 code-splitting for active algorithm components using lazy imports.
