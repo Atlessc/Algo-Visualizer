@@ -1,8 +1,23 @@
 {
   "name": "algo-visualizer",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "style": "default",
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "./src/index.css",
+    "baseColor": "#ffffff",
+    "cssVariables": true
+  },
+  "rsc": false,
+  "aliases": {
+    "@": "./src",
+    "@/components": "./src/components",
+    "@/utils": "./src/utils",
+    "components": "./src/components",
+    "utils": "./src/utils"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
