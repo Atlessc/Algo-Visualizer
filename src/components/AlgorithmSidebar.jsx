@@ -124,9 +124,9 @@ function AlgorithmSidebar({
               key={`${section.folder}-${item.id}`}
               to={href}
               className={cn(
-                "block w-full break-words rounded-md px-2 py-1.5 text-left text-sm leading-tight transition-colors",
+                "block w-full wrap-break-words rounded-md px-2 py-1.5 text-left text-sm leading-tight transition-colors",
                 isActive
-                  ? "bg-gradient-to-r from-sky-600 to-cyan-500 font-semibold text-white"
+                  ? "bg-linear-to-r from-sky-600 to-cyan-500 font-semibold text-white"
                   : "text-slate-700 hover:bg-slate-200/70"
               )}
               aria-current={isActive ? "page" : undefined}

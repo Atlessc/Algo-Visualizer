@@ -111,7 +111,7 @@ function CommandPalette() {
         role="dialog"
         aria-modal="true"
         aria-label="Algorithm command palette"
-        className="fixed left-1/2 top-[13vh] z-[60] w-[min(92vw,760px)] -translate-x-1/2 rounded-2xl border border-slate-300/70 bg-white/95 p-3 shadow-2xl backdrop-blur sm:p-4"
+        className="fixed left-1/2 top-[13vh] z-60 w-[min(92vw,760px)] -translate-x-1/2 rounded-2xl border border-slate-300/70 bg-white/95 p-3 shadow-2xl backdrop-blur sm:p-4"
       >
         <div className="flex items-center gap-2">
           <input
@@ -147,7 +147,7 @@ function CommandPalette() {
                 key={item.slug}
                 type="button"
                 className={cn(
-                  "w-full border-b border-slate-200/80 bg-gradient-to-r from-sky-500/30 via-cyan-500/20 to-indigo-500/30 p-[1px] text-left last:border-b-0",
+                  "w-full border-b border-slate-200/80 bg-linear-to-r from-sky-500/30 via-cyan-500/20 to-indigo-500/30 p-px text-left last:border-b-0",
                   index === activeIndex ? "brightness-105" : "hover:brightness-105"
                 )}
                 onMouseEnter={() => setActiveIndex(index)}
@@ -156,7 +156,7 @@ function CommandPalette() {
                 <span
                   className={cn(
                     "flex w-full items-start justify-between gap-3 rounded-[10px] px-3 py-2.5",
-                    index === activeIndex ? "bg-[color:var(--surface)]" : "bg-[color:var(--bg-1)]"
+                    index === activeIndex ? "bg-(--surface)" : "bg-(--bg-1)"
                   )}
                 >
                   <span className="min-w-0">
