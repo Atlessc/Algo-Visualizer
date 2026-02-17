@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button, buttonVariants } from "./ui/button";
 import { cn } from "../lib/utils";
 
-function NavBar({ onOpenAlgorithms, showAlgorithmsButton = false }) {
+function NavBar({ onOpenAlgorithms, showAlgorithmsButton = false, isAlgorithmsOpen = false }) {
   return (
     <nav
       data-nav-root="true"
@@ -21,6 +21,7 @@ function NavBar({ onOpenAlgorithms, showAlgorithmsButton = false }) {
       <div className="flex flex-wrap items-center gap-2 max-[420px]:w-full max-[420px]:justify-center">
         {showAlgorithmsButton ? (
           <Button
+            id="open-algorithms-nav-button"
             type="button"
             size="sm"
             variant="secondary"
@@ -28,6 +29,7 @@ function NavBar({ onOpenAlgorithms, showAlgorithmsButton = false }) {
             onClick={onOpenAlgorithms}
             aria-haspopup="dialog"
             aria-controls="mobile-toc-sidebar"
+            aria-expanded={isAlgorithmsOpen ? "true" : "false"}
           >
             Algorithms
           </Button>

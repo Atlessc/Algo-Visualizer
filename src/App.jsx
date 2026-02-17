@@ -37,6 +37,7 @@ function App() {
       <div className="pointer-events-none fixed -right-24 top-24 -z-10 h-72 w-72 rounded-full bg-teal-500/25 blur-3xl sm:h-80 sm:w-80" />
       <NavBar
         showAlgorithmsButton={isHomeRoute}
+        isAlgorithmsOpen={isAlgorithmsOpen}
         onOpenAlgorithms={() => setIsAlgorithmsOpen(true)}
       />
       <main className="flex flex-col gap-4 sm:gap-5">

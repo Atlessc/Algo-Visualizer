@@ -15,11 +15,11 @@ This file tracks the 10-step responsive cleanup rollout, verification status, an
 | 1 | Baseline checks and QA guardrails (`check` script, lint scope, smoke checklist) | Complete | User + Codex | 2026-02-17 | Build/lint baseline stabilized for phased rollout. |
 | 2 | Single source of truth for active algos and folder-based Home/TOC sync | Complete | User + Codex | 2026-02-17 | `algoCatalog.js` now drives both TOC and main content. |
 | 3 | Code-split algorithm visualizers with lazy loading + runtime load guards | Complete (Pending User Verification) | Codex | 2026-02-17 | `Home` now loads algos on demand from `ALGO_COMPONENT_LOADERS`; main bundle reduced significantly. |
-| 4 | Next rollout step | Pending | - | - | - |
-| 5 | Next rollout step | Pending | - | - | - |
-| 6 | Next rollout step | Pending | - | - | - |
-| 7 | Next rollout step | Pending | - | - | - |
-| 8 | Next rollout step | Pending | - | - | - |
+| 4 | Progressive viewport-based visualizer mounting on Home (desktop + mobile deep-link support) | Complete (Pending User Verification) | Codex | 2026-02-17 | Added render-ready gating via IntersectionObserver to reduce long-page mount pressure. |
+| 5 | Searchable TOC for desktop/mobile with live result counts | Complete (Pending User Verification) | Codex | 2026-02-17 | Added query filter in sidebar and mobile drawer to jump faster on long algo lists. |
+| 6 | Mobile algorithms drawer accessibility hardening (focus management + keyboard trap + ARIA state sync) | Complete (Pending User Verification) | Codex | 2026-02-17 | Drawer now keeps keyboard focus inside while open and returns focus to the opener on close. |
+| 7 | Predictive visualizer prefetch from TOC interactions and early-home warmup | Complete (Pending User Verification) | Codex | 2026-02-17 | Prefetches algo chunks on hover/focus/touch and for initial top items to reduce perceived load delay. |
+| 8 | Collapsible folder sections in main content with auto-expand on TOC/hash navigation | Complete (Pending User Verification) | Codex | 2026-02-17 | Users can hide/show folder blocks; selecting an algo from navigation re-opens that folder automatically. |
 | 9 | Next rollout step | Pending | - | - | - |
 | 10 | Next rollout step | Pending | - | - | - |
 
@@ -29,3 +29,8 @@ This file tracks the 10-step responsive cleanup rollout, verification status, an
 - Added tracker file for phased rollout control.
 - Seeded with Step 1 and Step 2 completion details.
 - Implemented Step 3 code-splitting for active algorithm components using lazy imports.
+- Implemented Step 4 progressive mount strategy with `renderReadyIds` in `Home.jsx`.
+- Implemented Step 5 TOC search and live match counts in desktop + mobile navigation.
+- Implemented Step 6 mobile drawer focus trapping and trigger/dialog accessibility sync.
+- Implemented Step 7 predictive prefetch for algorithm chunks from TOC interactions.
+- Implemented Step 8 main-content folder collapse controls with auto-reveal on navigation.
