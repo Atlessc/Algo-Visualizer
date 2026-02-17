@@ -8,7 +8,7 @@ function Landing() {
 
   return (
     <section className="flex min-w-0 flex-col gap-4">
-      <div className="rounded-[18px] border border-slate-300/70 bg-gradient-to-b from-white/95 to-white/80 p-4 shadow-lg sm:p-5">
+      <div className="rounded-[18px] border border-slate-300/70 bg-(--card-bg) p-4 shadow-lg sm:p-5">
         <p className="m-0 text-[0.8rem] font-bold uppercase tracking-[0.08em] text-blue-700">Algo Visualizer</p>
         <h2 className="mb-1 mt-1 text-[clamp(1.2rem,2vw,1.9rem)] font-semibold leading-tight text-slate-900">
           Explore algorithms through focused, shareable visualizer pages.
