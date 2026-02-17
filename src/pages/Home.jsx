@@ -1,9 +1,57 @@
-import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Component, Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "../components/ui/button";
 import { ALGO_COMPONENT_LOADERS, ALGO_SECTIONS } from "../data/algoCatalog";
 import { cn } from "../lib/utils";
 
 const noop = () => {};
+
+class AlgoCardErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, errorMessage: "" };
+    this.handleRetry = this.handleRetry.bind(this);
+  }
+
+  static getDerivedStateFromError(error) {
+    return {
+      hasError: true,
+      errorMessage:
+        error instanceof Error && error.message
+          ? error.message
+          : "Unexpected visualizer rendering error.",
+    };
+  }
+
+  componentDidCatch(error) {
+    const { algoId } = this.props;
+    console.error(`[Home] Visualizer render failure for ${algoId}`, error);
+  }
+
+  handleRetry() {
+    this.setState({ hasError: false, errorMessage: "" });
+    const { onRetry } = this.props;
+    if (typeof onRetry === "function") {
+      onRetry();
+    }
+  }
+
+  render() {
+    const { hasError, errorMessage } = this.state;
+    const { label, children } = this.props;
+
+    if (!hasError) return children;
+
+    return (
+      <div className="rounded-xl border border-red-200 bg-red-50/90 px-3 py-3 text-sm text-red-700">
+        <p className="m-0 font-semibold">Visualizer failed to render: {label}</p>
+        <p className="mb-2 mt-1 text-xs text-red-700/80">{errorMessage}</p>
+        <Button type="button" variant="secondary" size="sm" onClick={this.handleRetry}>
+          Retry Visualizer
+        </Button>
+      </div>
+    );
+  }
+}
 
 const Home = ({ isTocOpen = false, setIsTocOpen = noop }) => {
   const tocGroups = useMemo(
@@ -98,6 +146,17 @@ const Home = ({ isTocOpen = false, setIsTocOpen = noop }) => {
       prefetchedAlgoIdsRef.current.delete(id);
     });
   }, []);
+  const ensureFolderExpandedForItem = useCallback((id) => {
+    if (!id) return;
+    const folder = itemFolderById.get(id);
+    if (!folder) return;
+    setCollapsedFolderIds((prev) => {
+      if (!prev.has(folder)) return prev;
+      const next = new Set(prev);
+      next.delete(folder);
+      return next;
+    });
+  }, [itemFolderById]);
 
   useEffect(() => {
     if (duplicateAlgoIds.length === 0) return;
@@ -376,18 +435,6 @@ const Home = ({ isTocOpen = false, setIsTocOpen = noop }) => {
     });
   };
 
-  const ensureFolderExpandedForItem = useCallback((id) => {
-    if (!id) return;
-    const folder = itemFolderById.get(id);
-    if (!folder) return;
-    setCollapsedFolderIds((prev) => {
-      if (!prev.has(folder)) return prev;
-      const next = new Set(prev);
-      next.delete(folder);
-      return next;
-    });
-  }, [itemFolderById]);
-
   const toggleFolderCollapse = (folder) => {
     if (!folder) return;
     setCollapsedFolderIds((prev) => {
@@ -586,15 +633,24 @@ const Home = ({ isTocOpen = false, setIsTocOpen = noop }) => {
 
                       {expanded ? (
                         readyToRender && AlgoComponent ? (
-                          <Suspense
-                            fallback={
-                              <div className="rounded-xl border border-slate-300 bg-slate-50/90 px-3 py-3 text-sm text-slate-600">
-                                Loading visualizer...
-                              </div>
-                            }
+                          <AlgoCardErrorBoundary
+                            algoId={item.id}
+                            label={item.label}
+                            onRetry={() => {
+                              prefetchAlgo(item.id);
+                              ensureRenderReady(item.id);
+                            }}
                           >
-                            <AlgoComponent {...runtimeProps} />
-                          </Suspense>
+                            <Suspense
+                              fallback={
+                                <div className="rounded-xl border border-slate-300 bg-slate-50/90 px-3 py-3 text-sm text-slate-600">
+                                  Loading visualizer...
+                                </div>
+                              }
+                            >
+                              <AlgoComponent {...runtimeProps} />
+                            </Suspense>
+                          </AlgoCardErrorBoundary>
                         ) : (
                           <div className="rounded-xl border border-slate-300 bg-slate-50/90 px-3 py-3 text-sm text-slate-600">
                             Preparing visualizer...
