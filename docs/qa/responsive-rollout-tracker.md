@@ -21,7 +21,7 @@ This file tracks the 10-step responsive cleanup rollout, verification status, an
 | 7 | Predictive visualizer prefetch from TOC interactions and early-home warmup | Complete (Pending User Verification) | Codex | 2026-02-17 | Prefetches algo chunks on hover/focus/touch and for initial top items to reduce perceived load delay. |
 | 8 | Collapsible folder sections in main content with auto-expand on TOC/hash navigation | Complete (Pending User Verification) | Codex | 2026-02-17 | Users can hide/show folder blocks; selecting an algo from navigation re-opens that folder automatically. |
 | 9 | Per-visualizer error isolation with retry fallback (Home-level resilience) | Complete (Pending User Verification) | Codex | 2026-02-17 | Added local error boundary so one broken visualizer no longer crashes the full page. |
-| 10 | Next rollout step | Pending | - | - | - |
+| 10 | Final stabilization pass: remove remaining lint warning and lock clean baseline checks | Complete (Pending User Verification) | Codex | 2026-02-17 | Split button variants into dedicated module; `npm run check` now passes with zero lint warnings. |
 
 ## Change Log
 
@@ -35,3 +35,4 @@ This file tracks the 10-step responsive cleanup rollout, verification status, an
 - Implemented Step 7 predictive prefetch for algorithm chunks from TOC interactions.
 - Implemented Step 8 main-content folder collapse controls with auto-reveal on navigation.
 - Implemented Step 9 visualizer error boundaries with in-card retry recovery.
+- Implemented Step 10 lint-stability refactor for UI button variants (clean check baseline).

@@ -1,10 +1,24 @@
-
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button, buttonVariants } from "./ui/button";
+import { NavLink } from 'react-router-dom';
+import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button-variants";
 import { cn } from "../lib/utils";
 
-function NavBar({ onOpenAlgorithms, showAlgorithmsButton = false, isAlgorithmsOpen = false }) {
+const noop = () => {};
+
+function NavBar({
+  onOpenAlgorithms = noop,
+  onOpenCommand = noop,
+  showAlgorithmsButton = false,
+  isAlgorithmsOpen = false,
+  algorithmsPanelId = "mobile-algorithms-sidebar",
+}) {
+  const navLinkClassName = ({ isActive }) =>
+    cn(
+      buttonVariants({ variant: "ghost", size: "sm" }),
+      isActive ? "bg-slate-200/80 text-slate-900" : "text-slate-600"
+    );
+
   return (
     <nav
       data-nav-root="true"
@@ -28,18 +42,32 @@ function NavBar({ onOpenAlgorithms, showAlgorithmsButton = false, isAlgorithmsOp
             className="min-[1081px]:hidden"
             onClick={onOpenAlgorithms}
             aria-haspopup="dialog"
-            aria-controls="mobile-toc-sidebar"
+            aria-controls={algorithmsPanelId}
             aria-expanded={isAlgorithmsOpen ? "true" : "false"}
           >
             Algorithms
           </Button>
         ) : null}
-        <Link to="/" className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-slate-600")}>
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          className="h-9 px-2.5 text-xs text-slate-700"
+          onClick={onOpenCommand}
+          aria-label="Open algorithm command palette"
+          title="Open command palette (Ctrl/Cmd+K)"
+        >
+          Jump
+        </Button>
+        <NavLink to="/" end className={navLinkClassName}>
           Home
-        </Link>
-        <Link to="/about" className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-slate-600")}>
+        </NavLink>
+        <NavLink to="/algorithms" className={navLinkClassName}>
+          Algorithms
+        </NavLink>
+        <NavLink to="/about" className={navLinkClassName}>
           About
-        </Link>
+        </NavLink>
       </div>
     </nav>
   );

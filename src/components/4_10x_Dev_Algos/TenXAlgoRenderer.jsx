@@ -24,12 +24,18 @@ const TenXAlgoRenderer = ({
   code,
   speedMs = 1300,
   autoPlay = true,
+  globalSpeedMultiplier = 1,
+  globalPlaybackPaused = false,
   compact = false
 }) => {
   const timeline = useMemo(() => steps ?? [], [steps]);
   const [stepIndex, setStepIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const cardMinWidth = compact ? 118 : 160;
+  const normalizedSpeedMultiplier = Number.isFinite(globalSpeedMultiplier)
+    ? Math.max(0.5, globalSpeedMultiplier)
+    : 1;
+  const effectiveSpeedMs = Math.max(220, Math.round(speedMs / normalizedSpeedMultiplier));
 
   const currentStep = timeline[stepIndex] ?? timeline[0];
 
@@ -40,14 +46,14 @@ const TenXAlgoRenderer = ({
 
     const timerId = window.setInterval(() => {
       setStepIndex((prev) => Math.min(prev + 1, timeline.length - 1));
-    }, speedMs);
+    }, effectiveSpeedMs);
 
     return () => window.clearInterval(timerId);
-  }, [isPlaying, stepIndex, timeline.length, speedMs]);
+  }, [effectiveSpeedMs, isPlaying, stepIndex, timeline.length]);
 
   useEffect(() => {
-    setIsPlaying(autoPlay);
-  }, [autoPlay]);
+    setIsPlaying(globalPlaybackPaused ? false : autoPlay);
+  }, [autoPlay, globalPlaybackPaused]);
 
   return (
     <Container>
