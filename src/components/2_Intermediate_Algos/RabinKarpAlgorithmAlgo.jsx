@@ -82,7 +82,9 @@ const RabinKarpAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
             Reset
           </Button>
         </div>
-        <Para>Pattern: "{PATTERN}" | Pattern hash: {step.pHash} | Window hash: {step.tHash}</Para>
+        <Para>
+          Pattern: &quot;{PATTERN}&quot; | Pattern hash: {step.pHash} | Window hash: {step.tHash}
+        </Para>
 
         <AlgoVisualizer>
           <div className="w-full overflow-x-auto">

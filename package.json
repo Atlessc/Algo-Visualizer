@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:all": "eslint .",
+    "check": "npm run build && npm run lint",
     "preview": "vite preview"
   },
   "dependencies": {

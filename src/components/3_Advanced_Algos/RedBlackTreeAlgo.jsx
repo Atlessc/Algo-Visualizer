@@ -12,7 +12,7 @@ const nodes = [
 ];
 const edges = [[20, 10], [20, 30], [10, 5], [10, 15], [30, 25], [30, 35]];
 
-const RedBlackTreeAlgo = ({ compact = false }) => {
+const RedBlackTreeAlgo = () => {
   const byV = Object.fromEntries(nodes.map((n) => [n.v, n]));
   return (
     <Container>

@@ -100,7 +100,6 @@ const CountingSortAlgo = ({ compact = false }) => {
   const cellW = compact ? 52 : 64;
   const gap = compact ? 8 : 12;
   const rowPadding = 12;
-  const rowHeight = compact ? 68 : 74;
   const longestRow = Math.max(array.length, counts.length, output.length, 1);
   const chartW = longestRow * (cellW + gap) + rowPadding * 2;
   const chartH = compact ? 272 : 290;

@@ -82,7 +82,9 @@ const LongestCommonSubsequenceAlgo = ({ autoPlay = true, compact = false }) => {
             Reset
           </Button>
         </div>
-        <Para>X = "{X}", Y = "{Y}", LCS = <strong>{lcs}</strong></Para>
+        <Para>
+          X = &quot;{X}&quot;, Y = &quot;{Y}&quot;, LCS = <strong>{lcs}</strong>
+        </Para>
 
         <AlgoVisualizer>
           <div className="w-full overflow-x-auto">
