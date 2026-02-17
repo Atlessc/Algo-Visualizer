@@ -93,7 +93,7 @@ const KruskalDisjointSetAlgo = ({ autoPlay = true, compact = false }) => {
         </div>
 
         <AlgoVisualizer>
-          <div className="mx-auto grid w-full max-w-[820px] gap-2.5">
+          <div className="mx-auto grid w-full max-w-205 gap-2.5">
             <div className="rounded-xl bg-indigo-100 p-2.5">
               <strong>Sorted Edges</strong>
               {EDGES.sort((a, b) => a.w - b.w).map((e, i) => (

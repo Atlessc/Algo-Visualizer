@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, CardContainer, Title, AlgoVisualizer, CodeBlock, Para } from "../ui/algo-primitives";
 
 const nodes = [
@@ -32,7 +31,7 @@ const RedBlackTreeAlgo = () => {
             width="100%"
             viewBox="0 0 430 270"
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[620px]"
+            className="mx-auto h-auto w-full max-w-155"
           >
             {edges.map(([u, v]) => (
               <line key={`${u}-${v}`} x1={byV[u].x} y1={byV[u].y} x2={byV[v].x} y2={byV[v].y} stroke="#94a3b8" strokeWidth="2" />
