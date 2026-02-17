@@ -116,7 +116,7 @@ const BubbleSortAlgo = ({ compact = false }) => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[980px]"
+            className="mx-auto h-auto w-full max-w-245"
           >
             {array.map((value, index) => {
               const x = gap + index * (barW + gap);
@@ -131,7 +131,7 @@ const BubbleSortAlgo = ({ compact = false }) => {
               return (
                 <motion.g key={`${index}-${value}`} animate={{ y: index === current || index === comparing ? -8 : 0 }}>
                   <rect x={x} y={y} width={barW} height={h} rx={10} fill={fill} />
-                  <text x={x + barW / 2} y={y - 8} textAnchor="middle" fontSize="14" fill="#0f172a">
+                  <text x={x + barW / 2} y={y - 8} textAnchor="middle" fontSize="14" fill="var(--text-strong)">
                     {value}
                   </text>
                 </motion.g>

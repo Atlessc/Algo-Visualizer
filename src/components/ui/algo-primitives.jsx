@@ -6,6 +6,7 @@ function Container({ className, ...props }) {
   return (
     <Card
       className={cn("algo-card relative mx-auto mt-2 w-full max-w-6xl p-3 sm:p-4", className)}
+      lean={true}
       {...props}
     />
   );
@@ -23,7 +24,10 @@ function CardContainer({ className, ...props }) {
 function Title({ className, ...props }) {
   return (
     <h2
-      className={cn("m-0 text-center text-xl font-semibold leading-tight text-slate-900 sm:text-2xl", className)}
+      className={cn(
+        "m-0 text-center text-xl font-semibold leading-tight text-[(--text-strong)] sm:text-2xl",
+        className
+      )}
       {...props}
     />
   );
@@ -64,7 +68,7 @@ function Para({ className, ...props }) {
   return (
     <p
       className={cn(
-        "mx-auto w-full max-w-4xl text-center text-base leading-relaxed text-slate-700 sm:text-[15px] sm:leading-normal max-[520px]:mx-0 max-[520px]:text-left max-[520px]:text-sm",
+        "mx-auto w-full max-w-4xl text-center text-base leading-relaxed text-[(--text-soft)] sm:text-[15px] sm:leading-normal max-[520px]:mx-0 max-[520px]:text-left max-[520px]:text-sm",
         className
       )}
       {...props}
@@ -76,7 +80,7 @@ function StyledInput({ className, ...props }) {
   return (
     <input
       className={cn(
-        "my-3 min-h-11 w-full rounded-lg border border-slate-300 px-3 py-2 text-base outline-none ring-sky-500 focus-visible:ring-2",
+        "my-3 min-h-11 w-full rounded-lg border border-[(--surface-border)] bg-[(--surface-raised)] px-3 py-2 text-base text-[(--text-strong)] outline-none ring-[(--primary)] focus-visible:ring-2",
         className
       )}
       {...props}

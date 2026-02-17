@@ -24,9 +24,6 @@ function CommandPalette() {
     commandOpen,
     closeCommandPalette,
     goToAlgorithm,
-    recentlyViewedItems,
-    continuePath,
-    lastVisitedItem,
   } = useNavigationUx();
 
   const [query, setQuery] = useState("");
@@ -135,47 +132,11 @@ function CommandPalette() {
           <span className="rounded bg-slate-100 px-2 py-0.5">Ctrl/Cmd + K</span>
           <span className="rounded bg-slate-100 px-2 py-0.5">Arrow keys</span>
           <span className="rounded bg-slate-100 px-2 py-0.5">Enter to open</span>
-          {lastVisitedItem ? (
-            <button
-              type="button"
-              className="rounded bg-sky-100 px-2 py-0.5 font-semibold text-sky-900"
-              onClick={() => goToAlgorithm(lastVisitedItem.slug)}
-            >
-              Continue: {lastVisitedItem.label}
-            </button>
-          ) : null}
         </div>
 
-        {recentlyViewedItems.length > 0 ? (
-          <div className="mt-2 rounded-lg border border-slate-200/80 bg-slate-50/80 p-2">
-            <p className="m-0 text-[11px] font-semibold uppercase tracking-[0.04em] text-slate-500">
-              Recently Viewed
-            </p>
-            <div className="mt-1 flex flex-wrap gap-1.5">
-              {recentlyViewedItems.slice(0, 6).map((item) => (
-                <button
-                  key={`recent-${item.slug}`}
-                  type="button"
-                  className="rounded-md border border-slate-300 bg-white px-2 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100"
-                  onClick={() => goToAlgorithm(item.slug)}
-                >
-                  {item.label}
-                </button>
-              ))}
-              <button
-                type="button"
-                className="rounded-md border border-slate-300 bg-white px-2 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100"
-                onClick={() => {
-                  if (continuePath.startsWith("/algorithms/")) {
-                    goToAlgorithm(continuePath.replace("/algorithms/", ""));
-                  }
-                }}
-              >
-                Continue where you left off
-              </button>
-            </div>
-          </div>
-        ) : null}
+        <p className="mb-0 mt-2 text-xs text-slate-500">
+          {results.length > 0 ? `${results.length} matches` : "No matches yet"}
+        </p>
 
         <div className="mt-2 max-h-[50vh] overflow-y-auto rounded-lg border border-slate-200/90">
           {results.length === 0 ? (
@@ -186,20 +147,27 @@ function CommandPalette() {
                 key={item.slug}
                 type="button"
                 className={cn(
-                  "flex w-full items-start justify-between gap-3 border-b border-slate-200/80 px-3 py-2.5 text-left last:border-b-0",
-                  index === activeIndex ? "bg-sky-50" : "bg-white hover:bg-slate-50"
+                  "w-full border-b border-slate-200/80 bg-gradient-to-r from-sky-500/30 via-cyan-500/20 to-indigo-500/30 p-[1px] text-left last:border-b-0",
+                  index === activeIndex ? "brightness-105" : "hover:brightness-105"
                 )}
                 onMouseEnter={() => setActiveIndex(index)}
                 onClick={() => goToAlgorithm(item.slug)}
               >
-                <span className="min-w-0">
-                  <span className="block text-sm font-semibold text-slate-900">{item.label}</span>
-                  <span className="block text-xs text-slate-500">
-                    {item.folderLabel} • {item.topic} • {item.timeComplexity}
+                <span
+                  className={cn(
+                    "flex w-full items-start justify-between gap-3 rounded-[10px] px-3 py-2.5",
+                    index === activeIndex ? "bg-[color:var(--surface)]" : "bg-[color:var(--bg-1)]"
+                  )}
+                >
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold text-slate-900">{item.label}</span>
+                    <span className="block text-xs text-slate-500">
+                      {item.folderLabel} • {item.topic} • {item.timeComplexity}
+                    </span>
                   </span>
-                </span>
-                <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[11px] font-medium text-slate-600">
-                  /algorithms/{item.slug}
+                  <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[11px] font-medium text-slate-600">
+                    /algorithms/{item.slug}
+                  </span>
                 </span>
               </button>
             ))

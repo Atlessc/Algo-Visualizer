@@ -1,14 +1,16 @@
 import { cva } from "class-variance-authority";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 disabled:pointer-events-none disabled:opacity-55",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--primary) disabled:pointer-events-none disabled:opacity-55",
   {
     variants: {
       variant: {
-        default: "bg-sky-600 text-white hover:bg-sky-700",
-        secondary: "bg-slate-200 text-slate-900 hover:bg-slate-300",
-        ghost: "text-slate-700 hover:bg-slate-100",
-        outline: "border border-slate-300 bg-white text-slate-900 hover:bg-slate-50",
+        default: "bg-(--primary) text-white hover:brightness-110",
+        secondary:
+          "border border-(--surface-border)] bg-(--surface-muted) text-(--text-strong) hover:bg-(--surface-raised)",
+        ghost: "text-(--text-soft) hover:bg-(--surface-muted)",
+        outline:
+          "border border-(--surface-border) bg-(--surface-raised) text-(--text-strong) hover:bg-(--surface-muted)",
       },
       size: {
         default: "h-10 px-4 py-2",

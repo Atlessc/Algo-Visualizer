@@ -1,12 +1,13 @@
 import React from "react";
 import { cn } from "../../lib/utils";
 
-const Card = React.forwardRef(function Card({ className, ...props }, ref) {
+const Card = React.forwardRef(function Card({ className, lean, ...props }, ref) {
+  // `lean` prop can be used to apply a centering layout for content that doesn't need the full card styling (e.g. algo visualizer)
   return (
     <div
       ref={ref}
       className={cn(
-        "rounded-2xl border border-slate-300/70 bg-white/90 shadow-lg backdrop-blur-sm",
+        `${lean ? "flex items-center justify-center" : ""} rounded-2xl border border-(--surface-border) bg-(--card-bg) shadow-lg backdrop-blur-sm text-(--text) `,
         className
       )}
       {...props}
@@ -19,11 +20,17 @@ const CardHeader = React.forwardRef(function CardHeader({ className, ...props },
 });
 
 const CardTitle = React.forwardRef(function CardTitle({ className, ...props }, ref) {
-  return <h3 ref={ref} className={cn("text-xl font-semibold leading-tight text-slate-900", className)} {...props} />;
+  return (
+    <h3
+      ref={ref}
+      className={cn("text-xl font-semibold leading-tight text-(--text-strong)", className)}
+      {...props}
+    />
+  );
 });
 
 const CardDescription = React.forwardRef(function CardDescription({ className, ...props }, ref) {
-  return <p ref={ref} className={cn("text-sm leading-relaxed text-slate-600", className)} {...props} />;
+  return <p ref={ref} className={cn("text-sm leading-relaxed text-(--text-soft)", className)} {...props} />;
 });
 
 const CardContent = React.forwardRef(function CardContent({ className, ...props }, ref) {

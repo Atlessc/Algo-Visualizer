@@ -15,13 +15,12 @@ import Footer from "./components/Footer";
 
 function App() {
   const setWindowWidth = useStore((state) => state.setWindowWidth);
-  const { openCommandPalette, isAlgorithmExperienceRoute } = useNavigationUx();
+  const { openCommandPalette, isVisualizerRoute } = useNavigationUx();
   const location = useLocation();
   const [isAlgorithmsOpen, setIsAlgorithmsOpen] = useState(false);
-  const isAlgorithmsRoute = location.pathname === "/algorithms" || location.pathname.startsWith("/algorithms/");
   const isLegacyHomeRoute = location.pathname === "/legacy-home";
-  const showAlgorithmsDrawerButton = isAlgorithmsRoute || isLegacyHomeRoute;
-  const algorithmsPanelId = isLegacyHomeRoute ? "mobile-toc-sidebar" : "mobile-algorithms-sidebar";
+  const showAlgorithmsDrawerButton = isLegacyHomeRoute;
+  const algorithmsPanelId = "mobile-toc-sidebar";
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,7 +42,7 @@ function App() {
   }, [location.pathname]);
 
   return (
-    <div className="relative mx-auto min-h-screen w-full max-w-screen-xl overflow-x-clip px-3 pb-20 pt-4 sm:px-6 sm:pb-10">
+    <div className="relative mx-auto min-h-screen w-full max-w-7xl overflow-x-clip px-3 pb-20 pt-4 sm:px-6 sm:pb-10">
       <div className="pointer-events-none fixed -left-24 -top-14 -z-10 h-72 w-72 rounded-full bg-indigo-600/30 blur-3xl sm:h-80 sm:w-80" />
       <div className="pointer-events-none fixed -right-24 top-24 -z-10 h-72 w-72 rounded-full bg-teal-500/25 blur-3xl sm:h-80 sm:w-80" />
       <NavBar
@@ -53,7 +52,7 @@ function App() {
         onOpenCommand={openCommandPalette}
         algorithmsPanelId={algorithmsPanelId}
       />
-      {isAlgorithmExperienceRoute ? <StickyTopControls /> : null}
+      {isVisualizerRoute ? <StickyTopControls /> : null}
       <main className="mt-4 flex flex-col gap-4 sm:gap-5">
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -73,7 +72,10 @@ function App() {
         </Routes>
       </main>
       <Footer />
-      <MobileQuickActions onOpenAlgorithms={() => setIsAlgorithmsOpen(true)} />
+      <MobileQuickActions
+        onOpenAlgorithms={() => setIsAlgorithmsOpen(true)}
+        showScrollSidebarAction={isLegacyHomeRoute}
+      />
       <CommandPalette />
     </div>
   );

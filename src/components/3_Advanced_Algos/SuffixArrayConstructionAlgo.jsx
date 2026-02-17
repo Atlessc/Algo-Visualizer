@@ -67,7 +67,7 @@ const SuffixArrayConstructionAlgo = ({ autoPlay = true, compact = false }) => {
         </div>
 
         <AlgoVisualizer>
-          <div className="mx-auto grid w-full max-w-[900px] gap-3">
+          <div className="mx-auto grid w-full max-w-225 gap-3">
             <div className="rounded-xl bg-indigo-100 p-2.5">
               <strong>Collected suffixes</strong>
               {step.suffixes.map((s) => (

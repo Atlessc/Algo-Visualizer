@@ -380,7 +380,7 @@ function Home({ isTocOpen = false, setIsTocOpen = noop }) {
   );
 
   return (
-    <div className="relative grid items-start gap-4 [grid-template-columns:clamp(176px,22vw,228px)_minmax(0,1fr)] max-[1240px]:[grid-template-columns:clamp(164px,24vw,204px)_minmax(0,1fr)] max-[1080px]:grid-cols-1">
+    <div className="relative grid items-start gap-4 grid-cols-[clamp(176px,22vw,228px)_minmax(0,1fr)] max-[1240px]:grid-cols-[clamp(164px,24vw,204px)_minmax(0,1fr)] max-[1080px]:grid-cols-1">
       <AlgorithmSidebar
         sections={sidebarSections}
         currentSlug={activeId}
@@ -395,16 +395,16 @@ function Home({ isTocOpen = false, setIsTocOpen = noop }) {
       />
 
       <div className="flex min-w-0 flex-col gap-4">
-        <section className="rounded-[18px] border border-slate-300/70 bg-gradient-to-b from-white/95 to-white/80 p-4 shadow-lg sm:p-5">
-          <p className="m-0 text-[0.8rem] font-bold uppercase tracking-[0.08em] text-blue-700">
+        <section className="rounded-[18px] border border-slate-300/70 bg-(--card-bg) p-4 shadow-lg sm:p-5">
+          <p className="m-0 text-[0.8rem] font-bold uppercase tracking-[0.08em]">
             Legacy Long-Scroll View
           </p>
-          <h2 className="mb-1 mt-1 text-[clamp(1.2rem,2vw,1.8rem)] font-semibold leading-tight text-slate-900">
+          <h2 className="mb-1 mt-1 text-[clamp(1.2rem,2vw,1.8rem)] font-semibold leading-tight">
             All algorithms grouped by project folders.
           </h2>
           <p className="m-0.5 text-slate-600">
-            This page keeps the original long-scroll experience while sharing the same taxonomy and
-            sidebar system used by the new catalog routes.
+            This page keeps the original long-scroll experience with the full folder sidebar for
+            people who prefer browsing everything in one scroll view.
           </p>
         </section>
 
@@ -457,7 +457,7 @@ function Home({ isTocOpen = false, setIsTocOpen = noop }) {
                     >
                       {isMobile ? (
                         <div className="mb-2 flex min-w-0 items-center justify-between gap-3">
-                          <h4 className="m-0 min-w-0 flex-1 break-words text-[0.98rem] font-semibold leading-tight text-slate-900">
+                          <h4 className="m-0 min-w-0 flex-1 wrap-break-words text-[0.98rem] font-semibold leading-tight text-slate-900">
                             {item.label}
                           </h4>
                           <Button
