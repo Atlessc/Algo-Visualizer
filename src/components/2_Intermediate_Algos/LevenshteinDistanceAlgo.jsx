@@ -63,7 +63,7 @@ const LevenshteinDistanceAlgo = ({ autoPlay = true, compact = false }) => {
             onChange={(e) => setA(e.target.value || " ")}
             className={cn(
               "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-              compact ? "w-full min-w-0 text-sm" : "w-[170px] text-sm"
+              compact ? "w-full min-w-0 text-sm" : "w-42.5 text-sm"
             )}
             aria-label="First string"
           />
@@ -73,7 +73,7 @@ const LevenshteinDistanceAlgo = ({ autoPlay = true, compact = false }) => {
             onChange={(e) => setB(e.target.value || " ")}
             className={cn(
               "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-              compact ? "w-full min-w-0 text-sm" : "w-[170px] text-sm"
+              compact ? "w-full min-w-0 text-sm" : "w-42.5 text-sm"
             )}
             aria-label="Second string"
           />

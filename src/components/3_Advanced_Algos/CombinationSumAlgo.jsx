@@ -110,7 +110,7 @@ const CombinationSumAlgo = ({ autoPlay = true, compact = false }) => {
           </Button>
         </div>
         <AlgoVisualizer>
-          <div className="mx-auto w-full max-w-[760px] rounded-xl bg-indigo-100 p-3">
+          <div className="mx-auto w-full max-w-190 rounded-xl bg-indigo-100 p-3">
             <div className={cn("mb-1.5 font-mono", compact ? "text-xs" : "text-sm")}>
               Path: [{step.path.join(", ")}]
             </div>

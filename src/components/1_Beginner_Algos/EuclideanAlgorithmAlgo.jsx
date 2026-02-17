@@ -106,7 +106,7 @@ const EuclideanAlgorithmAlgo = ({ compact = false }) => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[980px]"
+            className="mx-auto h-auto w-full max-w-245"
           >
             <text x="16" y="26" fontSize="14" fill="#0f172a" fontWeight="700">
               Step equation view (a, b, remainder)

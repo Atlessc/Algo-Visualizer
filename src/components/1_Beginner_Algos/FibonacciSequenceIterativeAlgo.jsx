@@ -81,7 +81,7 @@ const FibonacciSequenceIterativeAlgo = ({ maxElements = 10, endOnValue, compact 
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[980px]"
+            className="mx-auto h-auto w-full max-w-245"
           >
             {sequence.map((value, index) => {
               const x = gap + index * (barW + gap);

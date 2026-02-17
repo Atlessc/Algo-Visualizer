@@ -110,7 +110,7 @@ const DijkstraPriorityQueueAlgo = ({ autoPlay = true, compact = false }) => {
 
         <AlgoVisualizer>
           <div className="flex w-full flex-wrap justify-center gap-3">
-            <div className="min-w-[220px] flex-1 rounded-xl bg-indigo-100 p-2.5">
+            <div className="min-w-55 flex-1 rounded-xl bg-indigo-100 p-2.5">
               <strong>Distances</strong>
               {Object.entries(step.dist).map(([n, d]) => (
                 <div
@@ -121,7 +121,7 @@ const DijkstraPriorityQueueAlgo = ({ autoPlay = true, compact = false }) => {
                 </div>
               ))}
             </div>
-            <div className="min-w-[220px] flex-1 rounded-xl border border-slate-200 bg-slate-50 p-2.5">
+            <div className="min-w-55 flex-1 rounded-xl border border-slate-200 bg-slate-50 p-2.5">
               <strong>Priority Queue</strong>
               {(step.pq.length
                 ? [...step.pq].sort((a, b) => a.d - b.d)

@@ -84,7 +84,7 @@ const ZAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
               width="100%"
               viewBox={`0 0 ${chartW + 10} 170`}
               preserveAspectRatio="xMidYMid meet"
-              className="mx-auto h-auto w-full max-w-[860px]"
+              className="mx-auto h-auto w-full max-w-215"
             >
               {TEXT.split("").map((ch, i) => {
                 const x = 6 + i * (cellW + 4);

@@ -57,7 +57,7 @@ const MillerRabinAlgo = ({ compact = false }) => {
             onChange={(e) => setN(Math.max(3, Number(e.target.value) | 1))}
             className={cn(
               "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-              compact ? "w-full min-w-0 text-sm" : "w-[130px] text-sm"
+              compact ? "w-full min-w-0 text-sm" : "w-32.5 text-sm"
             )}
             aria-label="Number n"
           />
@@ -68,7 +68,7 @@ const MillerRabinAlgo = ({ compact = false }) => {
             onChange={(e) => setA(Math.max(2, Number(e.target.value)))}
             className={cn(
               "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-              compact ? "w-full min-w-0 text-sm" : "w-[130px] text-sm"
+              compact ? "w-full min-w-0 text-sm" : "w-32.5 text-sm"
             )}
             aria-label="Witness base a"
           />
@@ -80,7 +80,7 @@ const MillerRabinAlgo = ({ compact = false }) => {
         </Para>
 
         <AlgoVisualizer>
-          <div className={cn("mx-auto w-full max-w-[760px] rounded-xl bg-indigo-100 p-2.5", compact ? "text-xs" : "text-sm")}>
+          <div className={cn("mx-auto w-full max-w-190 rounded-xl bg-indigo-100 p-2.5", compact ? "text-xs" : "text-sm")}>
             {"d" in result && <div className="font-mono">n-1 = 2^{result.s} * {result.d}</div>}
             <div className="mt-1.5 font-mono">
               x sequence: {result.trail ? result.trail.join(" → ") : "(none)"}

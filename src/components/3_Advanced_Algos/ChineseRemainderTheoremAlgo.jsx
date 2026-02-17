@@ -51,7 +51,7 @@ const ChineseRemainderTheoremAlgo = ({ compact = false }) => {
           moduli.
         </Para>
 
-        <div className="mx-auto grid w-full max-w-[560px] gap-2">
+        <div className="mx-auto grid w-full max-w-140 gap-2">
           {[0, 1, 2].map((i) => (
             <div key={i} className="flex flex-wrap items-center justify-center gap-2.5">
               <span>x ≡</span>
@@ -61,7 +61,7 @@ const ChineseRemainderTheoremAlgo = ({ compact = false }) => {
                 onChange={(e) => update(setResidues, i, e.target.value)}
                 className={cn(
                   "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-                  compact ? "w-[72px] text-xs" : "w-[90px] text-sm"
+                  compact ? "w-18 text-xs" : "w-22.5 text-sm"
                 )}
               />
               <span>(mod</span>
@@ -72,7 +72,7 @@ const ChineseRemainderTheoremAlgo = ({ compact = false }) => {
                 onChange={(e) => update(setModuli, i, e.target.value)}
                 className={cn(
                   "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-                  compact ? "w-[72px] text-xs" : "w-[90px] text-sm"
+                  compact ? "w-18 text-xs" : "w-22.5 text-sm"
                 )}
               />
               <span>)</span>
@@ -90,7 +90,7 @@ const ChineseRemainderTheoremAlgo = ({ compact = false }) => {
 
         <AlgoVisualizer>
           {result.ok && (
-            <div className="mx-auto w-full max-w-[760px] rounded-xl bg-indigo-100 p-2.5">
+            <div className="mx-auto w-full max-w-190 rounded-xl bg-indigo-100 p-2.5">
               {result.details.map((d, i) => (
                 <div key={i} className={cn("mt-1.5 font-mono", compact ? "text-xs" : "text-[13px]")}>
                   term{i + 1}: a={d.ai}, m={d.mi}, Mᵢ={d.Mi}, inv={d.inv}, contribution={d.term}

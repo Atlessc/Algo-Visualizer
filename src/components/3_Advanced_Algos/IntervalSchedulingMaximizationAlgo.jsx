@@ -79,7 +79,7 @@ const IntervalSchedulingMaximizationAlgo = ({ autoPlay = true, compact = false }
             width="100%"
             viewBox="0 0 760 310"
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[940px]"
+            className="mx-auto h-auto w-full max-w-235"
           >
             {step.sorted.map((it, i) => {
               const y = 22 + i * 45;

@@ -119,7 +119,7 @@ const HamiltonianPathAlgo = ({ autoPlay = true, compact = false }) => {
             width="100%"
             viewBox="0 0 540 260"
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[760px]"
+            className="mx-auto h-auto w-full max-w-190"
           >
             {GRAPH.edges.map(([u, v]) => {
               const key = edgeKey(u, v);

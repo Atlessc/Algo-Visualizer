@@ -99,7 +99,7 @@ const KnightsTourAlgo = ({ autoPlay = true, compact = false }) => {
             width="100%"
             viewBox={`0 0 ${N * size} ${N * size}`}
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[460px]"
+            className="mx-auto h-auto w-full max-w-115"
           >
             {Array.from({ length: N }).map((_, r) =>
               Array.from({ length: N }).map((__, c) => {

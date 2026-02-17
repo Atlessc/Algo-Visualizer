@@ -83,7 +83,7 @@ const SuffixTreeConstructionAlgo = ({ autoPlay = true, compact = false }) => {
         <Para>Word: <strong>{WORD}</strong> | Current suffix: <strong>{step.suffix || "(none)"}</strong></Para>
 
         <AlgoVisualizer>
-          <div className="mx-auto w-full max-w-[780px] rounded-xl bg-indigo-100 p-3">
+          <div className="mx-auto w-full max-w-195 rounded-xl bg-indigo-100 p-3">
             <div className={cn("grid gap-2", compact ? "grid-cols-2" : "grid-cols-[repeat(auto-fit,minmax(130px,1fr))]")}>
               {edgeList.map((edge, i) => (
                 <div

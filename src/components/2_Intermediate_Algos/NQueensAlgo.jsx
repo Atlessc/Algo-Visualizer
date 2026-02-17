@@ -87,7 +87,7 @@ const NQueensAlgo = ({ autoPlay = true, compact = false }) => {
             width="100%"
             viewBox={`0 0 ${N * cell} ${N * cell}`}
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[400px]"
+            className="mx-auto h-auto w-full max-w-100"
           >
             {step.board.map((row, r) =>
               row.map((val, c) => {

@@ -94,7 +94,7 @@ const JohnsonsAlgorithmAlgo = ({ compact = false }) => {
 
         <AlgoVisualizer>
           {view === "reweight" ? (
-            <div className="mx-auto w-full max-w-[760px] rounded-xl bg-indigo-100 p-3">
+            <div className="mx-auto w-full max-w-190 rounded-xl bg-indigo-100 p-3">
               <div className={cn("mb-2 font-mono", compact ? "text-xs" : "text-sm")}>
                 Potentials h: {NODES.map((n) => `${n}:${h[n]}`).join("  ")}
               </div>

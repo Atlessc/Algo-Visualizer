@@ -40,7 +40,7 @@ const KaratsubaAlgorithmAlgo = ({ compact = false }) => {
             onChange={(e) => setX(Math.max(0, Number(e.target.value)))}
             className={cn(
               "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-              compact ? "w-full min-w-0 text-sm" : "w-[140px] text-sm"
+              compact ? "w-full min-w-0 text-sm" : "w-35 text-sm"
             )}
             aria-label="First number"
           />
@@ -50,7 +50,7 @@ const KaratsubaAlgorithmAlgo = ({ compact = false }) => {
             onChange={(e) => setY(Math.max(0, Number(e.target.value)))}
             className={cn(
               "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-              compact ? "w-full min-w-0 text-sm" : "w-[140px] text-sm"
+              compact ? "w-full min-w-0 text-sm" : "w-35 text-sm"
             )}
             aria-label="Second number"
           />
@@ -58,7 +58,7 @@ const KaratsubaAlgorithmAlgo = ({ compact = false }) => {
         <Para>Using split m={k.m}: x={x}=({k.a},{k.b}), y={y}=({k.c},{k.d})</Para>
 
         <AlgoVisualizer>
-          <div className={cn("mx-auto w-full max-w-[760px] rounded-xl bg-indigo-100 p-3 font-mono", compact ? "text-xs" : "text-sm")}>
+          <div className={cn("mx-auto w-full max-w-190 rounded-xl bg-indigo-100 p-3 font-mono", compact ? "text-xs" : "text-sm")}>
             <div>z2 = a*c = {k.z2}</div>
             <div>z0 = b*d = {k.z0}</div>
             <div>z1 = (a+b)(c+d)-z2-z0 = {k.z1}</div>

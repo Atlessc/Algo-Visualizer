@@ -80,7 +80,7 @@ const LongestIncreasingSubsequenceAlgo = ({ autoPlay = true, compact = false }) 
             width="100%"
             viewBox="0 0 620 250"
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[860px]"
+            className="mx-auto h-auto w-full max-w-215"
           >
             {ARR.map((v, i) => {
               const x = 20 + i * 72;

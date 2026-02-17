@@ -37,7 +37,7 @@ const FermatsTheoremAlgo = ({ compact = false }) => {
             onChange={(e) => setA(Math.max(2, Number(e.target.value)))}
             className={cn(
               "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-              compact ? "w-full min-w-0 text-sm" : "w-[120px] text-sm"
+              compact ? "w-full min-w-0 text-sm" : "w-30 text-sm"
             )}
             aria-label="Base a"
           />
@@ -48,7 +48,7 @@ const FermatsTheoremAlgo = ({ compact = false }) => {
             onChange={(e) => setP(Math.max(3, Number(e.target.value)))}
             className={cn(
               "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-              compact ? "w-full min-w-0 text-sm" : "w-[120px] text-sm"
+              compact ? "w-full min-w-0 text-sm" : "w-30 text-sm"
             )}
             aria-label="Prime candidate p"
           />
@@ -59,7 +59,7 @@ const FermatsTheoremAlgo = ({ compact = false }) => {
         </Para>
 
         <AlgoVisualizer>
-          <div className={cn("mx-auto w-full max-w-[700px] rounded-xl bg-indigo-100 p-3", compact ? "text-xs" : "text-sm")}>
+          <div className={cn("mx-auto w-full max-w-175 rounded-xl bg-indigo-100 p-3", compact ? "text-xs" : "text-sm")}>
             <div className="font-mono">{a}^{p - 1} mod {p} = {value}</div>
             <div className="mt-1.5">
               {value === 1 ? "Passes Fermat check (prime or Carmichael)." : "Fails Fermat check (composite)."}

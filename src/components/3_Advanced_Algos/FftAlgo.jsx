@@ -42,20 +42,20 @@ const FftAlgo = ({ compact = false }) => {
             max={stages.length - 1}
             value={idx}
             onChange={(e) => setIdx(Number(e.target.value))}
-            className={cn("w-full", compact ? "max-w-[260px]" : "max-w-[340px]")}
+            className={cn("w-full", compact ? "max-w-65" : "max-w-85")}
           />
           <strong className={cn(compact ? "text-sm" : "text-base")}>{idx + 1}/{stages.length}</strong>
         </div>
         <Para>Stage: {s.label} (depth {s.depth}/{maxDepth})</Para>
 
         <AlgoVisualizer>
-          <div className="mx-auto w-full max-w-[860px] rounded-xl bg-indigo-100 p-3">
+          <div className="mx-auto w-full max-w-215 rounded-xl bg-indigo-100 p-3">
             <div className="flex flex-wrap justify-center gap-2">
               {s.values.map((v, i) => (
                 <div
                   key={i}
                   className={cn(
-                    "min-w-[46px] rounded-lg bg-sky-500 px-2.5 py-2 text-center font-bold text-white",
+                    "min-w-11.5 rounded-lg bg-sky-500 px-2.5 py-2 text-center font-bold text-white",
                     compact ? "text-xs" : "text-sm"
                   )}
                 >

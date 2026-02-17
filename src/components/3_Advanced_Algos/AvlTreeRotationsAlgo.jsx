@@ -73,7 +73,7 @@ const AvlTreeRotationsAlgo = ({ compact = false }) => {
             width="100%"
             viewBox="0 0 360 520"
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[500px]"
+            className="mx-auto h-auto w-full max-w-125"
           >
             <text x="18" y="20" fill="#0f172a" fontWeight="700">Before</text>
             {drawTree(s.before, s.edgesB, 20)}

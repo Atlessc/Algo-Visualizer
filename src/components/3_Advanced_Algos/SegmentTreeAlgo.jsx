@@ -45,7 +45,7 @@ const SegmentTreeAlgo = ({ compact = false }) => {
             max={steps.length - 1}
             value={stepIndex}
             onChange={(e) => setStepIndex(Number(e.target.value))}
-            className={cn("w-full", compact ? "max-w-[240px]" : "max-w-[320px]")}
+            className={cn("w-full", compact ? "max-w-60" : "max-w-80")}
           />
           <strong className={cn(compact ? "text-sm" : "text-base")}>{stepIndex + 1}/{steps.length}</strong>
         </div>
@@ -53,7 +53,7 @@ const SegmentTreeAlgo = ({ compact = false }) => {
 
         <AlgoVisualizer>
           <div className="w-full overflow-x-auto">
-            <div className="mx-auto flex min-w-[680px] justify-center gap-2">
+            <div className="mx-auto flex min-w-170 justify-center gap-2">
               {values.map((v, i) => {
                 const nodeIdx = i + 1;
                 const active = nodeIdx === step.node;

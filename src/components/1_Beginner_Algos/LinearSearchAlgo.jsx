@@ -117,7 +117,7 @@ const LinearSearchAlgo = ({ compact = false }) => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[760px]"
+            className="mx-auto h-auto w-full max-w-190"
           >
             {array.map((value, index) => {
               const x = index * cellW + 40;

@@ -86,7 +86,7 @@ const RodCuttingAlgo = ({ compact = false }) => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[940px]"
+            className="mx-auto h-auto w-full max-w-235"
           >
             {dp.map((value, len) => {
               const x = gap + len * (barW + gap);

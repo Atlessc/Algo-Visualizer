@@ -97,7 +97,7 @@ const KosarajuAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
           </Button>
         </div>
         <AlgoVisualizer>
-          <div className="mx-auto grid w-full max-w-[780px] gap-2.5">
+          <div className="mx-auto grid w-full max-w-195 gap-2.5">
             <div className={cn("rounded-xl bg-indigo-100 p-2.5", compact ? "text-xs" : "text-sm")}>
               <strong>Phase:</strong> {step.phase === "first" ? "Finish-time DFS" : "Transpose DFS"}
             </div>

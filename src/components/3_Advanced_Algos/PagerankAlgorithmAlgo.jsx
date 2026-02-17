@@ -79,7 +79,7 @@ const PagerankAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
             width="100%"
             viewBox="0 0 520 220"
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[760px]"
+            className="mx-auto h-auto w-full max-w-190"
           >
             {NODES.map((n, i) => {
               const y = 30 + i * 46;

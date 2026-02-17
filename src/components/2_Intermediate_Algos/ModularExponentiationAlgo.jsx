@@ -94,7 +94,7 @@ const ModularExponentiationAlgo = ({ autoPlay = true, compact = false }) => {
         <Para>{step.message}</Para>
 
         <AlgoVisualizer>
-          <div className={cn("mx-auto grid w-full max-w-[760px]", compact ? "gap-2" : "gap-2.5")}>
+          <div className={cn("mx-auto grid w-full max-w-190", compact ? "gap-2" : "gap-2.5")}>
             <div
               className={cn(
                 "grid rounded-xl bg-slate-200 text-center",

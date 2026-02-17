@@ -95,7 +95,7 @@ const HeapSortAlgo = ({ autoPlay = true, compact = false }) => {
             width="100%"
             viewBox={`0 0 ${chartW} ${chartH}`}
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[920px]"
+            className="mx-auto h-auto w-full max-w-230"
           >
             {step.array.map((v, i) => {
               const x = gap + i * (barW + gap);

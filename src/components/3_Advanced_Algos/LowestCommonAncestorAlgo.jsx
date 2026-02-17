@@ -65,7 +65,7 @@ const LowestCommonAncestorAlgo = ({ compact = false }) => {
             onChange={(e) => setU(e.target.value)}
             className={cn(
               "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-              compact ? "w-full min-w-0 text-sm" : "w-[110px] text-sm"
+              compact ? "w-full min-w-0 text-sm" : "w-27.5 text-sm"
             )}
           >
             {Object.keys(TREE).map((x) => <option key={x}>{x}</option>)}
@@ -75,7 +75,7 @@ const LowestCommonAncestorAlgo = ({ compact = false }) => {
             onChange={(e) => setV(e.target.value)}
             className={cn(
               "h-9 rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-300 transition focus:ring-2",
-              compact ? "w-full min-w-0 text-sm" : "w-[110px] text-sm"
+              compact ? "w-full min-w-0 text-sm" : "w-27.5 text-sm"
             )}
           >
             {Object.keys(TREE).map((x) => <option key={x}>{x}</option>)}
@@ -88,7 +88,7 @@ const LowestCommonAncestorAlgo = ({ compact = false }) => {
             width="100%"
             viewBox="0 0 440 250"
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[700px]"
+            className="mx-auto h-auto w-full max-w-175"
           >
             {Object.entries(TREE).flatMap(([p, kids]) => kids.map((c) => (
               <line key={`${p}-${c}`} x1={POS[p][0]} y1={POS[p][1]} x2={POS[c][0]} y2={POS[c][1]} stroke="#94a3b8" strokeWidth="2" />

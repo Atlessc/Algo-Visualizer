@@ -66,7 +66,7 @@ const GcdLcmAlgo = ({ compact = false }) => {
             width="100%"
             viewBox="0 0 560 240"
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[780px]"
+            className="mx-auto h-auto w-full max-w-195"
           >
             <text x="24" y="30" fontSize="14" fill="#0f172a" fontWeight="700">
               Relative magnitudes

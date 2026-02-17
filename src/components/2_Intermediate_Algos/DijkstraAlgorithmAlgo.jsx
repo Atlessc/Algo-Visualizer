@@ -340,7 +340,7 @@ const DijkstraAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
                 width="100%"
                 viewBox="0 0 620 260"
                 preserveAspectRatio="xMidYMid meet"
-                className="mx-auto h-auto w-full max-w-[760px]"
+                className="mx-auto h-auto w-full max-w-190"
               >
                 {weightedGraphData.edges.map((edge) => {
                   const from = nodesById[edge.from];

@@ -100,7 +100,7 @@ const TenXAlgoRenderer = ({
 
         <AlgoVisualizer>
           <div
-            className={cn("mx-auto grid w-full", compact ? "max-w-[760px] gap-2" : "max-w-[920px] gap-2.5")}
+            className={cn("mx-auto grid w-full", compact ? "max-w-190 gap-2" : "max-w-230 gap-2.5")}
           >
             <div className={cn("rounded-xl border border-slate-200 bg-slate-50", compact ? "p-2" : "p-2.5")}>
               <div className="mb-1.5 font-bold text-slate-900">
@@ -124,7 +124,7 @@ const TenXAlgoRenderer = ({
                     key={`${step.title}-${index}`}
                     className={cn(
                       "flex flex-col justify-between rounded-xl text-slate-900",
-                      compact ? "min-h-[66px] p-[7px]" : "min-h-[74px] p-2"
+                      compact ? "min-h-16.5 p-1.75" : "min-h-18.5 p-2"
                     )}
                     style={{
                       border: isActive ? "2px solid #2563eb" : "1px solid #dbeafe",

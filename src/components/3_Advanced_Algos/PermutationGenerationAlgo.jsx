@@ -78,7 +78,7 @@ const PermutationGenerationAlgo = ({ autoPlay = true, compact = false }) => {
         </div>
 
         <AlgoVisualizer>
-          <div className="mx-auto grid w-full max-w-[760px] gap-2.5">
+          <div className="mx-auto grid w-full max-w-190 gap-2.5">
             <div className="rounded-xl bg-indigo-100 p-3">
               <div className={cn("mb-1.5 font-mono", compact ? "text-xs" : "text-sm")}>Current path: [{step.path.join(", ")}]</div>
               <div className={cn("font-mono", compact ? "text-xs" : "text-sm")}>

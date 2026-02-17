@@ -108,7 +108,7 @@ const JobSequencingAlgo = ({ autoPlay = true, compact = false }) => {
                   key={idx}
                   className={cn(
                     "flex flex-col items-center justify-center rounded-xl font-bold",
-                    compact ? "w-[78px] min-h-[62px] text-sm" : "w-[90px] min-h-[70px]"
+                    compact ? "w-20 min-h-16 text-sm" : "w-24 min-h-20"
                   )}
                   style={{
                     background: job ? "#16a34a" : "#e2e8f0",

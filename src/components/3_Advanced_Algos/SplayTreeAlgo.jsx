@@ -67,7 +67,7 @@ const SplayTreeAlgo = ({ compact = false }) => {
             width="100%"
             viewBox="0 0 460 260"
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[700px]"
+            className="mx-auto h-auto w-full max-w-175"
           >
             {s.edges.map(([u, v]) => (
               <line key={`${u}-${v}`} x1={byV[u].x} y1={byV[u].y} x2={byV[v].x} y2={byV[v].y} stroke="#94a3b8" strokeWidth="2" />

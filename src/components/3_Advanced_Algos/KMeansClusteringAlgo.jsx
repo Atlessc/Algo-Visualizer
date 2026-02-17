@@ -77,7 +77,7 @@ const KMeansClusteringAlgo = ({ autoPlay = true, compact = false }) => {
             width="100%"
             viewBox="0 0 420 190"
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[700px]"
+            className="mx-auto h-auto w-full max-w-175"
           >
             <rect x="0" y="0" width="420" height="190" fill="#f8fafc" rx="10" />
             {POINTS.map((p, i) => (

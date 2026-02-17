@@ -86,7 +86,7 @@ const ManachersAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
             width="100%"
             viewBox={`0 0 ${T.length * 22 + 20} 200`}
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[980px]"
+            className="mx-auto h-auto w-full max-w-245"
           >
             {T.split("").map((ch, i) => {
               const x = 10 + i * 22;

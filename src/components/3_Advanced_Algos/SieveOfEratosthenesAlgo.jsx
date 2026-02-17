@@ -63,7 +63,7 @@ const SieveOfEratosthenesAlgo = ({ autoPlay = true, compact = false }) => {
             max="1000"
             value={n}
             onChange={(e) => setN(Number(e.target.value))}
-            className={cn("w-full", compact ? "max-w-[260px]" : "max-w-[340px]")}
+            className={cn("w-full", compact ? "max-w-65" : "max-w-85")}
           />
           <strong className={cn(compact ? "text-sm" : "text-base")}>n={n}</strong>
           <Button
@@ -85,7 +85,7 @@ const SieveOfEratosthenesAlgo = ({ autoPlay = true, compact = false }) => {
         <Para>{step.msg}</Para>
 
         <AlgoVisualizer>
-          <div className={cn("mx-auto grid w-full max-w-[900px] gap-1.5", compact ? "grid-cols-[repeat(auto-fit,minmax(26px,1fr))]" : "grid-cols-[repeat(auto-fit,minmax(34px,1fr))]")}>
+          <div className={cn("mx-auto grid w-full max-w-175 gap-1.5", compact ? "grid-cols-[repeat(auto-fit,minmax(26px,1fr))]" : "grid-cols-[repeat(auto-fit,minmax(34px,1fr))]")}>
             {Array.from({ length: n + 1 }, (_, i) => {
               const isMarked = step.marked.includes(i);
               let bg = "#e2e8f0";

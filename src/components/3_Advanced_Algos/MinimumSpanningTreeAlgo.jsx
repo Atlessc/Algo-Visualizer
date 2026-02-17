@@ -85,14 +85,14 @@ const MinimumSpanningTreeAlgo = () => {
           <Button
             onClick={() => setMethod("kruskal")}
             variant={method === "kruskal" ? "default" : "secondary"}
-            className={cn("min-w-[108px]", method !== "kruskal" && "opacity-80")}
+            className={cn("min-w-27", method !== "kruskal" && "opacity-80")}
           >
             Kruskal
           </Button>
           <Button
             onClick={() => setMethod("prim")}
             variant={method === "prim" ? "default" : "secondary"}
-            className={cn("min-w-[108px]", method !== "prim" && "opacity-80")}
+            className={cn("min-w-27", method !== "prim" && "opacity-80")}
           >
             Prim
           </Button>
@@ -100,7 +100,7 @@ const MinimumSpanningTreeAlgo = () => {
         <Para>Method: <strong>{method}</strong> | Total MST weight: <strong>{result.total}</strong></Para>
 
         <AlgoVisualizer>
-          <svg width="100%" viewBox="0 0 520 280" preserveAspectRatio="xMidYMid meet" className="mx-auto h-auto w-full max-w-[740px]">
+          <svg width="100%" viewBox="0 0 520 280" preserveAspectRatio="xMidYMid meet" className="mx-auto h-auto w-full max-w-175">
             {GRAPH.edges.map((e) => {
               const key = edgeKey(e.u, e.v);
               const inMst = mstSet.has(key);
