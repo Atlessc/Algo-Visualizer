@@ -68,7 +68,11 @@ const KruskalDisjointSetAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Kruskal (Disjoint Set)</Title>
-        <Para>Disjoint Set Union (Union-Find) detects cycles efficiently during Kruskal.</Para>
+        <Para>
+          Kruskal with Disjoint Set builds an MST by adding the cheapest safe edge each step.
+          Union-Find quickly checks whether an edge would create a cycle, keeping the process
+          efficient.
+        </Para>
         <Para>{step.msg}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button

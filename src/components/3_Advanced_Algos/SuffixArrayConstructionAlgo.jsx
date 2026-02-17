@@ -42,8 +42,9 @@ const SuffixArrayConstructionAlgo = ({ autoPlay = true, compact = false }) => {
       <CardContainer>
         <Title>Suffix Array Construction</Title>
         <Para>
-          A suffix array lists all suffix start positions in sorted order. This structure helps speed
-          up substring searches and repeated pattern queries.
+          A suffix array stores all suffix start indices in sorted order, enabling fast substring
+          and pattern queries. It is a compact alternative to suffix trees for many string-search
+          tasks.
         </Para>
         <Para>String: <strong>{WORD}</strong></Para>
         <Para>{step.message}</Para>

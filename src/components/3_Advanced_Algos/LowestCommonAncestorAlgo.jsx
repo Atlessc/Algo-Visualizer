@@ -56,8 +56,8 @@ const LowestCommonAncestorAlgo = ({ compact = false }) => {
       <CardContainer>
         <Title>Lowest Common Ancestor (LCA)</Title>
         <Para>
-          The LCA of two nodes in a rooted tree is the deepest node that is an ancestor of both.
-          It appears in queries on hierarchies, trees, and range/path problems.
+          The LCA of two nodes is their deepest shared ancestor in a rooted tree. It is a core
+          operation in tree queries, hierarchy analysis, and path-related problems.
         </Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <select

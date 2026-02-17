@@ -246,8 +246,9 @@ const KmpAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
       <CardContainer>
         <Title>KMP (Knuth-Morris-Pratt)</Title>
         <Para>
-          KMP preprocesses a pattern into an LPS array, then searches in linear
-          time by reusing partial matches instead of re-checking characters.
+          KMP finds pattern matches in linear time by precomputing an LPS table that tells where to
+          continue after a mismatch. Instead of restarting from scratch, it reuses already known
+          prefix/suffix structure.
         </Para>
 
         <AlgoVisualizer>

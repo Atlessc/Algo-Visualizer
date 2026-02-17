@@ -92,8 +92,8 @@ const HamiltonianPathAlgo = ({ autoPlay = true, compact = false }) => {
       <CardContainer>
         <Title>Hamiltonian Path</Title>
         <Para>
-          A Hamiltonian path visits every vertex exactly once. Backtracking tries possible next
-          vertices and undoes choices when it hits a dead end.
+          A Hamiltonian path visits every vertex exactly once. Backtracking builds a candidate path
+          step-by-step and rewinds when no valid continuation exists.
         </Para>
         <Para>{step.message}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">

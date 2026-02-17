@@ -51,7 +51,11 @@ const SieveOfEratosthenesAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Sieve of Eratosthenes</Title>
-        <Para>Find all primes up to n by crossing out multiples of each prime.</Para>
+        <Para>
+          Instead of testing each number separately for primality, the Sieve marks multiples of each
+          prime and removes them in bulk. What remains unmarked are all primes up to n, making this
+          much faster for generating many primes.
+        </Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <input
             type="range"

@@ -65,7 +65,10 @@ const MergeSortAlgo = () => {
     <Container>
       <CardContainer>
         <Title>Merge Sort</Title>
-        <Para>Divide array into halves, recursively sort, then merge.</Para>
+        <Para>
+          Merge Sort uses divide-and-conquer: split the array into halves, sort each half, then
+          merge them in order. It gives predictable O(n log n) time and is stable.
+        </Para>
         <Para>{step.message}</Para>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
           <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>

@@ -89,7 +89,9 @@ const ActivitySelectionAlgo = () => {
       <CardContainer>
         <Title>Activity Selection</Title>
         <Para>
-          Greedy rule: always pick the activity that finishes earliest among compatible choices.
+          Activity Selection chooses the maximum number of non-overlapping activities. The key
+          greedy idea is to always pick the activity that finishes earliest, leaving as much room as
+          possible for the rest.
         </Para>
         <Para>{step.message}</Para>
 

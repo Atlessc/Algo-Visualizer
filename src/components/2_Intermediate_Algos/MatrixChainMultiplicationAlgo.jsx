@@ -45,7 +45,11 @@ const MatrixChainMultiplicationAlgo = ({ autoPlay = true, compact = false }) => 
     <Container>
       <CardContainer>
         <Title>Matrix Chain Multiplication</Title>
-        <Para>DP chooses parenthesization minimizing scalar multiplications.</Para>
+        <Para>
+          Matrix Chain Multiplication chooses the best parenthesization order to minimize total
+          scalar multiplications. The matrix result is the same either way, but computation cost can
+          change dramatically.
+        </Para>
         <Para>Matrices: A1(40×20), A2(20×30), A3(30×10), A4(10×30)</Para>
         <Para>{step.message}</Para>
         <div className="flex flex-wrap items-center justify-center gap-2.5">

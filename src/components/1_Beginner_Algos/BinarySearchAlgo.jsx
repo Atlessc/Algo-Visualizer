@@ -84,8 +84,8 @@ const BinarySearchAlgo = () => {
       <CardContainer>
         <Title>Binary Search</Title>
         <Para>
-          Binary search narrows the search range by half each step in a sorted array. Watch how
-          low/high boundaries shrink until the target is found.
+          Binary Search works only on sorted data and repeatedly halves the search space. By
+          comparing against the middle value, it quickly discards half the array each step.
         </Para>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5">

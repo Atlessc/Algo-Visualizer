@@ -58,7 +58,11 @@ const NQueensAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>N-Queens Problem</Title>
-        <Para>Place N queens so no two attack each other (rows, columns, diagonals).</Para>
+        <Para>
+          N-Queens places N queens so none attack each other horizontally, vertically, or
+          diagonally. Backtracking places queens row by row and undoes choices when constraints are
+          violated.
+        </Para>
         <Para>{step.message}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button

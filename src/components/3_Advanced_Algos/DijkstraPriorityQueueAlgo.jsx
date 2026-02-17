@@ -82,7 +82,9 @@ const DijkstraPriorityQueueAlgo = ({ autoPlay = true, compact = false }) => {
       <CardContainer>
         <Title>Dijkstra (Priority Queue)</Title>
         <Para>
-          Min-priority queue always expands the closest unsettled node first.
+          This Dijkstra variant uses a min-priority queue to always process the next closest
+          unsettled node first. That data structure makes shortest-path updates efficient on sparse
+          graphs with non-negative edge weights.
         </Para>
         <Para>{step.msg}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">

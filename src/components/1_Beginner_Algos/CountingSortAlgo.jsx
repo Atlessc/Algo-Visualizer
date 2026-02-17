@@ -135,8 +135,9 @@ const CountingSortAlgo = ({ compact = false }) => {
       <CardContainer>
         <Title>Counting Sort</Title>
         <Para>
-          Counting sort uses a frequency array to place each value directly into its sorted position.
-          It runs in O(n + k), where k is the value range.
+          Counting Sort does not compare elements directly. It counts how often each value appears,
+          then reconstructs the sorted array from those counts, which is very fast when the value
+          range is limited.
         </Para>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5">

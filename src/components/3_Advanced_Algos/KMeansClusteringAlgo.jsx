@@ -48,7 +48,11 @@ const KMeansClusteringAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>K-Means Clustering</Title>
-        <Para>Unsupervised clustering: assign each point to nearest centroid, then recompute centroids.</Para>
+        <Para>
+          K-Means groups data into k clusters by repeating two steps: assign each point to the
+          nearest centroid, then recompute each centroid as the cluster average. It stops when
+          assignments stabilize.
+        </Para>
         <Para>{step.msg}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button

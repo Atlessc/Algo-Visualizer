@@ -55,8 +55,9 @@ const RodCuttingAlgo = ({ compact = false }) => {
       <CardContainer>
         <Title>Rod Cutting Problem</Title>
         <Para>
-          Choose cuts to maximize total price. Dynamic programming computes the best revenue for
-          each rod length from 1..n.
+          Rod Cutting asks how to split a rod into pieces to maximize revenue given a price table.
+          Dynamic programming solves smaller lengths first, then builds the best answer for larger
+          lengths.
         </Para>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5">

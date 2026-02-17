@@ -18,7 +18,11 @@ const RedBlackTreeAlgo = ({ compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Red-Black Tree Operations</Title>
-        <Para>Red-Black trees maintain near-balanced height using node colors and rotations.</Para>
+        <Para>
+          A Red-Black Tree is a self-balancing binary search tree that uses node colors and
+          rotation rules to keep height near logarithmic. This keeps search, insert, and delete
+          operations consistently fast.
+        </Para>
         <Para>
           Rules: root black, red nodes can&apos;t have red children, every root-to-leaf path has same black-height.
         </Para>

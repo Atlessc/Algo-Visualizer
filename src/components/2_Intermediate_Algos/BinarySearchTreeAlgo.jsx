@@ -81,7 +81,9 @@ const BinarySearchTreeAlgo = () => {
       <CardContainer>
         <Title>Binary Search Tree Operations</Title>
         <Para>
-          For each insertion, values less than a node go left, greater values go right.
+          A Binary Search Tree keeps values ordered by rule: smaller goes left, larger goes right.
+          This structure allows efficient search, insert, and delete when the tree stays reasonably
+          balanced.
         </Para>
         <Para>{frame.message}</Para>
 

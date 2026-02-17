@@ -77,7 +77,10 @@ const MinimumSpanningTreeAlgo = () => {
     <Container>
       <CardContainer>
         <Title>Minimum Spanning Tree (MST)</Title>
-        <Para>MST connects all vertices with minimum total edge weight and no cycles.</Para>
+        <Para>
+          A Minimum Spanning Tree connects all vertices with the smallest possible total edge weight
+          and no cycles. It is used to design low-cost networks like roads, cables, or pipelines.
+        </Para>
         <div className="flex flex-wrap items-center justify-center gap-2.5">
           <Button
             onClick={() => setMethod("kruskal")}

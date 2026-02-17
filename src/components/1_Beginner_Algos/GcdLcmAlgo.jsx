@@ -37,8 +37,9 @@ const GcdLcmAlgo = ({ compact = false }) => {
       <CardContainer>
         <Title>GCD and LCM</Title>
         <Para>
-          GCD is the largest number dividing both values. LCM is the smallest positive number
-          divisible by both. They are linked by <strong>gcd(a,b) × lcm(a,b) = |a × b|</strong>.
+          GCD is the largest number that divides both inputs, while LCM is the smallest positive
+          number both inputs divide into. They are connected by{" "}
+          <strong>gcd(a,b) × lcm(a,b) = |a × b|</strong>.
         </Para>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5">

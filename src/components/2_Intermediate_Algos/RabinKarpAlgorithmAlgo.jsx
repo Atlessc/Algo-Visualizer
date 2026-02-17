@@ -60,7 +60,10 @@ const RabinKarpAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Rabin-Karp Algorithm</Title>
-        <Para>Compares rolling hash of each text window with pattern hash, then verifies if needed.</Para>
+        <Para>
+          Rabin-Karp searches for a pattern using rolling hashes over text windows. Hashes quickly
+          skip most non-matches, and only potential matches are verified character-by-character.
+        </Para>
         <Para>{step.message}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button

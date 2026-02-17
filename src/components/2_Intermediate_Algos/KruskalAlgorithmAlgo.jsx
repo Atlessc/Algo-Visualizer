@@ -77,7 +77,10 @@ const KruskalAlgorithmAlgo = () => {
     <Container>
       <CardContainer>
         <Title>Kruskal&apos;s Algorithm</Title>
-        <Para>Pick edges in ascending weight and add only if they do not create a cycle.</Para>
+        <Para>
+          Kruskal builds a minimum spanning tree by sorting edges from cheapest to most expensive.
+          It adds an edge only if it does not form a cycle, until all vertices are connected.
+        </Para>
         <Para>{step.message}</Para>
         <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
           <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>

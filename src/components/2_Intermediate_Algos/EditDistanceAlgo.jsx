@@ -55,7 +55,11 @@ const EditDistanceAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Edit Distance (Levenshtein)</Title>
-        <Para>Minimum operations (insert, delete, replace) to transform one string into another.</Para>
+        <Para>
+          Edit Distance measures how many single-character edits are needed to convert one string
+          into another. The DP table compares prefixes so each cell reuses previous
+          insert/delete/replace decisions.
+        </Para>
         <Para>{step.message}</Para>
         <div className="flex flex-wrap items-center justify-center gap-2.5">
           <Button size={compact ? "sm" : "default"} variant="secondary" onClick={() => setIsPlaying((p) => !p)}>

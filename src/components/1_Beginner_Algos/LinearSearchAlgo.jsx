@@ -77,8 +77,8 @@ const LinearSearchAlgo = ({ compact = false }) => {
         <Title>Linear Search Algo</Title>
 
         <Para>
-          Linear search checks each element one-by-one until it finds the target or reaches the end.
-          It is simple and works on unsorted arrays, with worst-case time complexity O(n).
+          Linear Search checks each element in order until it finds the target or reaches the end.
+          It requires no sorting and is a reliable baseline when data is small or unsorted.
         </Para>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5">

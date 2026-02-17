@@ -58,7 +58,10 @@ const SuffixTreeConstructionAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Suffix Tree Construction (Naive Suffix Trie View)</Title>
-        <Para>Insert every suffix of a string. This visual shows the uncompressed suffix trie process.</Para>
+        <Para>
+          This visual builds a suffix trie by inserting every suffix of the word. The idea shows how
+          shared prefixes compact repeated structure and enable fast substring-style lookups.
+        </Para>
         <Para>{step.message}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button

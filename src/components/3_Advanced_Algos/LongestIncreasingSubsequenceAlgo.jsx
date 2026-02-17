@@ -50,7 +50,11 @@ const LongestIncreasingSubsequenceAlgo = ({ autoPlay = true, compact = false }) 
     <Container>
       <CardContainer>
         <Title>Longest Increasing Subsequence (LIS)</Title>
-        <Para>Dynamic programming finds the longest strictly increasing subsequence.</Para>
+        <Para>
+          Longest Increasing Subsequence finds the longest strictly increasing order you can keep
+          from an array without reordering elements. Dynamic programming tracks the best subsequence
+          length ending at each index.
+        </Para>
         <Para>Array: [{ARR.join(", ")}]</Para>
         <Para>{step.msg}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">

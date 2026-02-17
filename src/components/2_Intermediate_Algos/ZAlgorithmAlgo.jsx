@@ -53,7 +53,11 @@ const ZAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Z Algorithm</Title>
-        <Para>Computes Z[i]: length of the longest substring starting at i that matches the prefix.</Para>
+        <Para>
+          The Z Algorithm preprocesses a string so Z[i] tells how many characters from position i
+          match the prefix. It enables linear-time pattern matching by reusing previously matched
+          ranges.
+        </Para>
         <Para>{step.message}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button

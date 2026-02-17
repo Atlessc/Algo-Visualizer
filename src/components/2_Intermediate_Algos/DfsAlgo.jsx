@@ -97,7 +97,11 @@ const DfsAlgo = () => {
     <Container>
       <CardContainer>
         <Title>DFS (Depth-First Search)</Title>
-        <Para>DFS explores one branch as deep as possible using a stack.</Para>
+        <Para>
+          Depth-First Search explores as far as possible down one path before backtracking. It is
+          useful for traversal, cycle detection, connected components, and many recursive graph
+          problems.
+        </Para>
         <Para>{step.message}</Para>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
           <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>

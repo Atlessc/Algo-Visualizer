@@ -68,7 +68,10 @@ const HeapSortAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Heap Sort</Title>
-        <Para>Build a max heap, then repeatedly extract the maximum element.</Para>
+        <Para>
+          Heap Sort first organizes data into a max-heap so the largest value is at the top. It
+          then repeatedly removes that top element to build a sorted array from right to left.
+        </Para>
         <Para>{step.message}</Para>
         <div className="flex flex-wrap items-center justify-center gap-2.5">
           <Button size={compact ? "sm" : "default"} variant="secondary" onClick={() => setIsPlaying((p) => !p)}>

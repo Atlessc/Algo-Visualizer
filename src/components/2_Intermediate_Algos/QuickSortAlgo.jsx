@@ -62,7 +62,11 @@ const QuickSortAlgo = () => {
     <Container>
       <CardContainer>
         <Title>Quick Sort</Title>
-        <Para>Partition around a pivot, then recursively sort left and right partitions.</Para>
+        <Para>
+          Quick Sort picks a pivot, partitions elements into smaller and larger sides, then
+          recursively sorts each side. It is usually very fast in practice due to good cache
+          behavior and in-place partitioning.
+        </Para>
         <Para>{step.message}</Para>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
           <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>

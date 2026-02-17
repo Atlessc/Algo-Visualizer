@@ -57,8 +57,9 @@ const EuclideanAlgorithmAlgo = ({ compact = false }) => {
       <CardContainer>
         <Title>Euclidean Algorithm</Title>
         <Para>
-          Repeatedly divide: <strong>a = b × q + r</strong>. Replace <strong>(a, b)</strong> with
-          <strong> (b, r)</strong> until remainder becomes 0. The final non-zero value is the GCD.
+          The Euclidean Algorithm finds the GCD by repeatedly replacing (a, b) with (b, a mod b). It
+          works because remainders preserve common divisors, and it finishes when the remainder
+          becomes zero.
         </Para>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5">

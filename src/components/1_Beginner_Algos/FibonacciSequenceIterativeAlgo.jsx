@@ -48,8 +48,9 @@ const FibonacciSequenceIterativeAlgo = ({ maxElements = 10, endOnValue, compact 
       <CardContainer>
         <Title>Fibonacci Sequence (Iterative)</Title>
         <Para>
-          Each number is the sum of the previous two. This iterative method builds the sequence in
-          linear time with constant extra space.
+          The Fibonacci sequence starts with base values, and each next term is the sum of the
+          previous two. The iterative approach is efficient because it only keeps the latest values
+          instead of recursion.
         </Para>
 
         {!endOnValue && (

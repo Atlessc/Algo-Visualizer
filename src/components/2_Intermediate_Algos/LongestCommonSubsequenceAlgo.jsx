@@ -59,7 +59,11 @@ const LongestCommonSubsequenceAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Longest Common Subsequence</Title>
-        <Para>Find the longest sequence appearing in both strings in the same order (not necessarily contiguous).</Para>
+        <Para>
+          Longest Common Subsequence finds the longest ordered character sequence shared by two
+          strings, without requiring characters to be adjacent. DP works by comparing prefixes and
+          reusing prior best lengths.
+        </Para>
         <Para>{step.message}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button

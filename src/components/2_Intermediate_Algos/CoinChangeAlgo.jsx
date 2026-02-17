@@ -85,7 +85,9 @@ const CoinChangeAlgo = () => {
       <CardContainer>
         <Title>Coin Change Problem</Title>
         <Para>
-          Dynamic programming computes minimum coins for each amount from 0..target.
+          Coin Change asks for the minimum number of coins needed to make a target amount. Dynamic
+          programming builds answers from smaller amounts upward, reusing sub-results instead of
+          recomputing.
         </Para>
         <Para>{step.message}</Para>
 

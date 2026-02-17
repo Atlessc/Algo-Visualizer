@@ -96,8 +96,8 @@ const SelectionSortAlgo = ({ compact = false }) => {
         <Title>Selection Sort Algo</Title>
 
         <Para>
-          Selection sort repeatedly selects the smallest element from the unsorted section and moves
-          it to the front. It always performs O(n²) comparisons, but uses few swaps.
+          Selection Sort scans the unsorted section to find the minimum, then places it at the next
+          fixed position. It is simple and swap-efficient, though still quadratic in comparisons.
         </Para>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5">

@@ -11,7 +11,7 @@ export const tenXAlgoData = {
   AhoCorasickAlgo: withSteps({
     title: "Aho-Corasick Multi-Pattern Search",
     description:
-      "Aho-Corasick matches many keywords in one pass over text, making it ideal for scanners and content filters.",
+      "Aho-Corasick matches many patterns in one pass through text. It combines a trie with failure links so mismatches jump to the best fallback state without restarting.",
     intuition:
       "Build a trie of patterns, then add failure links so mismatches jump to the best suffix state instead of restarting.",
     complexity: "Build O(total pattern length), Search O(text length + matches)",
@@ -40,7 +40,7 @@ export const tenXAlgoData = {
   AlphaBetaPruningAlgo: withSteps({
     title: "Alpha-Beta Pruning",
     description:
-      "Alpha-beta is an optimization over minimax that skips branches that cannot affect the final decision.",
+      "Alpha-Beta Pruning speeds up minimax by skipping branches that cannot affect the final decision. It keeps bounds (alpha and beta) so search explores fewer nodes but returns the same optimal move.",
     intuition:
       "Track the best guaranteed value for both players (alpha for max, beta for min) and prune when alpha >= beta.",
     complexity: "Best O(b^(d/2)), Worst O(b^d)",
@@ -77,7 +77,7 @@ export const tenXAlgoData = {
   BoyerMooreAlgo: withSteps({
     title: "Boyer-Moore String Matching",
     description:
-      "Boyer-Moore compares pattern characters from right to left and can skip large parts of the text.",
+      "Boyer-Moore compares the pattern from right to left and uses mismatch rules to skip ahead by large jumps. Those jumps make it very fast on large texts because many characters are never examined.",
     intuition:
       "Bad-character and good-suffix heuristics let the pattern jump farther than one index after mismatches.",
     complexity: "Average sublinear, Worst O(nm)",
@@ -111,7 +111,7 @@ export const tenXAlgoData = {
   ConvexHullAlgo: withSteps({
     title: "Convex Hull (Monotonic Chain)",
     description:
-      "Convex hull finds the smallest convex polygon containing a set of points.",
+      "Convex Hull finds the smallest convex boundary that contains all points, like stretching a rubber band around nails on a board. This boundary is useful in geometry, collision checks, and shape simplification.",
     intuition:
       "Sort points and maintain lower/upper chains while removing right turns using cross products.",
     complexity: "O(n log n)",
@@ -145,7 +145,7 @@ export const tenXAlgoData = {
   DecisionTreeAlgo: withSteps({
     title: "Decision Tree (Classification)",
     description:
-      "Decision trees split data by feature thresholds to maximize class purity in child nodes.",
+      "A decision tree learns a sequence of yes/no splits that separate classes based on feature values. Each split tries to increase class purity, and each root-to-leaf path becomes an interpretable rule.",
     intuition:
       "At each node choose the split with the best information gain (or Gini reduction), then recurse.",
     complexity: "Training approx O(n features * samples log samples)",
@@ -176,7 +176,7 @@ export const tenXAlgoData = {
   EggDroppingPuzzleAlgo: withSteps({
     title: "Egg Dropping Puzzle",
     description:
-      "This dynamic programming problem finds the minimum worst-case drops needed with k eggs and n floors.",
+      "Egg Dropping finds the minimum number of attempts needed in the worst case to determine the highest safe floor. Dynamic programming balances the two outcomes at each drop: egg breaks vs egg survives.",
     intuition:
       "For each floor choice x, combine two outcomes: egg breaks (k-1 eggs, x-1 floors) or survives (k eggs, n-x floors).",
     complexity: "Classic DP O(k * n^2)",
@@ -208,7 +208,7 @@ export const tenXAlgoData = {
   FortuneAlgorithmAlgo: withSteps({
     title: "Fortune's Algorithm",
     description:
-      "Fortune's sweep-line algorithm constructs Voronoi diagrams in optimal O(n log n) time.",
+      "Fortune's Algorithm builds a Voronoi diagram in sweep-line order from top to bottom. It processes site and circle events to maintain a dynamic beach line, achieving efficient O(n log n) construction.",
     intuition:
       "Process site and circle events while maintaining a beachline of parabolic arcs in a balanced structure.",
     complexity: "O(n log n)",
@@ -239,7 +239,7 @@ function processCircle(event, beachline, edges) {
   GeneticAlgorithmAlgo: withSteps({
     title: "Genetic Algorithm",
     description:
-      "Genetic algorithms evolve candidate solutions through selection, crossover, and mutation.",
+      "A genetic algorithm searches large solution spaces by evolving a population over generations. It repeatedly selects fitter candidates, recombines them, and mutates them to discover better solutions.",
     intuition:
       "Keep fitter individuals more often, recombine their genes, and mutate slightly to explore new regions.",
     complexity: "O(population * generations * fitnessCost)",
@@ -269,7 +269,7 @@ function processCircle(event, beachline, edges) {
   GrahamScanAlgo: withSteps({
     title: "Graham Scan",
     description:
-      "Graham scan computes convex hull by sorting points by polar angle around a pivot.",
+      "Graham Scan computes a convex hull by sorting points by angle and then removing turns that bend inward. The stack-based turn test guarantees only boundary points remain.",
     intuition:
       "As points are processed in angular order, non-left turns are removed from the stack.",
     complexity: "O(n log n)",
@@ -298,7 +298,7 @@ function processCircle(event, beachline, edges) {
   HamiltonianPathBacktrackingAlgo: withSteps({
     title: "Hamiltonian Path (Backtracking)",
     description:
-      "Hamiltonian path search tries to visit each vertex exactly once in a graph.",
+      "This backtracking algorithm tries to visit each vertex exactly once in a graph. It builds paths step-by-step and rewinds immediately when a partial path cannot be completed.",
     intuition:
       "Build path incrementally, reject nodes already used, and backtrack on dead ends.",
     complexity: "O(n!) worst case",
@@ -337,7 +337,7 @@ function processCircle(event, beachline, edges) {
   JarvisMarchAlgo: withSteps({
     title: "Jarvis March (Gift Wrapping)",
     description:
-      "Jarvis March wraps points by repeatedly selecting the most counter-clockwise point from the current hull point.",
+      "Jarvis March (gift wrapping) builds the convex hull by repeatedly choosing the most counter-clockwise next point. It is intuitive and works well when hull size is small relative to all points.",
     intuition:
       "Treat each hull edge as a search for the next point that all others lie to one side of.",
     complexity: "O(nh), h = hull size",
@@ -369,7 +369,7 @@ function processCircle(event, beachline, edges) {
   KmpAdvancedAlgo: withSteps({
     title: "KMP (Advanced)",
     description:
-      "KMP finds pattern occurrences in linear time by avoiding re-checking characters after mismatches.",
+      "KMP preprocesses a pattern into an LPS table so mismatches can jump to the next valid partial match instantly. This avoids restarting comparisons and guarantees linear-time search.",
     intuition:
       "Prefix-function (LPS array) tells how far pattern can shift while preserving known matches.",
     complexity: "O(n + m)",
@@ -402,7 +402,7 @@ function processCircle(event, beachline, edges) {
   LineIntersectionAlgo: withSteps({
     title: "Line Segment Intersection",
     description:
-      "This algorithm checks whether two line segments intersect using orientations and boundary cases.",
+      "This algorithm determines whether two line segments intersect using orientation tests and boundary checks. It handles both standard crossings and edge cases like collinear overlap.",
     intuition:
       "Segments intersect if each straddles the line extended by the other, plus collinear overlap checks.",
     complexity: "O(1)",
@@ -431,7 +431,7 @@ function processCircle(event, beachline, edges) {
   ManachersAdvancedAlgo: withSteps({
     title: "Manacher's Algorithm",
     description:
-      "Manacher computes all odd/even palindrome radii in linear time.",
+      "Manacher's algorithm finds the longest palindromic substring in linear time by reusing symmetry around known palindrome centers. It avoids redundant expansion that makes naive methods slower.",
     intuition:
       "Mirror known palindrome information around center C to seed expansion at symmetric positions.",
     complexity: "O(n)",
@@ -462,7 +462,7 @@ function processCircle(event, beachline, edges) {
   MinimaxAlgo: withSteps({
     title: "Minimax",
     description:
-      "Minimax chooses moves by assuming an optimal opponent and maximizing guaranteed outcome.",
+      "Minimax explores a game tree by assuming both players play optimally. The maximizing player chooses moves that maximize outcome, while the minimizing player chooses moves that reduce it.",
     intuition:
       "Max nodes choose highest child value; min nodes choose lowest.",
     complexity: "O(b^d)",
@@ -485,7 +485,7 @@ function processCircle(event, beachline, edges) {
   NQueensBacktrackingAlgo: withSteps({
     title: "N-Queens (Backtracking)",
     description:
-      "N-Queens places N queens so none attack each other on rows, columns, or diagonals.",
+      "N-Queens places one queen per row while preventing row, column, and diagonal conflicts. Backtracking prunes invalid placements early, making the search far more efficient than brute force.",
     intuition:
       "Place one queen per row, skip unsafe columns, and backtrack when stuck.",
     complexity: "O(n!) worst case",
@@ -520,7 +520,7 @@ function processCircle(event, beachline, edges) {
   NaiveBayesAlgo: withSteps({
     title: "Naive Bayes",
     description:
-      "Naive Bayes predicts classes using Bayes theorem with conditional independence assumptions.",
+      "Naive Bayes predicts a class using probabilities from training data and assumes features are conditionally independent given the class. Even though that assumption is simplified, it often performs very well for text tasks like spam filtering.",
     intuition:
       "Compute log posterior for each class from class priors and per-feature likelihoods.",
     complexity: "Train O(samples * features), Predict O(classes * features)",
@@ -551,7 +551,7 @@ function processCircle(event, beachline, edges) {
   NeuralNetworkBackpropagationAlgo: withSteps({
     title: "Neural Network Backpropagation",
     description:
-      "Backpropagation trains neural nets by propagating output loss gradients backward through layers.",
+      "Backpropagation trains a neural network by computing output error, then pushing that error backward through each layer with the chain rule. Each weight is updated in the direction that reduces loss.",
     intuition:
       "Use chain rule to compute each weight's contribution to error, then update by gradient descent.",
     complexity: "Per batch O(total weights)",
@@ -580,7 +580,7 @@ function processCircle(event, beachline, edges) {
   PagerankAdvancedAlgo: withSteps({
     title: "PageRank (Power Iteration)",
     description:
-      "PageRank estimates node importance from incoming links with damping for random jumps.",
+      "PageRank estimates node importance by repeatedly distributing score through link structure. Scores converge to a stable distribution where influential nodes receive more rank from other influential nodes.",
     intuition:
       "Repeatedly multiply by transition matrix until rank vector converges.",
     complexity: "O(iterations * edges)",
@@ -611,7 +611,7 @@ function processCircle(event, beachline, edges) {
   PcaAlgo: withSteps({
     title: "Principal Component Analysis (PCA)",
     description:
-      "PCA reduces dimensionality by projecting data onto directions of maximum variance.",
+      "PCA reduces dimensionality by rotating data onto new orthogonal axes that capture the most variance first. This helps compression, denoising, and visualization while preserving major structure.",
     intuition:
       "Center data, compute covariance, then keep top eigenvectors as principal components.",
     complexity: "Covariance O(nd^2), decomposition O(d^3)",
@@ -639,7 +639,7 @@ function processCircle(event, beachline, edges) {
   RabinKarpHashingAlgo: withSteps({
     title: "Rabin-Karp (Rolling Hash)",
     description:
-      "Rabin-Karp uses rolling hash values to quickly find candidate substring matches.",
+      "Rabin-Karp uses rolling hashes to compare many text windows quickly against a pattern hash. Most windows are rejected by hash mismatch, and only hash matches are verified directly.",
     intuition:
       "Update hash in O(1) when sliding the window; verify characters only on hash hits.",
     complexity: "Average O(n + m), Worst O(nm) with collisions",
@@ -677,7 +677,7 @@ function processCircle(event, beachline, edges) {
   RandomForestAlgo: withSteps({
     title: "Random Forest",
     description:
-      "Random forest combines many decision trees trained on random samples and random feature subsets.",
+      "Random Forest combines many decision trees trained on bootstrapped samples and random feature subsets. Aggregating their predictions improves stability and reduces overfitting versus a single tree.",
     intuition:
       "Bagging and feature randomness reduce variance and improve generalization.",
     complexity: "Train roughly O(numTrees * treeCost)",
@@ -705,7 +705,7 @@ function processCircle(event, beachline, edges) {
   RatInAMazeAlgo: withSteps({
     title: "Rat in a Maze",
     description:
-      "This backtracking problem finds a path from start to finish in a blocked grid.",
+      "Rat in a Maze searches for a valid path from start to goal on a blocked grid. Backtracking marks choices, explores legal moves, and undoes dead-end routes.",
     intuition:
       "Move through valid cells recursively and mark visited to avoid cycles.",
     complexity: "O(4^(n*m)) worst case",
@@ -736,7 +736,7 @@ function processCircle(event, beachline, edges) {
   RungeKuttaAlgo: withSteps({
     title: "Runge-Kutta (RK4)",
     description:
-      "RK4 numerically solves ordinary differential equations with high accuracy per step.",
+      "Runge-Kutta (RK4) numerically solves differential equations by combining multiple slope estimates in each step. This gives much better accuracy than simple Euler updates at the same step size.",
     intuition:
       "Blend four slope estimates across the interval to reduce local truncation error.",
     complexity: "O(steps)",
@@ -761,7 +761,7 @@ function processCircle(event, beachline, edges) {
   SimpsonsRuleAlgo: withSteps({
     title: "Simpson's Rule",
     description:
-      "Simpson's Rule approximates definite integrals using quadratic interpolation over subintervals.",
+      "Simpson's Rule approximates an integral by fitting parabolas over small sub-intervals and summing their areas. It is typically more accurate than trapezoidal approximation for smooth functions.",
     intuition:
       "Weight odd/even sample points as 4 and 2, then scale by h/3.",
     complexity: "O(n)",
@@ -789,7 +789,7 @@ function processCircle(event, beachline, edges) {
   SpfaAlgorithmAlgo: withSteps({
     title: "SPFA (Shortest Path Faster Algorithm)",
     description:
-      "SPFA is a queue-optimized Bellman-Ford variant for single-source shortest paths with possible negative edges.",
+      "SPFA is a queue-optimized Bellman-Ford variant that relaxes only nodes whose distances were recently improved. It often runs faster in practice on sparse graphs, while still supporting negative edges.",
     intuition:
       "Only relax vertices that were recently improved, often reducing unnecessary relaxations.",
     complexity: "Average near O(E), worst O(VE)",
@@ -824,7 +824,7 @@ function processCircle(event, beachline, edges) {
   SudokuSolverBacktrackingAlgo: withSteps({
     title: "Sudoku Solver (Backtracking)",
     description:
-      "Backtracking solves Sudoku by filling empty cells with legal digits and undoing on contradiction.",
+      "This Sudoku solver fills empty cells with legal digits and backtracks when a choice causes a contradiction. It prunes invalid branches early and continues until a full valid board is found.",
     intuition:
       "Choose next empty cell, test digits 1-9 with row/column/box checks, recurse until solved.",
     complexity: "Exponential worst case",
@@ -859,7 +859,7 @@ function processCircle(event, beachline, edges) {
   SvmAlgo: withSteps({
     title: "Support Vector Machine (Linear)",
     description:
-      "Linear SVM finds a maximum-margin separating hyperplane between classes.",
+      "A linear SVM finds the separating hyperplane with maximum margin between classes. By maximizing this margin, it tends to generalize well on high-dimensional classification tasks.",
     intuition:
       "Optimize hinge-loss objective; support vectors define the margin boundaries.",
     complexity: "Depends on solver, often O(samples * features * epochs)",
@@ -891,7 +891,7 @@ function processCircle(event, beachline, edges) {
   TarjanSccAlgo: withSteps({
     title: "Tarjan SCC",
     description:
-      "Tarjan's algorithm finds strongly connected components in one DFS pass.",
+      "Tarjan's algorithm finds strongly connected components in one DFS pass using discovery indices and low-link values. When a root condition is met, one whole SCC is popped from the stack.",
     intuition:
       "Track discovery index and low-link values on a stack; low==index marks SCC root.",
     complexity: "O(V + E)",
@@ -928,7 +928,7 @@ function processCircle(event, beachline, edges) {
   UkkonenSuffixTreeAlgo: withSteps({
     title: "Ukkonen Suffix Tree",
     description:
-      "Ukkonen builds suffix trees online in linear time by maintaining an active point and suffix links.",
+      "Ukkonen's algorithm builds a suffix tree online in linear time as characters arrive. It uses an active point and suffix links to avoid rebuilding repeated structure, making substring queries very efficient afterward.",
     intuition:
       "Each phase extends all pending suffixes implicitly and uses suffix links to avoid repeated work.",
     complexity: "O(n)",
@@ -966,7 +966,7 @@ function processCircle(event, beachline, edges) {
   VoronoiDiagramsAlgo: withSteps({
     title: "Voronoi Diagrams",
     description:
-      "A Voronoi diagram partitions space into cells where each cell contains points nearest to one site.",
+      "A Voronoi diagram partitions the plane into regions where each region contains points closest to one site. It is useful for nearest-facility mapping, influence zones, and spatial partitioning.",
     intuition:
       "Cell boundaries are perpendicular bisectors between neighboring sites.",
     complexity: "With Fortune: O(n log n)",
@@ -999,7 +999,7 @@ function distanceSq(p, q) {
   WordBreakDpAlgo: withSteps({
     title: "Word Break (DP)",
     description:
-      "Word Break decides whether a string can be segmented into dictionary words.",
+      "Word Break uses dynamic programming to determine whether a string can be segmented into valid dictionary words. Each position is marked reachable if some earlier reachable split forms a dictionary word.",
     intuition:
       "dp[i] is true if some prior split j is valid and s[j..i) exists in dictionary.",
     complexity: "O(n^2)",
@@ -1028,7 +1028,7 @@ function distanceSq(p, q) {
   ZAlgorithmAdvancedAlgo: withSteps({
     title: "Z Algorithm (Advanced)",
     description:
-      "The Z algorithm computes longest prefix matches for every position in linear time.",
+      "The Z Algorithm preprocesses a string so each position knows how many characters match the prefix from that point. This lets pattern matching run in linear time by reusing already-known match ranges instead of rechecking characters.",
     intuition:
       "Reuse a running [L,R] window of known prefix matches to avoid redundant comparisons.",
     complexity: "O(n)",

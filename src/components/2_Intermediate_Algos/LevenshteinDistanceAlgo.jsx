@@ -51,7 +51,11 @@ const LevenshteinDistanceAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Levenshtein Distance</Title>
-        <Para>Measures minimum insertions, deletions, and substitutions to transform one string into another.</Para>
+        <Para>
+          Levenshtein Distance is the minimum number of insertions, deletions, and substitutions
+          needed to transform one word into another. It is widely used in spell-check and fuzzy
+          matching.
+        </Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <input
             type="text"

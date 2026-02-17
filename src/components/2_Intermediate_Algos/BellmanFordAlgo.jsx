@@ -97,8 +97,9 @@ const BellmanFordAlgo = () => {
       <CardContainer>
         <Title>Bellman-Ford Algorithm</Title>
         <Para>
-          Bellman-Ford relaxes every edge for <strong>|V|-1</strong> rounds and supports negative
-          edge weights.
+          Bellman-Ford finds shortest paths from one source even when edges can be negative. It
+          repeatedly relaxes all edges, and it can also detect negative cycles, which means shortest
+          paths are not well-defined.
         </Para>
         <Para>{step.message}</Para>
 

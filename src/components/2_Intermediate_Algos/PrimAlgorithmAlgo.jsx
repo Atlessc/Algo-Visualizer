@@ -65,7 +65,10 @@ const PrimAlgorithmAlgo = () => {
     <Container>
       <CardContainer>
         <Title>Prim&apos;s Algorithm</Title>
-        <Para>Grow MST from a start node by repeatedly adding the cheapest edge crossing the cut.</Para>
+        <Para>
+          Prim grows a minimum spanning tree from a start node by always adding the cheapest edge
+          that connects the current tree to a new vertex. It is a greedy MST algorithm.
+        </Para>
         <Para>{step.message}</Para>
         <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
           <button type="button" onClick={() => setIsPlaying((p) => !p)}>{isPlaying ? "Pause" : "Play"}</button>

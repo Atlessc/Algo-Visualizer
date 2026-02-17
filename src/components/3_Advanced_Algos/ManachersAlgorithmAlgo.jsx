@@ -58,8 +58,9 @@ const ManachersAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
       <CardContainer>
         <Title>Manacher&apos;s Algorithm</Title>
         <Para>
-          Manacher finds the longest palindromic substring in linear time O(n) by reusing palindrome
-          radii around mirrored centers in a transformed string.
+          Manacher&apos;s algorithm finds the longest palindromic substring in linear time by reusing
+          symmetry around known palindrome centers. This avoids the repeated expansion work of naive
+          center-based checks.
         </Para>
         <Para>Input: <strong>{RAW}</strong></Para>
         <Para>{step.msg}</Para>

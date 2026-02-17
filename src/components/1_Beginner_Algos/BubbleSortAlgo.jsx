@@ -83,8 +83,8 @@ const BubbleSortAlgo = ({ compact = false }) => {
       <CardContainer>
         <Title>Bubble Sort</Title>
         <Para>
-          Bubble sort repeatedly compares adjacent elements and swaps them when they are in the
-          wrong order. Largest values bubble to the right each pass.
+          Bubble Sort repeatedly compares neighboring elements and swaps out-of-order pairs. After
+          each full pass, the largest remaining value settles into its final position at the end.
         </Para>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5">

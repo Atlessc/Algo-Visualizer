@@ -50,7 +50,11 @@ const PagerankAlgorithmAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>PageRank Algorithm</Title>
-        <Para>Iteratively updates node importance based on incoming rank contributions.</Para>
+        <Para>
+          PageRank scores node importance by repeatedly distributing rank through incoming links. A
+          node gets high rank when many important nodes point to it, not just when it has many
+          links.
+        </Para>
         <Para>{step.msg}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button

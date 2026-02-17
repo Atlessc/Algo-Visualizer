@@ -52,7 +52,10 @@ const FloydWarshallAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Floyd-Warshall Algorithm</Title>
-        <Para>Dynamic programming for shortest paths between every pair of vertices.</Para>
+        <Para>
+          Floyd-Warshall computes shortest paths between every pair of vertices. It progressively
+          allows more intermediate vertices, updating path costs with a simple DP transition.
+        </Para>
         <Para>{step.message}</Para>
         <div className="flex flex-wrap items-center justify-center gap-2.5">
           <Button size={compact ? "sm" : "default"} variant="secondary" onClick={() => setIsPlaying((p) => !p)}>

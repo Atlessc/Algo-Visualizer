@@ -89,8 +89,8 @@ const InsertionSortAlgo = ({ compact = false }) => {
       <CardContainer>
         <Title>Insertion Sort</Title>
         <Para>
-          Insertion sort grows a sorted prefix one element at a time by inserting each key into its
-          correct position.
+          Insertion Sort grows a sorted section one value at a time. Each new value shifts left
+          until it reaches the right spot, similar to inserting a card into a sorted hand.
         </Para>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5">

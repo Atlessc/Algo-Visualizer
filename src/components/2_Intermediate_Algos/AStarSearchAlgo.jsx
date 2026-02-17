@@ -155,8 +155,10 @@ const AStarSearchAlgo = () => {
       <CardContainer>
         <Title>A* Search</Title>
         <Para>
-          A* combines path cost <strong>g(n)</strong> with heuristic estimate{" "}
-          <strong>h(n)</strong> to prioritize promising nodes.
+          A* is a shortest-path algorithm that uses both distance already traveled <strong>g(n)</strong>{" "}
+          and an estimate to the goal <strong>h(n)</strong>. By prioritizing nodes with the lowest{" "}
+          <strong>g+h</strong>, it usually reaches the target faster than Dijkstra when the
+          heuristic is good.
         </Para>
         <Para>{frame.message}</Para>
 

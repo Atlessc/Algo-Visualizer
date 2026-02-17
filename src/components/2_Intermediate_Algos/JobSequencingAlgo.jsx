@@ -58,7 +58,11 @@ const JobSequencingAlgo = ({ autoPlay = true, compact = false }) => {
     <Container>
       <CardContainer>
         <Title>Job Sequencing with Deadlines</Title>
-        <Para>Greedy approach: schedule highest-profit jobs first in latest available slots.</Para>
+        <Para>
+          Job Sequencing with Deadlines maximizes profit when each job takes one slot and has a
+          deadline. A greedy strategy sorts by profit and places each job in the latest available
+          valid slot.
+        </Para>
         <Para>{step.message}</Para>
         <div className="flex flex-wrap items-center justify-center gap-2.5">
           <Button size={compact ? "sm" : "default"} variant="secondary" onClick={() => setIsPlaying((p) => !p)}>
