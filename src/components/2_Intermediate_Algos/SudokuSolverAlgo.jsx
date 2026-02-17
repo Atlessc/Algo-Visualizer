@@ -6,7 +6,7 @@ const STARTER_GRIDS = [
   // 1) 102 steps
   {
     id: "starter-easy-1",
-    label: "Starter A (Easy)",
+    label: "Grid Example A (Easy)",
     steps: 102,
     grid: [
       [0, 0, 0, 0, 7, 8, 0, 0, 2],
@@ -24,7 +24,7 @@ const STARTER_GRIDS = [
   // 2) 110 steps
   {
     id: "starter-easy-2",
-    label: "Starter B (Easy+)",
+    label: "Grid Example B (Easy+)",
     steps: 110,
     grid: [
       [0, 0, 1, 7, 9, 3, 0, 2, 5],
@@ -42,7 +42,7 @@ const STARTER_GRIDS = [
   // 3) 134 steps
   {
     id: "starter-easy-3",
-    label: "Starter C (Easy++)",
+    label: "Grid Example C (Easy++)",
     steps: 134,
     grid: [
       [0, 0, 0, 0, 3, 0, 5, 0, 0],
@@ -60,7 +60,7 @@ const STARTER_GRIDS = [
   // 4) 197 steps
   {
     id: "starter-medium-1",
-    label: "Starter D (Medium)",
+    label: "Grid Example D (Medium)",
     steps: 197,
     grid: [
       [0, 0, 0, 0, 3, 0, 1, 0, 0],
@@ -78,7 +78,7 @@ const STARTER_GRIDS = [
   // 5) 198 steps
   {
     id: "starter-medium-2",
-    label: "Starter E (Medium+)",
+    label: "Grid Example E (Medium+)",
     steps: 198,
     grid: [
       [0, 0, 5, 7, 8, 9, 0, 2, 3],
@@ -96,7 +96,7 @@ const STARTER_GRIDS = [
   // 6) 416 steps
   {
     id: "starter-medium-3",
-    label: "Starter F (Medium++)",
+    label: "Grid Example F (Medium++)",
     steps: 416,
     grid: [
       [0, 8, 9, 0, 0, 3, 0, 5, 0],
@@ -114,7 +114,7 @@ const STARTER_GRIDS = [
   // 7) 586 steps
   {
     id: "starter-hard-1",
-    label: "Starter G (Hard)",
+    label: "Grid Example G (Hard)",
     steps: 586,
     grid: [
       [0, 0, 0, 0, 5, 6, 0, 0, 1],
@@ -132,7 +132,7 @@ const STARTER_GRIDS = [
   // 8) 901 steps
   {
     id: "starter-hard-2",
-    label: "Starter H (Hard+)",
+    label: "Grid Example H (Hard+)",
     steps: 901,
     grid: [
       [0, 0, 1, 0, 4, 3, 0, 8, 6],
@@ -150,7 +150,7 @@ const STARTER_GRIDS = [
   // 9) 1231 steps
   {
     id: "starter-hard-3",
-    label: "Starter I (Expert)",
+    label: "Grid Example I (Expert)",
     steps: 1231,
     grid: [
       [4, 2, 6, 0, 0, 7, 0, 3, 0],
@@ -168,7 +168,7 @@ const STARTER_GRIDS = [
   // 10) 2151 steps
   {
     id: "starter-hard-4",
-    label: "Starter J (Expert+)",
+    label: "Grid Example J (Expert+)",
     steps: 2151,
     grid: [
       [8, 6, 0, 9, 1, 2, 0, 0, 0],
@@ -303,7 +303,10 @@ const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
             ))}
           </select>
         </div>
-        <Para>Step {currentStepIndex + 1} / {steps.length}</Para>
+        <Para>
+          Step {currentStepIndex + 1} 
+          {/* / {steps.length} */}
+        </Para>
         <Para>{step.message}</Para>
         <div className="mb-1 flex flex-wrap items-center justify-center gap-2.5">
           <Button
@@ -343,7 +346,7 @@ const SudokuSolverAlgo = ({ autoPlay = true, compact = false }) => {
             width="100%"
             viewBox={`0 0 ${9 * size} ${9 * size}`}
             preserveAspectRatio="xMidYMid meet"
-            className="mx-auto h-auto w-full max-w-[460px]"
+            className="mx-auto h-auto w-full max-w-100"
           >
             {step.grid.map((row, r) =>
               row.map((v, c) => {

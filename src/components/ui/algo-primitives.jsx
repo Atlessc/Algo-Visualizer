@@ -32,7 +32,7 @@ function Title({ className, ...props }) {
 function AlgoVisualizer({ className, ...props }) {
   return (
     <div
-      className={cn("algo-visualizer mt-1 flex w-full min-w-0 flex-col items-stretch pb-1.5 sm:pb-1", className)}
+      className={cn("algo-visualizer mt-1 flex w-full min-w-0 flex-col items-stretch p-3 sm:pb-1", className)}
       {...props}
     />
   );
@@ -64,7 +64,7 @@ function Para({ className, ...props }) {
   return (
     <p
       className={cn(
-        "mx-auto w-full max-w-4xl text-center text-base leading-relaxed text-slate-700 sm:text-[15px] sm:leading-[1.5] max-[520px]:mx-0 max-[520px]:text-left max-[520px]:text-sm",
+        "mx-auto w-full max-w-4xl text-center text-base leading-relaxed text-slate-700 sm:text-[15px] sm:leading-normal max-[520px]:mx-0 max-[520px]:text-left max-[520px]:text-sm",
         className
       )}
       {...props}
